@@ -1,0 +1,221 @@
+# The Structure of Zeros
+
+## What a zero means
+
+When a species has zero cover in a plot, it means the species is not
+there. This is not a measurement error, not a rounding artefact, and not
+a value below some detection threshold. It is a statement about the
+world: this species does not occupy any portion of this plot.
+
+This interpretation has consequences. A zero is not a small positive
+value that happens to be recorded as zero. It is categorically
+different. A species with 0.1% cover is present; a species with 0% cover
+is absent. The distinction between presence and absence is not a matter
+of precision. It is a distinction in kind.
+
+In constrained intensity data more broadly—market shares, time
+allocations, compositional mixtures—zeros carry the same meaning. A zero
+component indicates that the corresponding category contributes nothing
+to the total. It is not approximating something small. It is asserting
+something exact.
+
+## Zeros are boundary values
+
+The simplex $`\mathcal{S}^{K-1}`$ is a bounded space. Its interior
+consists of compositions where every component is strictly positive. Its
+boundary consists of compositions where at least one component equals
+zero.
+
+When a species is absent from a plot, the observed composition lies on
+the boundary of the simplex. This is not a technical detail. It changes
+the geometry of the problem.
+
+In the interior of the simplex, all components can vary freely subject
+to the sum constraint. Small perturbations in any direction are
+possible. On the boundary, this freedom disappears for the zero
+components. A component that equals zero cannot decrease further. It can
+only increase or remain at zero. The local geometry is different: the
+space of possible movements is restricted.
+
+This asymmetry matters for probability models. Distributions on the
+simplex interior—like the logistic-normal—cannot place mass exactly on
+the boundary. They can approach the boundary but never reach it. A
+composition with an exact zero has probability zero under any such
+distribution. This is not a minor technical limitation. It means the
+model assigns zero probability to events that occur frequently in real
+data.
+
+## Why zeros are not small values
+
+A common pragmatic response to zeros is to treat them as if they were
+small positive values. Add a small constant before analysis. Replace
+zeros with half the detection limit. Impute a value just above zero.
+These approaches share a common assumption: that zeros are essentially
+like very small positive values, just measured imprecisely.
+
+This assumption is false for structural zeros.
+
+Consider a species that is absent from a plot. Its cover is not “very
+small”—it is exactly zero. The species could, under different
+conditions, have cover anywhere from 0% to 100%. Its absence is not a
+statement about where it falls on a continuous scale. It is a statement
+that it is not on that scale at all in this plot.
+
+Adding a small constant does not recover a meaningful quantity. It
+creates a fictitious positive value where none exists. The resulting
+analysis is not an analysis of the observed data but of a modified
+dataset where absence has been converted to trace presence. This
+modification is not neutral. It changes the information content of the
+data, particularly in datasets where zeros dominate.
+
+The distinction matters inferentially. A model that treats zeros as
+small positive values will estimate parameters as if those values were
+observed. It will attribute variance and covariance to quantities that
+were not measured. It will behave as if every species has some positive
+cover everywhere, just very small. This is a misrepresentation of what
+the data say.
+
+## The boundary changes likelihood behaviour
+
+Probability densities on the simplex behave differently at the boundary
+than in the interior.
+
+Consider the Dirichlet distribution. When concentration parameter
+$`\alpha_k > 1`$, the density vanishes as $`y_k \to 0`$. The
+distribution places negligible mass near the boundary for that
+component. When $`\alpha_k < 1`$, the density is unbounded as
+$`y_k \to 0`$, concentrating mass near zero without placing a point mass
+exactly at zero. When $`\alpha_k = 1`$, the density is flat.
+
+None of these behaviours places positive probability on the event
+$`y_k = 0`$ exactly. The Dirichlet treats zero as a limit, not an
+outcome. For data where zeros are common and exact, this is inadequate.
+The model can concentrate mass arbitrarily close to zero, but it cannot
+represent the discrete event of absence.
+
+The logistic-normal is worse in this respect. Because it is defined
+through log-ratios, it requires all components to be strictly positive.
+It assigns probability zero to any composition with a zero component.
+The boundary of the simplex is outside its support entirely.
+
+Any continuous distribution on the simplex interior will share this
+limitation. Exact zeros require a different kind of probabilistic
+treatment—one that acknowledges the boundary as a place where mass can
+accumulate, not just a limit that can be approached.
+
+## Zeros interact with compositional structure
+
+Zeros do not occur in isolation. When one component is zero, the
+remaining components must sum to one among themselves. The composition
+is effectively projected onto a lower-dimensional face of the simplex.
+
+Consider a five-component composition where two species are absent. The
+three present components must sum to one. The data point lies on a
+two-dimensional face of the four-dimensional simplex. The dependence
+structure among the present components is constrained by this reduced
+geometry.
+
+This has implications for inference. When zeros are common, most
+observations lie on lower-dimensional faces of the simplex rather than
+in its interior. The effective dimensionality of the data varies from
+observation to observation, depending on which components are present. A
+model that treats all observations as living in the full simplex
+interior misrepresents the geometry of the data.
+
+Furthermore, the pattern of zeros carries information. Which species
+tend to be absent together? Which combinations of presences and absences
+occur? This structure is part of the data-generating process. A model
+that handles zeros only by perturbing them into positive values discards
+this information.
+
+## Why hurdle thinking fails here
+
+In other contexts, zero-heavy data are modelled using hurdle or two-part
+models: one component determines whether the outcome is zero or
+positive, another component models the positive values. This approach is
+natural for count data or continuous outcomes that are zero-inflated due
+to excess zeros beyond what a single distribution would predict.
+
+For compositional data, the naive application of this framing is
+inadequate.
+
+The problem is not that there are “too many” zeros relative to some
+baseline distribution. The problem is that zeros represent boundary
+events in a constrained space, and the constraint couples all
+components. A hurdle model that treats each component
+separately—deciding independently whether each is zero or positive, then
+modelling positive values independently—ignores the sum constraint. The
+zeros and positive values of different components are not independent
+decisions. They are jointly constrained.
+
+This does not mean that mixture structure is irrelevant to compositional
+data. On the contrary, representing exact zeros requires some form of
+discrete component that places mass on the boundary. But the discrete
+and continuous parts cannot be specified independently for each
+component. They must be coupled through the compositional constraint.
+
+If species A is absent, the remaining species share the entire plot. If
+species A and B are both absent, the remaining species share it among
+fewer competitors. The decision of which species are present and the
+allocation of cover among present species are not separable processes.
+They are aspects of a single compositional outcome.
+
+A valid model for compositional data with zeros must represent both the
+discrete structure (which components are zero) and the continuous
+structure (how cover is allocated among nonzero components) in a way
+that respects the sum constraint throughout.
+
+## Zero dominance weakens information about dependence
+
+In datasets where zeros are prevalent—where most species are absent from
+most plots—the information about dependence among components is
+concentrated in a small fraction of observations.
+
+Consider estimating the dependence between species A and species B in
+the positive quadrant—when both are present. This dependence is only
+directly observable when both species occur in the same plot. If species
+A is present in 20% of plots and species B in 15%, co-occurrence rates
+depend on how presence patterns are structured. Under independence of
+presence, co-occurrence would be 3%; under positive association, it
+could be higher; under negative association, lower or even zero. But
+regardless of the association structure, co-occurrence will typically be
+rare when marginal presence rates are low.
+
+This is not a statistical inconvenience. It is a structural feature of
+zero-dominated compositional data. The dependence among components,
+which Chapter 2 established as fundamental, is only observable when
+components co-occur. When zeros dominate, co-occurrence is rare, and
+estimates of dependence are based on limited information.
+
+A model that does not explicitly represent the zero structure cannot
+correctly quantify this limitation. It will either ignore zeros (and
+estimate dependence from fictitious positive values) or exclude zeros
+(and estimate dependence from a biased subsample). Neither approach
+correctly represents what the data can and cannot tell us.
+
+## What zeros require
+
+The prevalence of exact zeros in compositional data is not a nuisance to
+be managed. It is a defining feature that shapes what valid models can
+look like.
+
+A model for zero-heavy compositions must:
+
+1.  Place positive probability on exact zeros, not just on values
+    approaching zero.
+2.  Respect the sum constraint across both zero and nonzero components.
+3.  Represent the joint structure of which components are zero and how
+    cover is allocated among those that are not.
+4.  Acknowledge that zeros reduce effective dimensionality and alter the
+    observable dependence structure.
+
+No purely continuous distribution on the simplex satisfies these
+requirements. The Dirichlet cannot represent exact zeros. The
+logistic-normal excludes them entirely. Any admissible model must
+incorporate discrete structure—mixture components, indicator variables,
+or equivalent machinery—to place mass on the boundary.
+
+This vignette does not specify what that structure should be. It
+establishes that the structure is necessary. A framework that treats
+zeros as afterthoughts, or handles them through ad hoc modifications,
+has not engaged with the problem. It has evaded it.
