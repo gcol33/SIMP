@@ -1,0 +1,22 @@
+url: https://gcol33.github.io/SIMP/
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [intro, articles, reference]
+    right: [search, github]
+
+articles:
+  - title: Theory
+    navbar: Theory
+    contents:
+      - theory-01-the-nature-of-cover-data
+      - theory-02-geometry-of-dependence
+      - theory-03-admissible-models
+      - theory-04-the-structure-of-zeros
+      - theory-05-latent-structure
+      - theory-06-structured-dependence
+      - theory-07-finite-representations
+      - theory-08-identifiability-and-failure-modes
+      - theory-09-inference-and-interpretation
