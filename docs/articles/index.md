@@ -2,17 +2,21 @@
 
 ### Theory
 
-- [The Nature of Cover Data](theory-01-the-nature-of-cover-data.md):
-- [The Geometry of Dependence](theory-02-geometry-of-dependence.md):
+- [The Nature of Cover
+  Data](https://gcol33.github.io/SIMP/articles/theory-01-the-nature-of-cover-data.md):
+- [The Geometry of
+  Dependence](https://gcol33.github.io/SIMP/articles/theory-02-geometry-of-dependence.md):
 - [Admissible Models for Compositional
-  Data](theory-03-admissible-models.md):
-- [The Structure of Zeros](theory-04-the-structure-of-zeros.md):
-- [Latent Structure and Hierarchy](theory-05-latent-structure.md):
+  Data](https://gcol33.github.io/SIMP/articles/theory-03-admissible-models.md):
+- [The Structure of
+  Zeros](https://gcol33.github.io/SIMP/articles/theory-04-the-structure-of-zeros.md):
+- [Latent Structure and
+  Hierarchy](https://gcol33.github.io/SIMP/articles/theory-05-latent-structure.md):
 - [Structured Dependence at the Latent
-  Level](theory-06-structured-dependence.md):
+  Level](https://gcol33.github.io/SIMP/articles/theory-06-structured-dependence.md):
 - [Finite Representations of Structured
-  Dependence](theory-07-finite-representations.md):
+  Dependence](https://gcol33.github.io/SIMP/articles/theory-07-finite-representations.md):
 - [Identifiability and Failure
-  Modes](theory-08-identifiability-and-failure-modes.md):
+  Modes](https://gcol33.github.io/SIMP/articles/theory-08-identifiability-and-failure-modes.md):
 - [Inference and Interpretation on Constrained
-  Spaces](theory-09-inference-and-interpretation.md):
+  Spaces](https://gcol33.github.io/SIMP/articles/theory-09-inference-and-interpretation.md):
