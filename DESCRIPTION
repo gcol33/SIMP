@@ -1,6 +1,6 @@
 Package: SIMP
 Title: Bayesian Modelling Framework for Constrained Intensity Data
-Version: 0.0.1
+Version: 0.0.1.1
 Authors@R:
     person("Gilles", "Colling", , "gilles.colling051@gmail.com", role = c("aut", "cre"))
 Description: A general Bayesian modelling framework for bounded, compositional,
