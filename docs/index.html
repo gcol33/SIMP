@@ -14,6 +14,16 @@
 <meta property="og:title" content="Bayesian Modelling Framework for Constrained Intensity Data">
 <meta name="description" content="A general Bayesian modelling framework for bounded, compositional, and zero-heavy intensity data. Treats constraints as defining features of the data-generating process rather than nuisances to be transformed away.">
 <meta property="og:description" content="A general Bayesian modelling framework for bounded, compositional, and zero-heavy intensity data. Treats constraints as defining features of the data-generating process rather than nuisances to be transformed away.">
+<script>
+// Redirect any case variation of /simp to /SIMP
+(function() {
+  var path = window.location.pathname;
+  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
+    var newPath = path.replace(/^\/simp/i, '/SIMP');
+    window.location.replace(newPath + window.location.search + window.location.hash);
+  }
+})();
+</script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>

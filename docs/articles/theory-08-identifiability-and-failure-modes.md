@@ -9,7 +9,7 @@ datasets, the parameters are not identifiable. The data cannot
 distinguish between them, regardless of sample size, estimation method,
 or computational resources.
 
-This definition is about information, not estimation. An identifiable
+This definition concerns information, not estimation. An identifiable
 parameter may still be difficult to estimate (requiring large samples,
 careful priors, or specialised algorithms). An unidentifiable parameter
 cannot be estimated at all, in any principled sense. No amount of data
@@ -48,10 +48,9 @@ values but not their absolute level. A configuration where all latent
 values are high produces the same observable proportions as one where
 all are low, provided the relative structure is preserved.
 
-The ambiguity is not a defect of any particular parameterisation. It is
-structural. The simplex constraint means that only ratios matter for
-allocation. The absolute scale of latent values is not identified by
-cover data alone.
+Not a defect of any particular parameterisation. Structural. The simplex
+constraint means that only ratios matter for allocation. The absolute
+scale of latent values is not identified by cover data alone.
 
 In practice, this ambiguity is resolved through constraints: fixing one
 latent value to a reference, using sum-to-zero constraints, or imposing
@@ -74,11 +73,11 @@ probability of presence given the latent value was low. Either way, the
 observation is censored: we learn that the latent value is in some
 region, but not where within that region.
 
-This creates a fundamental asymmetry. For present species, cover values
-constrain latent values relatively tightly (higher cover implies higher
-relative latent value). For absent species, the constraint is one-sided
-and weak. The latent value could be slightly below the presence
-threshold or far below it; the data do not distinguish.
+A fundamental asymmetry. For present species, cover values constrain
+latent values relatively tightly (higher cover implies higher relative
+latent value). For absent species, the constraint is one-sided and weak.
+The latent value could be slightly below the presence threshold or far
+below it; the data do not distinguish.
 
 When zeros dominate (when most species are absent from most plots) most
 latent values are weakly identified. The full latent configuration has
@@ -87,10 +86,9 @@ remainder is determined by assumptions: the prior distribution over
 latent values, the structure imposed by covariates, the dependence
 structure that borrows information across units.
 
-This is not a problem to be solved. It is a property of the data
-structure. Absence is less informative than presence. A framework that
-represents zeros honestly must also represent the limits of what zeros
-can tell us.
+Not a problem to be solved. A property of the data structure. Absence is
+less informative than presence. A framework that represents zeros
+honestly must also represent the limits of what zeros can tell us.
 
 ## Confounding between presence and allocation
 
@@ -103,13 +101,12 @@ allocation. Wetter sites may have higher probability of certain species
 being present, and among present species, wetter sites may allocate more
 cover to moisture-loving species. The covariate acts on both stages.
 
-The problem is that the two effects are not independently identified. If
-we observe that a species has high cover in wet plots, this could
-reflect: (a) higher presence probability in wet plots, so the species
-appears in more wet plots; (b) higher allocation in wet plots, so the
-species gets more cover when present; or (c) both. The observed pattern
-is consistent with multiple combinations of presence and allocation
-effects.
+The two effects are not independently identified. If we observe that a
+species has high cover in wet plots, this could reflect: (a) higher
+presence probability in wet plots, so the species appears in more wet
+plots; (b) higher allocation in wet plots, so the species gets more
+cover when present; or (c) both. The observed pattern is consistent with
+multiple combinations of presence and allocation effects.
 
 This confounding is intrinsic to the two-stage structure. The stages are
 not observed separately. We observe the final cover, which reflects the
@@ -129,7 +126,7 @@ non-overlapping for rare species.
 The likelihood function summarises what the data say about parameters.
 In well-identified models, the likelihood has a clear peak: moving away
 from the maximum reduces the likelihood substantially. In weakly
-identified models, the likelihood surface has flat regions—directions
+identified models, the likelihood surface has flat regions, directions
 along which the likelihood changes little or not at all.
 
 For compositional data with latent structure, flat regions arise from
@@ -154,15 +151,15 @@ values are weakly identified individually, the covariance structure is
 also weakly identified. The data may constrain the overall strength of
 dependence but not its detailed form.
 
-These flat regions are not numerical artefacts. They are properties of
-the information structure. The likelihood is genuinely uninformative
-about certain aspects of the parameter space.
+These flat regions are not numerical artefacts. Properties of the
+information structure. The likelihood is genuinely uninformative about
+certain aspects of the parameter space.
 
 ## Ridges and near-ridges
 
 Distinct from flat regions are ridges: directions along which different
 parameter combinations yield nearly identical likelihoods. Ridges
-indicate trade-offs—if one parameter increases, another can compensate
+indicate trade-offs. If one parameter increases, another can compensate
 to maintain the same fit.
 
 In hierarchical models, common ridges include:
@@ -181,9 +178,9 @@ not the decomposition into components.
 be attributed to individual-level deviations or group-level effects. The
 total variation is constrained; its partition is not.
 
-Ridges create practical difficulties for estimation—algorithms may
-wander along them, posterior distributions may be elongated or
-multimodal—but the underlying issue is informational. The data do not
+Ridges create practical difficulties for estimation: algorithms may
+wander along them, and posterior distributions may be elongated or
+multimodal. But the underlying issue is informational. The data do not
 contain enough information to resolve the trade-off. Any resolution
 comes from assumptions: priors, constraints, or regularisation.
 
@@ -200,23 +197,23 @@ estimates at its neighbours. This borrowing can improve estimates when
 the assumption is correct and the data are sparse.
 
 But borrowing is not learning. It propagates assumptions as much as it
-propagates data. If the dependence structure is misspecified—if the true
-process has different range, different smoothness, or different geometry
-than assumed—the borrowed information is systematically wrong.
+propagates data. If the dependence structure is misspecified (if the
+true process has different range, different smoothness, or different
+geometry than assumed) the borrowed information is systematically wrong.
 
-The identifiability concern is that misspecification may not be
-detectable. A model with the wrong dependence structure can still fit
-the data well if it adjusts other parameters to compensate. The data may
-not distinguish between: (a) strong local dependence with weak covariate
-effects, and (b) weak dependence with strong covariate effects. Both can
-produce similar patterns of spatial similarity in the fitted values.
+The identifiability concern: misspecification may not be detectable. A
+model with the wrong dependence structure can still fit the data well if
+it adjusts other parameters to compensate. The data may not distinguish
+between: (a) strong local dependence with weak covariate effects, and
+(b) weak dependence with strong covariate effects. Both can produce
+similar patterns of spatial similarity in the fitted values.
 
 This confounding between dependence and fixed effects is well-known in
-spatial statistics. It is not unique to compositional data. But
-compositional data exacerbate it because the weak identification of
-absent species means there is less information to discipline the
-dependence structure. The dependence parameters are estimated primarily
-from present species, which may be a biased or unrepresentative subset.
+spatial statistics. Not unique to compositional data. But compositional
+data exacerbate it because the weak identification of absent species
+means there is less information to discipline the dependence structure.
+The dependence parameters are estimated primarily from present species,
+which may be a biased or unrepresentative subset.
 
 ## Why more data does not always help
 
@@ -246,10 +243,10 @@ For SIMP, several limitations are structural:
 - Confounding between dependence and fixed effects depends on the design
   (how covariates vary in space), not just the number of units.
 
-This does not mean data collection is futile. It means data collection
-should be strategic, targeting the specific identifiability limitations
-that affect the scientific question. More of the same data may not
-resolve ambiguities that are structural in nature.
+This does not mean data collection is futile. Data collection should be
+strategic, targeting the specific identifiability limitations that
+affect the scientific question. More of the same data may not resolve
+ambiguities that are structural in nature.
 
 ## The role of assumptions
 
@@ -259,8 +256,8 @@ prior. In frequentist terms, estimates are determined by constraints or
 regularisation rather than data.
 
 This is how inference works in partially identified models. The honest
-response is to acknowledge which components are informed by data and
-which by assumptions, and to assess sensitivity to those assumptions.
+response: acknowledge which components are informed by data and which by
+assumptions, and assess sensitivity to those assumptions.
 
 For SIMP, key assumptions that fill identifiability gaps include:
 
@@ -288,13 +285,13 @@ doing.
 ## Failure modes
 
 The identifiability properties described above produce characteristic
-failure modes. These are not bugs or rare pathologies. They are
-predictable consequences of the framework’s structure.
+failure modes. Not bugs or rare pathologies. Predictable consequences of
+the framework’s structure.
 
-**Overconfident inference about rare species.** For species that are
-absent from most plots, the apparent precision of estimates reflects the
-prior more than the data. Narrow credible intervals may indicate strong
-prior assumptions, not strong data support.
+**Overconfident inference about rare species.** For species absent from
+most plots, the apparent precision of estimates reflects the prior more
+than the data. Narrow credible intervals may indicate strong prior
+assumptions, not strong data support.
 
 **Unstable covariate effects.** When presence-allocation confounding is
 severe, estimated covariate effects may be sensitive to modelling
@@ -326,8 +323,8 @@ fit.
 
 ## What this means for use
 
-This chapter has catalogued limitations, not solutions. The purpose is
-to establish what the framework can and cannot deliver.
+This chapter has catalogued limitations, not solutions. The purpose:
+establish what the framework can and cannot deliver.
 
 SIMP is informative about:
 
@@ -366,12 +363,11 @@ Identifiability in SIMP is partial and uneven. Some components of the
 latent structure are well-constrained by data; others are weakly
 informed; still others are determined entirely by assumptions.
 
-The scale of latent values is not identified; it is fixed by convention.
-The latent values of absent species are weakly identified; they are
-determined primarily by priors. The separation of presence and
-allocation effects is not identified when both processes share
-covariates. The dependence structure confounds with fixed effects when
-covariates vary spatially.
+The scale of latent values is not identified; fixed by convention. The
+latent values of absent species are weakly identified; determined
+primarily by priors. The separation of presence and allocation effects
+is not identified when both processes share covariates. The dependence
+structure confounds with fixed effects when covariates vary spatially.
 
 These limitations are structural. They arise from the geometry of
 constrained observations, the censoring induced by zeros, and the

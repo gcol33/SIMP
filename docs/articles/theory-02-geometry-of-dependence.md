@@ -29,82 +29,79 @@ ground, and litter. The five proportions must sum to one. Suppose
 grasses currently occupy 40% of the plot. What can we say about the
 other categories?
 
-We know that the remaining four categories together occupy exactly 60%.
-If grasses increase to 50%, the total available to all other categories
-drops to 50%. If grasses occupy 80%, then forbs, shrubs, bare ground,
-and litter together can occupy at most 20%, regardless of their
-individual tendencies or how they were measured.
+The remaining four categories together occupy exactly 60%. If grasses
+increase to 50%, the total available to all other categories drops to
+50%. If grasses occupy 80%, forbs, shrubs, bare ground, and litter
+together can occupy at most 20%, regardless of their individual
+tendencies or how they were measured.
 
-This is a logical consequence of the constraint, not a correlation we
-estimated from data or a biological interaction between plant functional
-types. The cover of grasses restricts the possible covers of every other
+A logical consequence of the constraint, not a correlation estimated
+from data or a biological interaction between plant functional types.
+The cover of grasses restricts the possible covers of every other
 category, and vice versa, because all draw from the same finite total.
 
 The same logic applies to any pair of components in any compositional
 dataset. Knowing the value of one component constrains the possible
-values of all others. This induced dependence is present regardless of
-how the data were generated, how many observations we have, or whether
-the components interact in any meaningful biological sense.
+values of all others. This induced dependence exists regardless of how
+the data were generated, how many observations we have, or whether the
+components interact in any meaningful biological sense.
 
 ## The impossibility of independent components
 
-In unconstrained settings, it is meaningful to ask whether two variables
-are independent. We can imagine a data-generating process where each
+In unconstrained settings, asking whether two variables are independent
+is meaningful. We can imagine a data-generating process where each
 variable is determined by its own separate mechanism, with no connection
 between them. Independence is a coherent hypothesis that could be true
 or false.
 
-For components of a composition, this question is malformed.
-Independence would require that knowing the value of one component tells
-us nothing about the possible values of another. The sum constraint
-guarantees that it does. If species A occupies 80% of a plot, then all
-other species together occupy exactly 20%. This is information the
-constraint imposes.
+For components of a composition, the question is malformed. Independence
+would require that knowing the value of one component tells us nothing
+about the possible values of another. The sum constraint guarantees that
+it does. If species A occupies 80% of a plot, all other species together
+occupy exactly 20%. Information the constraint imposes.
 
 One might object: perhaps independence holds in some underlying latent
-space, before the constraint is applied. This is a reasonable line of
-inquiry, and later chapters will examine what can and cannot be said
-about latent structure. But it does not rescue component-wise thinking
-at the level of observation. The data we observe are the constrained
-proportions, not the latent quantities. Whatever independence might hold
-in an underlying unconstrained space, the observed components remain
-dependent. The constraint transforms independent latent variation into
-dependent observed variation.
+space, before the constraint is applied. A reasonable line of inquiry,
+and later chapters will examine what can and cannot be said about latent
+structure. But it does not rescue component-wise thinking at the level
+of observation. The data we observe are the constrained proportions, not
+the latent quantities. Whatever independence might hold in an underlying
+unconstrained space, the observed components remain dependent. The
+constraint transforms independent latent variation into dependent
+observed variation.
 
 This is why “testing for dependence” among cover components is
 conceptually confused. The dependence is guaranteed. The question is not
-whether it exists, but what form it takes beyond the minimum induced by
-the constraint.
+whether it exists, but what form it takes beyond the minimum the
+constraint induces.
 
 ## Negative correlations without interaction
 
-A consequence of compositional structure is that components will tend to
-be negatively correlated, even when there is no process driving them
-apart.
+Compositional structure causes components to be negatively correlated,
+even when no process drives them apart.
 
 Consider the simplest case: a plot with only two categories, species A
 and bare ground. These two covers must sum to one, so they are perfectly
 negatively correlated. If species A has high cover, bare ground must be
 low. This correlation is not estimated; it is determined.
 
-With more categories, the pattern is less rigid but persists. If we
-generate compositional data by any reasonable process and compute
-correlations among components, we will find negative correlations
-dominating. This is not because the components are competing. It is
-because they are drawing from the same finite pool.
+With more categories, the pattern is less rigid but persists. Generate
+compositional data by any reasonable process and compute correlations
+among components: negative correlations will dominate. Not because the
+components are competing. Because they draw from the same finite pool.
 
 A researcher who observes negative correlations among species covers
 might interpret this as evidence of competitive exclusion. In some
-cases, it may be. The compositional structure alone, however, guarantees
+cases, it may be. Compositional structure alone, however, guarantees
 some negative correlation. Separating the geometric effect from the
 biological effect requires understanding what dependence the constraint
-induces, which is impossible if the constraint is ignored.
+induces. Impossible if the constraint is ignored.
 
 ## Why marginal thinking fails
 
-Much of applied statistics operates marginally: we consider one variable
-at a time, or pairs of variables, and build up an understanding from
-these components. For compositional data, this approach is unreliable.
+Much of applied statistics operates marginally: consider one variable at
+a time, or pairs of variables, and build up understanding from these
+components. For compositional data, this approach is unreliable.
 
 The marginal distribution of a single cover component (species A
 considered in isolation) does not tell us how species A behaves in the
@@ -116,21 +113,21 @@ is incomplete.
 Pairwise relationships are equally misleading. The correlation between
 species A and species B depends on what else is in the composition. Add
 a third species with high and variable cover, and the correlation
-between A and B will change, not because their relationship changed, but
+between A and B will change. Not because their relationship changed, but
 because the geometric context changed. Pairwise correlations are not
 stable properties of the components; they are artifacts of the full
 compositional structure.
 
-This is why standard multivariate methods, which often assume that
-marginal or pairwise information is sufficient, cannot be trusted for
-compositional data. The constraint couples all components
-simultaneously. Understanding one or two at a time misses the structure.
+Standard multivariate methods, which often assume that marginal or
+pairwise information is sufficient, cannot be trusted for compositional
+data. The constraint couples all components simultaneously.
+Understanding one or two at a time misses the structure.
 
 ## The constraint is not a nuisance
 
-It is tempting to treat the sum constraint as an inconvenience,
-something that complicates analysis but can be managed with appropriate
-adjustments. This view is mistaken.
+Tempting to treat the sum constraint as an inconvenience, something that
+complicates analysis but can be managed with appropriate adjustments.
+This view is mistaken.
 
 The constraint is not separate from the data. It defines what the data
 are. A vegetation plot with 30% grass, 25% forbs, 20% shrubs, and 25%
@@ -148,7 +145,7 @@ choose.
 ## What this means
 
 Dependence in cover data is not a hypothesis to be tested or an effect
-to be estimated. It is a structural fact imposed by the nature of the
+to be estimated. A structural fact imposed by the nature of the
 measurement. Any two components of a composition are dependent,
 necessarily, because they share a common bound.
 
@@ -157,12 +154,12 @@ species interactions, environmental filtering, or ecological dynamics.
 These biological processes may add further structure, but they operate
 on top of a dependence that is already guaranteed.
 
-Ignoring this geometry does not make it go away. It makes the resulting
-analysis incoherent. A model that treats cover components as independent
-has not made a simplifying assumption. It has made a false statement
-about what the data are.
+Ignoring this geometry does not make it go away. It makes the analysis
+incoherent. A model that treats cover components as independent has not
+made a simplifying assumption. It has made a false statement about what
+the data are.
 
-This vignette does not propose a solution to this problem. It
-establishes that the problem exists and cannot be avoided. Any serious
-treatment of cover data must begin by accepting that the components are
-coupled, and that this coupling is not optional.
+This vignette does not propose a solution. It establishes that the
+problem exists and cannot be avoided. Any serious treatment of cover
+data must begin by accepting that the components are coupled, and that
+this coupling is not optional.

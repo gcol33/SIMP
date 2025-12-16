@@ -7,16 +7,15 @@ level. Latent values at different units may be related through spatial
 proximity, grouping, or other structures. This chapter addresses a
 further question: how is this dependence represented in practice?
 
-The answer is that any practical representation is finite. It involves a
-finite number of parameters, a finite set of relationships, and a finite
-specification of how information flows among units. This finiteness
-determines which dependencies the model can express and which it cannot.
+Any practical representation is finite. A finite number of parameters, a
+finite set of relationships, a finite specification of how information
+flows among units. This finiteness determines which dependencies the
+model can express and which it cannot.
 
 A model’s dependence structure is not an abstract property that exists
 independently of how it is represented. The representation *is* the
 structure. Different finite representations encode different assumptions
-about the world, even when they are motivated by the same conceptual
-goal.
+about the world, even when motivated by the same conceptual goal.
 
 ## Why full joint specification is infeasible
 
@@ -29,16 +28,15 @@ The number of pairwise relationships grows as the square of the number
 of latent values. For a modest dataset with 500 plots and 20 species,
 there are 10,000 latent values and roughly 50 million pairwise
 relationships. Specifying, storing, and manipulating a joint
-distribution of this size is not practical. The data cannot inform such
-a large number of dependencies. The parameters would be weakly
-identified at best, unidentified at worst.
+distribution of this size is not practical. The data cannot inform so
+many dependencies. The parameters would be weakly identified at best,
+unidentified at worst.
 
-This is not a limitation of current technology. It is a structural
-feature of high-dimensional dependence. The space of possible joint
-distributions is vast. Data can only constrain a small portion of it.
-Any model that appears to specify a rich joint distribution is
-implicitly making strong assumptions to reduce the effective
-dimensionality.
+Not a limitation of current technology. A structural feature of
+high-dimensional dependence. The space of possible joint distributions
+is vast. Data can only constrain a small portion of it. Any model that
+appears to specify a rich joint distribution is implicitly making strong
+assumptions to reduce the effective dimensionality.
 
 ## Finite representations as modelling commitments
 
@@ -47,27 +45,27 @@ distributions under consideration. This restriction is a modelling
 commitment. It encodes assumptions about which dependencies matter,
 which can be ignored, and how information propagates among units.
 
-Common forms of restriction include:
+Common forms of restriction:
 
 **Factorisation.** The joint distribution is expressed as a product of
 conditional distributions, each involving only a subset of variables.
-This reduces the number of parameters but assumes that certain
-conditional independencies hold.
+Reduces the number of parameters but assumes that certain conditional
+independencies hold.
 
 **Low-rank structure.** The covariance or precision matrix is
 constrained to have low rank, or to be expressible in terms of a small
-number of factors. This assumes that dependence is driven by a limited
-number of underlying sources.
+number of factors. Assumes that dependence is driven by a limited number
+of underlying sources.
 
 **Locality.** Dependence is restricted to units that are “nearby” in
 some sense (spatially adjacent, temporally proximate, or connected in a
-graph). Units that are far apart are assumed conditionally independent
-given intervening units.
+graph). Units far apart are assumed conditionally independent given
+intervening units.
 
 **Stationarity or exchangeability.** The form of dependence is assumed
 to be the same across the domain. Spatial correlation has the same
 structure everywhere; group effects are drawn from a common
-distribution. This reduces the number of unique parameters.
+distribution. Reduces the number of unique parameters.
 
 Each of these restrictions is an assumption. None is automatically
 justified by the structure of the problem. A model that assumes locality
@@ -81,10 +79,10 @@ A finite representation determines several aspects of the implied
 probabilistic structure.
 
 **Which pairs of units can be dependent.** If the representation
-specifies that only adjacent units are directly connected, then
-non-adjacent units can only be dependent through chains of intervening
-units. If the representation uses a fixed set of factors, then units can
-only be correlated through shared factor loadings.
+specifies that only adjacent units are directly connected, non-adjacent
+units can only be dependent through chains of intervening units. If the
+representation uses a fixed set of factors, units can only be correlated
+through shared factor loadings.
 
 **How strongly pairs can be dependent.** The parameterisation determines
 the range of possible correlations. A representation with few parameters
@@ -97,8 +95,8 @@ A non-stationary representation allows correlation to vary, but requires
 additional parameters to specify how.
 
 **Which conditional independencies hold.** The factorisation structure
-implies specific conditional independencies. These are not tested
-against the data; they are assumed by construction.
+implies specific conditional independencies. Not tested against the
+data; assumed by construction.
 
 These constraints are necessary. Without constraints, the model would be
 unidentifiable and uninterpretable. The question is whether the
@@ -106,27 +104,27 @@ constraints are appropriate for the problem at hand.
 
 ## The relationship between representation and approximation
 
-It is common to view finite representations as approximations to some
-“true” infinite or fully general model. This framing can be useful but
-also misleading.
+Common to view finite representations as approximations to some “true”
+infinite or fully general model. This framing can be useful but also
+misleading.
 
 In some contexts, a well-defined infinite-dimensional object exists
 (such as a continuous spatial process) and finite representations can be
-understood as discretisations or truncations of it. This perspective is
-valuable for understanding limiting behaviour and for connecting finite
-models to theoretical foundations.
+understood as discretisations or truncations of it. Valuable for
+understanding limiting behaviour and for connecting finite models to
+theoretical foundations.
 
-However, the finite representation is what the model actually specifies
+The finite representation, however, is what the model actually specifies
 for inference. The infinite object, if it exists, is a conceptual
 scaffold. In other contexts (where units are discrete: plots, samples,
 individuals) there may be no natural infinite-dimensional object to
 approximate. The dependence structure is whatever the model says it is.
 The finite representation is the complete specification.
 
-The practical implication is that “approximation” can suggest accuracy
-improves as the representation becomes richer. This is not always true.
-A richer representation may introduce more parameters than the data can
-support, leading to overfitting or identifiability problems. A simpler
+The practical implication: “approximation” can suggest accuracy improves
+as the representation becomes richer. Not always true. A richer
+representation may introduce more parameters than the data can support,
+leading to overfitting or identifiability problems. A simpler
 representation may be more robust and interpretable, even if it deviates
 from some idealised target. The quality of a representation should be
 judged by its fit to the problem, not by its proximity to an abstract
@@ -134,8 +132,8 @@ ideal.
 
 ## Information flow and its limits
 
-A key consequence of finite representation is that information can only
-flow through the pathways the representation provides.
+A key consequence of finite representation: information can only flow
+through the pathways the representation provides.
 
 Consider a spatial model where dependence is specified through local
 connections. If two plots are far apart, information about one plot’s
@@ -163,8 +161,8 @@ hierarchical representations are natural. The representation should
 reflect the geometry of the problem.
 
 **The scale of the data.** Richer representations require more data to
-estimate. A representation that is appropriate for a large dataset may
-be overparameterised for a small one.
+estimate. A representation appropriate for a large dataset may be
+overparameterised for a small one.
 
 **The scientific question.** If the goal is to estimate average effects,
 a simpler representation may suffice. If the goal is to characterise
@@ -175,8 +173,8 @@ data. If certain parameters cannot be estimated, they should not be
 included, or their role in the model should be understood as
 regularisation rather than inference.
 
-There is no universally correct representation. The choice is part of
-the modelling process. It should be made explicitly and defended on
+No universally correct representation. The choice is part of the
+modelling process. It should be made explicitly and defended on
 substantive grounds.
 
 ## Summary
@@ -193,10 +191,10 @@ dimensionality. Different representations imply different models, even
 when motivated by the same conceptual goal.
 
 The choice of representation should be guided by the structure of the
-problem, the scale of the data, and the scientific question. It should
-not be viewed as an approximation to some ideal infinite model. The
-representation *is* the model’s specification of dependence.
+problem, the scale of the data, and the scientific question. Not an
+approximation to some ideal infinite model. The representation *is* the
+model’s specification of dependence.
 
 This chapter establishes that the choice of representation is
-fundamental, a defining element of the framework rather than a detail to
+fundamental: a defining element of the framework rather than a detail to
 be deferred to implementation.

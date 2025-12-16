@@ -12,6 +12,16 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Inference and Interpretation on Constrained Spaces">
+<script>
+// Redirect any case variation of /simp to /SIMP
+(function() {
+  var path = window.location.pathname;
+  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
+    var newPath = path.replace(/^\/simp/i, '/SIMP');
+    window.location.replace(newPath + window.location.search + window.location.hash);
+  }
+})();
+</script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -111,7 +121,7 @@ latter.</p>
 <div class="section level2">
 <h2 id="the-gap-between-latent-and-observed">The gap between latent and observed<a class="anchor" aria-label="anchor" href="#the-gap-between-latent-and-observed"></a>
 </h2>
-<p>A persistent source of confusion in hierarchical models is the
+<p>A persistent source of confusion in hierarchical models: the
 relationship between inference about latent quantities and statements
 about observations.</p>
 <p>Consider a species with an estimated latent value that suggests
@@ -121,14 +131,14 @@ at that plot, (b) which species are present, and (c) how cover is
 allocated among present species. The species’ expected cover is not a
 function of its own latent value alone. It is a function of the entire
 latent configuration and the observation model.</p>
-<p>This means that statements about individual species cannot be cleanly
-separated from statements about the community. A species with high
-latent value may have low cover if other species have even higher
-values. A species with moderate latent value may dominate if competitors
-are absent. The constraint couples all components.</p>
+<p>Statements about individual species cannot be cleanly separated from
+statements about the community. A species with high latent value may
+have low cover if other species have even higher values. A species with
+moderate latent value may dominate if competitors are absent. The
+constraint couples all components.</p>
 <p>Inference about latent values is joint inference. Marginal statements
-about single species—their expected cover, their response to a
-covariate, their spatial pattern—are derived from joint inference and
+about single species (their expected cover, their response to a
+covariate, their spatial pattern) are derived from joint inference and
 inherit its structure. They cannot be interpreted as if each species
 were modelled independently.</p>
 </div>
@@ -137,8 +147,8 @@ were modelled independently.</p>
 </h2>
 <p>Standard statistical practice often focuses on marginal summaries:
 the mean of a parameter, its standard deviation, its credible interval.
-For latent values in constrained models, these summaries can be
-misleading.</p>
+For latent values in constrained models, these summaries can
+mislead.</p>
 <p><strong>Means on the simplex are not compositions.</strong> Consider
 a posterior distribution over compositions. Each posterior sample is a
 valid composition (non-negative, summing to one). The mean of these
@@ -162,9 +172,9 @@ competition, or it may reflect the constraint, or both. Separating these
 contributions requires careful thought about what the latent model
 assumes.</p>
 <p>These issues apply to any inference on constrained spaces. The
-appropriate response is to report joint summaries where possible, to
-interpret marginal summaries cautiously, and to be explicit about what
-the summaries represent.</p>
+appropriate response: report joint summaries where possible, interpret
+marginal summaries cautiously, and be explicit about what the summaries
+represent.</p>
 </div>
 <div class="section level2">
 <h2 id="how-constraints-distort-familiar-quantities">How constraints distort familiar quantities<a class="anchor" aria-label="anchor" href="#how-constraints-distort-familiar-quantities"></a>
@@ -194,13 +204,13 @@ are either wrong or have been computed on a transformed scale where
 symmetry is artificial.</p>
 <p><strong>Correlations that sum to a fixed total.</strong> The
 covariance matrix of any distribution on the simplex has rows and
-columns that sum to zero. This is not an empirical finding; it is a
-mathematical necessity. Correlations among components are partly
-determined before any data are observed. Interpreting observed
-correlations as if they were free parameters misunderstands what
-correlations mean on constrained spaces.</p>
-<p>These distortions are not errors in the model. They are properties of
-the space. A user who ignores them will misread outputs; a user who
+columns that sum to zero. Not an empirical finding; a mathematical
+necessity. Correlations among components are partly determined before
+any data are observed. Interpreting observed correlations as if they
+were free parameters misunderstands what correlations mean on
+constrained spaces.</p>
+<p>These distortions are not errors in the model. Properties of the
+space. A user who ignores them will misread outputs; a user who
 understands them can interpret results correctly.</p>
 </div>
 <div class="section level2">
@@ -210,10 +220,10 @@ understands them can interpret results correctly.</p>
 and the observation model that maps latent values to constrained
 observations.</p>
 <p><strong>Latent uncertainty</strong> reflects what the data do not
-determine about the ecological process. It is shaped by the likelihood
-(how much the data constrain latent values), the prior (what is assumed
-in the absence of data), and the dependence structure (how information
-is borrowed).</p>
+determine about the ecological process. Shaped by the likelihood (how
+much the data constrain latent values), the prior (what is assumed in
+the absence of data), and the dependence structure (how information is
+borrowed).</p>
 <p><strong>Observation-level uncertainty</strong> reflects the
 additional variability introduced by the mapping from latent values to
 observations. Even if latent values were known exactly, observations
@@ -222,8 +232,8 @@ would still vary due to the stochastic elements of the observation model
 <p>These sources combine in the posterior predictive distribution: the
 distribution of new observations given the observed data and the model.
 This distribution integrates over latent uncertainty and includes
-observation-level variability. It is the appropriate object for
-prediction and for assessing model fit.</p>
+observation-level variability. The appropriate object for prediction and
+for assessing model fit.</p>
 <p>Credible intervals for latent values and credible intervals for
 predicted observations are different quantities. The former reflects
 uncertainty about the ecological process; the latter reflects
@@ -278,10 +288,9 @@ cover requires assumptions beyond what the model specifies.</p>
 assumes a form of dependence. The data inform its parameters given that
 form. Whether the form itself is appropriate is not testable within the
 framework.</p>
-<p>These limitations are not failures of estimation. They are properties
-of what the data and model structure can support. Attempting to estimate
-these quantities produces numbers, but those numbers reflect assumptions
-more than evidence.</p>
+<p>Not failures of estimation. Properties of what the data and model
+structure can support. Attempting to estimate these quantities produces
+numbers, but those numbers reflect assumptions more than evidence.</p>
 </div>
 <div class="section level2">
 <h2 id="joint-versus-marginal-inference">Joint versus marginal inference<a class="anchor" aria-label="anchor" href="#joint-versus-marginal-inference"></a>
@@ -325,10 +334,9 @@ where moisture and the species happen to co-vary geographically.</p>
 is descriptive, not causal. Interpreting it causally requires
 assumptions external to the model: assumptions about the data-generating
 process, temporal ordering, absence of confounders.</p>
-<p>This limitation is not specific to constrained data or hierarchical
-models. It is a property of observational inference. SIMP does not make
-causal inference harder than it would otherwise be; it simply does not
-make it easier.</p>
+<p>Not specific to constrained data or hierarchical models. A property
+of observational inference. SIMP does not make causal inference harder
+than it would otherwise be; it simply does not make it easier.</p>
 <p>For designed experiments with randomised treatments, causal
 interpretation may be more defensible. But even then, the hierarchical
 structure introduces complexity. Treatment effects on latent values must

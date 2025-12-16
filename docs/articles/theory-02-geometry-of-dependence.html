@@ -12,6 +12,16 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="The Geometry of Dependence">
+<script>
+// Redirect any case variation of /simp to /SIMP
+(function() {
+  var path = window.location.pathname;
+  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
+    var newPath = path.replace(/^\/simp/i, '/SIMP');
+    window.location.replace(newPath + window.location.search + window.location.hash);
+  }
+})();
+</script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -111,80 +121,78 @@ biological process is invoked.</p>
 bare ground, and litter. The five proportions must sum to one. Suppose
 grasses currently occupy 40% of the plot. What can we say about the
 other categories?</p>
-<p>We know that the remaining four categories together occupy exactly
-60%. If grasses increase to 50%, the total available to all other
-categories drops to 50%. If grasses occupy 80%, then forbs, shrubs, bare
-ground, and litter together can occupy at most 20%, regardless of their
-individual tendencies or how they were measured.</p>
-<p>This is a logical consequence of the constraint, not a correlation we
-estimated from data or a biological interaction between plant functional
-types. The cover of grasses restricts the possible covers of every other
+<p>The remaining four categories together occupy exactly 60%. If grasses
+increase to 50%, the total available to all other categories drops to
+50%. If grasses occupy 80%, forbs, shrubs, bare ground, and litter
+together can occupy at most 20%, regardless of their individual
+tendencies or how they were measured.</p>
+<p>A logical consequence of the constraint, not a correlation estimated
+from data or a biological interaction between plant functional types.
+The cover of grasses restricts the possible covers of every other
 category, and vice versa, because all draw from the same finite
 total.</p>
 <p>The same logic applies to any pair of components in any compositional
 dataset. Knowing the value of one component constrains the possible
-values of all others. This induced dependence is present regardless of
-how the data were generated, how many observations we have, or whether
-the components interact in any meaningful biological sense.</p>
+values of all others. This induced dependence exists regardless of how
+the data were generated, how many observations we have, or whether the
+components interact in any meaningful biological sense.</p>
 </div>
 <div class="section level2">
 <h2 id="the-impossibility-of-independent-components">The impossibility of independent components<a class="anchor" aria-label="anchor" href="#the-impossibility-of-independent-components"></a>
 </h2>
-<p>In unconstrained settings, it is meaningful to ask whether two
-variables are independent. We can imagine a data-generating process
+<p>In unconstrained settings, asking whether two variables are
+independent is meaningful. We can imagine a data-generating process
 where each variable is determined by its own separate mechanism, with no
 connection between them. Independence is a coherent hypothesis that
 could be true or false.</p>
-<p>For components of a composition, this question is malformed.
+<p>For components of a composition, the question is malformed.
 Independence would require that knowing the value of one component tells
 us nothing about the possible values of another. The sum constraint
-guarantees that it does. If species A occupies 80% of a plot, then all
-other species together occupy exactly 20%. This is information the
-constraint imposes.</p>
+guarantees that it does. If species A occupies 80% of a plot, all other
+species together occupy exactly 20%. Information the constraint
+imposes.</p>
 <p>One might object: perhaps independence holds in some underlying
-latent space, before the constraint is applied. This is a reasonable
-line of inquiry, and later chapters will examine what can and cannot be
-said about latent structure. But it does not rescue component-wise
-thinking at the level of observation. The data we observe are the
-constrained proportions, not the latent quantities. Whatever
-independence might hold in an underlying unconstrained space, the
-observed components remain dependent. The constraint transforms
-independent latent variation into dependent observed variation.</p>
+latent space, before the constraint is applied. A reasonable line of
+inquiry, and later chapters will examine what can and cannot be said
+about latent structure. But it does not rescue component-wise thinking
+at the level of observation. The data we observe are the constrained
+proportions, not the latent quantities. Whatever independence might hold
+in an underlying unconstrained space, the observed components remain
+dependent. The constraint transforms independent latent variation into
+dependent observed variation.</p>
 <p>This is why “testing for dependence” among cover components is
 conceptually confused. The dependence is guaranteed. The question is not
-whether it exists, but what form it takes beyond the minimum induced by
-the constraint.</p>
+whether it exists, but what form it takes beyond the minimum the
+constraint induces.</p>
 </div>
 <div class="section level2">
 <h2 id="negative-correlations-without-interaction">Negative correlations without interaction<a class="anchor" aria-label="anchor" href="#negative-correlations-without-interaction"></a>
 </h2>
-<p>A consequence of compositional structure is that components will tend
-to be negatively correlated, even when there is no process driving them
-apart.</p>
+<p>Compositional structure causes components to be negatively
+correlated, even when no process drives them apart.</p>
 <p>Consider the simplest case: a plot with only two categories, species
 A and bare ground. These two covers must sum to one, so they are
 perfectly negatively correlated. If species A has high cover, bare
 ground must be low. This correlation is not estimated; it is
 determined.</p>
-<p>With more categories, the pattern is less rigid but persists. If we
-generate compositional data by any reasonable process and compute
-correlations among components, we will find negative correlations
-dominating. This is not because the components are competing. It is
-because they are drawing from the same finite pool.</p>
+<p>With more categories, the pattern is less rigid but persists.
+Generate compositional data by any reasonable process and compute
+correlations among components: negative correlations will dominate. Not
+because the components are competing. Because they draw from the same
+finite pool.</p>
 <p>A researcher who observes negative correlations among species covers
 might interpret this as evidence of competitive exclusion. In some
-cases, it may be. The compositional structure alone, however, guarantees
+cases, it may be. Compositional structure alone, however, guarantees
 some negative correlation. Separating the geometric effect from the
 biological effect requires understanding what dependence the constraint
-induces, which is impossible if the constraint is ignored.</p>
+induces. Impossible if the constraint is ignored.</p>
 </div>
 <div class="section level2">
 <h2 id="why-marginal-thinking-fails">Why marginal thinking fails<a class="anchor" aria-label="anchor" href="#why-marginal-thinking-fails"></a>
 </h2>
-<p>Much of applied statistics operates marginally: we consider one
-variable at a time, or pairs of variables, and build up an understanding
-from these components. For compositional data, this approach is
-unreliable.</p>
+<p>Much of applied statistics operates marginally: consider one variable
+at a time, or pairs of variables, and build up understanding from these
+components. For compositional data, this approach is unreliable.</p>
 <p>The marginal distribution of a single cover component (species A
 considered in isolation) does not tell us how species A behaves in the
 composition. Species A might have high variance marginally but low
@@ -194,21 +202,20 @@ is incomplete.</p>
 <p>Pairwise relationships are equally misleading. The correlation
 between species A and species B depends on what else is in the
 composition. Add a third species with high and variable cover, and the
-correlation between A and B will change, not because their relationship
+correlation between A and B will change. Not because their relationship
 changed, but because the geometric context changed. Pairwise
 correlations are not stable properties of the components; they are
 artifacts of the full compositional structure.</p>
-<p>This is why standard multivariate methods, which often assume that
-marginal or pairwise information is sufficient, cannot be trusted for
-compositional data. The constraint couples all components
-simultaneously. Understanding one or two at a time misses the
-structure.</p>
+<p>Standard multivariate methods, which often assume that marginal or
+pairwise information is sufficient, cannot be trusted for compositional
+data. The constraint couples all components simultaneously.
+Understanding one or two at a time misses the structure.</p>
 </div>
 <div class="section level2">
 <h2 id="the-constraint-is-not-a-nuisance">The constraint is not a nuisance<a class="anchor" aria-label="anchor" href="#the-constraint-is-not-a-nuisance"></a>
 </h2>
-<p>It is tempting to treat the sum constraint as an inconvenience,
-something that complicates analysis but can be managed with appropriate
+<p>Tempting to treat the sum constraint as an inconvenience, something
+that complicates analysis but can be managed with appropriate
 adjustments. This view is mistaken.</p>
 <p>The constraint is not separate from the data. It defines what the
 data are. A vegetation plot with 30% grass, 25% forbs, 20% shrubs, and
@@ -226,21 +233,21 @@ choose.</p>
 <h2 id="what-this-means">What this means<a class="anchor" aria-label="anchor" href="#what-this-means"></a>
 </h2>
 <p>Dependence in cover data is not a hypothesis to be tested or an
-effect to be estimated. It is a structural fact imposed by the nature of
-the measurement. Any two components of a composition are dependent,
+effect to be estimated. A structural fact imposed by the nature of the
+measurement. Any two components of a composition are dependent,
 necessarily, because they share a common bound.</p>
 <p>This dependence is geometric. It arises from the constraint, not from
 species interactions, environmental filtering, or ecological dynamics.
 These biological processes may add further structure, but they operate
 on top of a dependence that is already guaranteed.</p>
 <p>Ignoring this geometry does not make it go away. It makes the
-resulting analysis incoherent. A model that treats cover components as
-independent has not made a simplifying assumption. It has made a false
-statement about what the data are.</p>
-<p>This vignette does not propose a solution to this problem. It
-establishes that the problem exists and cannot be avoided. Any serious
-treatment of cover data must begin by accepting that the components are
-coupled, and that this coupling is not optional.</p>
+analysis incoherent. A model that treats cover components as independent
+has not made a simplifying assumption. It has made a false statement
+about what the data are.</p>
+<p>This vignette does not propose a solution. It establishes that the
+problem exists and cannot be avoided. Any serious treatment of cover
+data must begin by accepting that the components are coupled, and that
+this coupling is not optional.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

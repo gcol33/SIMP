@@ -12,6 +12,16 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Latent Structure and Hierarchy">
+<script>
+// Redirect any case variation of /simp to /SIMP
+(function() {
+  var path = window.location.pathname;
+  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
+    var newPath = path.replace(/^\/simp/i, '/SIMP');
+    window.location.replace(newPath + window.location.search + window.location.hash);
+  }
+})();
+</script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -93,10 +103,10 @@ capacity of a species to occupy space under the conditions present at
 that location.</p>
 <p>This distinction matters. The ecological quantity of interest (call
 it suitability, intensity, or potential) is not inherently bounded
-between zero and one. It is not inherently compositional. It does not
-sum to one across species because ecology demands it. These constraints
-arise from the act of measurement: we observe cover within a finite
-plot, so the observed values must partition that plot.</p>
+between zero and one. Not inherently compositional. It does not sum to
+one across species because ecology demands it. These constraints arise
+from the act of measurement: we observe cover within a finite plot, so
+the observed values must partition that plot.</p>
 <p>The previous chapters established that constraints, dependence, and
 zeros are unavoidable features of observed cover data. This chapter
 argues that these features belong to the observation process, not to the
@@ -124,10 +134,10 @@ distributions cannot represent exact zeros. Attempting to build a model
 that does everything at the observation level leads to either: (a) a
 model that violates the constraints, (b) a model that cannot represent
 zeros, or (c) a model with an impoverished dependence structure.</p>
-<p>The problem is that we are asking one layer to do too much. The
-simplex constraint, the zero structure, and the ecological variation are
-distinct phenomena. Collapsing them into a single distributional choice
-forces compromises that distort what the model represents.</p>
+<p>We are asking one layer to do too much. The simplex constraint, the
+zero structure, and the ecological variation are distinct phenomena.
+Collapsing them into a single distributional choice forces compromises
+that distort what the model represents.</p>
 </div>
 <div class="section level2">
 <h2 id="what-latent-variables-accomplish">What latent variables accomplish<a class="anchor" aria-label="anchor" href="#what-latent-variables-accomplish"></a>
@@ -145,15 +155,15 @@ in later chapters. What matters here is the structural role: this latent
 quantity represents the species’ tendency to occupy space under the
 conditions present, before the observation process imposes
 constraints.</p>
-<p>The latent values are not bounded. They are not required to sum to
-anything across species. They can be modelled with familiar tools:
-Gaussian distributions, linear predictors, covariance structures that
-encode ecological similarity or spatial proximity.</p>
+<p>The latent values are not bounded. Not required to sum to anything
+across species. They can be modelled with familiar tools: Gaussian
+distributions, linear predictors, covariance structures that encode
+ecological similarity or spatial proximity.</p>
 <p>The observed cover proportions are then generated from these latent
 intensities through a mapping that imposes the simplex constraint and
 determines presence or absence. The constraints that seemed burdensome
-at the observation level become natural consequences of the mapping.
-They are not forced onto the model; they emerge from structure.</p>
+at the observation level become natural consequences of the mapping. Not
+forced onto the model; they emerge from structure.</p>
 <p>This separation clarifies what each part of the model represents:</p>
 <ul>
 <li>
@@ -185,15 +195,14 @@ p(\text{data}, \text{latent}) = p(\text{data} \mid \text{latent}) \times p(\text
 <p>The first term,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">data</mtext><mo>∣</mo><mtext mathvariant="normal">latent</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(\text{data} \mid \text{latent})</annotation></semantics></math>,
 is the observation model. It describes how latent intensities become
-observed proportions. This is where the simplex constraint lives. This
-is where zeros are generated. This is where the compositional structure
-is imposed.</p>
+observed proportions. Where the simplex constraint lives. Where zeros
+are generated. Where compositional structure is imposed.</p>
 <p>The second term,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">latent</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(\text{latent})</annotation></semantics></math>,
 is the process model. It describes how latent intensities vary across
-species, plots, and conditions. This is where ecological covariance
-belongs. This is where environmental predictors enter. This is where
-species-level parameters are specified.</p>
+species, plots, and conditions. Where ecological covariance belongs.
+Where environmental predictors enter. Where species-level parameters are
+specified.</p>
 <p>The factorisation reflects the structure of the problem. Observed
 cover data are conditionally independent given the latent intensities:
 once we know the underlying ecological state, the observation process is
@@ -217,11 +226,11 @@ of space does it occupy?</p>
 allocation given presence) respects the compositional constraint while
 placing probability mass exactly at zero. The zeros are outcomes of a
 discrete process that operates on latent quantities.</p>
-<p>Importantly, presence and allocation are not modelled independently
-across species. The latent intensities are correlated. The presence
-indicators depend on these correlated intensities. The allocation among
-present species is constrained to sum to one minus the absent species’
-share. The hierarchy couples these components without forcing a single
+<p>Presence and allocation are not modelled independently across
+species. The latent intensities are correlated. The presence indicators
+depend on these correlated intensities. The allocation among present
+species is constrained to sum to one minus the absent species’ share.
+The hierarchy couples these components without forcing a single
 distribution to represent everything.</p>
 </div>
 <div class="section level2">
@@ -235,13 +244,12 @@ these facts find their proper place.</p>
 sources:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Latent covariance</strong>: Species with similar
-ecological requirements will have correlated latent intensities. This is
-the ecological part of dependence—the part we want to learn
-about.</p></li>
+ecological requirements will have correlated latent intensities. The
+ecological part of dependence, the part we want to learn about.</p></li>
 <li><p><strong>Constraint-induced dependence</strong>: Even if latent
 intensities were independent, observed proportions would be dependent
-because they must sum to one. This is the geometric part—the part that
-is structurally guaranteed.</p></li>
+because they must sum to one. The geometric part, structurally
+guaranteed.</p></li>
 </ol>
 <p>Direct modelling of observed proportions conflates these sources. The
 Dirichlet imposes a specific mixture of geometric and ecological
@@ -274,9 +282,9 @@ the observation layer.</li>
 latent intensities to proportions) while the process model carries the
 ecological complexity.</li>
 </ul>
-<p>This is a statement about how the world works: observations are
-conditionally independent because the data-generating process goes
-through latent ecological states.</p>
+<p>A statement about how the world works: observations are conditionally
+independent because the data-generating process goes through latent
+ecological states.</p>
 </div>
 <div class="section level2">
 <h2 id="what-hierarchy-does-not-do">What hierarchy does not do<a class="anchor" aria-label="anchor" href="#what-hierarchy-does-not-do"></a>
@@ -304,10 +312,9 @@ cannot tell us, the model cannot recover, regardless of how it is
 parameterised. The role of structural assumptions and priors is to
 provide coherent behaviour in weakly identified regions, not to
 fabricate information.</p>
-<p>This is a feature, not a bug. A model that obscures identifiability
-problems is harder to diagnose than one that exposes them. Hierarchical
-structure exposes them by separating what is observed from what is
-inferred.</p>
+<p>A feature, not a bug. A model that obscures identifiability problems
+is harder to diagnose than one that exposes them. Hierarchical structure
+exposes them by separating what is observed from what is inferred.</p>
 </div>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
@@ -317,8 +324,8 @@ observation, not of the underlying ecological process. Modelling
 observations directly requires a single distributional family to
 represent all of these features simultaneously. No such family exists
 that is admissible and flexible.</p>
-<p>The alternative is to separate process from observation through
-latent structure. Latent intensities carry ecological variation in an
+<p>The alternative: separate process from observation through latent
+structure. Latent intensities carry ecological variation in an
 unconstrained space. The observation model maps these intensities to
 constrained proportions, imposing the simplex structure and generating
 zeros through a discrete mechanism.</p>

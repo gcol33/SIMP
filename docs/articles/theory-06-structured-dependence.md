@@ -2,44 +2,42 @@
 
 ## Dependence as a property of process
 
-Ecological quantities vary in structured ways. Plots that are close in
-space tend to have similar environmental conditions. Sites that share a
-habitat type tend to support similar species. Samples taken at nearby
-times tend to reflect similar community states. This structure is
-information about how the underlying process operates.
+Ecological quantities vary in structured ways. Plots close in space tend
+to have similar environmental conditions. Sites that share a habitat
+type tend to support similar species. Samples taken at nearby times tend
+to reflect similar community states. This structure is information about
+how the underlying process operates.
 
 The previous chapters established that cover data live on a constrained
 space and that modelling them requires latent structure. This chapter
 addresses a further question: where does dependence among observations
 belong?
 
-The answer is that dependence belongs at the latent level. It is a
-property of the ecological process, not of the constrained observations.
-Imposing dependence directly on observed proportions is conceptually
-incoherent.
+The answer: dependence belongs at the latent level. A property of the
+ecological process, not of the constrained observations. Imposing
+dependence directly on observed proportions is conceptually incoherent.
 
 ## Why dependence cannot live at the observation level
 
-Consider two plots, $`i`$ and $`j`$, that are close in space. We expect
-their vegetation to be similar. What does “similar” mean for
-compositional data?
+Consider two plots, $`i`$ and $`j`$, close in space. We expect their
+vegetation to be similar. What does “similar” mean for compositional
+data?
 
 If we attempt to specify dependence directly on observed cover
 proportions, we encounter the constraints established in earlier
 chapters. The observations lie on the simplex. A model that specifies
 correlation among observed proportions must ensure that the resulting
-joint distribution places mass only on pairs of valid compositions. This
-is difficult. Standard multivariate distributions that encode
-correlation (such as the multivariate normal) are defined on
-unconstrained spaces. Applying them to simplex-valued data requires
-either transformations (which fail at zeros, as Chapter 3 established)
-or specialised distributions with restricted dependence structures.
+joint distribution places mass only on pairs of valid compositions.
+Difficult. Standard multivariate distributions that encode correlation
+(such as the multivariate normal) are defined on unconstrained spaces.
+Applying them to simplex-valued data requires either transformations
+(which fail at zeros, as Chapter 3 established) or specialised
+distributions with restricted dependence structures.
 
-The Dirichlet distribution, for instance, does not admit a
-straightforward extension to spatial dependence. Its parameters control
-the marginal distribution of a single composition. There is no natural
-mechanism to specify that two compositions should be correlated because
-their plots are nearby.
+The Dirichlet distribution does not admit a straightforward extension to
+spatial dependence. Its parameters control the marginal distribution of
+a single composition. No natural mechanism to specify that two
+compositions should be correlated because their plots are nearby.
 
 The logistic-normal fares somewhat better in principle: one could
 imagine correlating the log-ratios across plots. But this requires all
@@ -49,17 +47,17 @@ compositions with highly correlated log-ratios may or may not have
 similar proportions, depending on how the normalisation interacts with
 the correlation.
 
-These are not technical obstacles. They reflect a deeper problem:
-dependence among constrained observations is not a well-defined notion
-without specifying what aspect of the observation is dependent on what
-aspect of its neighbour. The simplex does not have a natural inner
-product or distance that makes “correlation” unambiguous.
+Not technical obstacles. They reflect a deeper problem: dependence among
+constrained observations is not well-defined without specifying what
+aspect of the observation is dependent on what aspect of its neighbour.
+The simplex does not have a natural inner product or distance that makes
+“correlation” unambiguous.
 
 ## Latent dependence propagates naturally
 
-The alternative is to place dependence at the latent level. Latent
-values are unconstrained. They live in ordinary Euclidean space, where
-dependence is well-defined and familiar tools apply.
+The alternative: place dependence at the latent level. Latent values are
+unconstrained. They live in ordinary Euclidean space, where dependence
+is well-defined and familiar tools apply.
 
 If the latent value at plot $`i`$ is similar to the latent value at plot
 $`j`$, this similarity propagates through the observation model. Similar
@@ -84,27 +82,27 @@ structure manifests in the data.
 
 ## What structured dependence assumes
 
-Specifying dependence among latent values introduces assumptions. These
-assumptions are substantive. They encode beliefs about how the
-ecological process operates.
+Specifying dependence among latent values introduces assumptions.
+Substantive assumptions. They encode beliefs about how the ecological
+process operates.
 
 **Smoothness or continuity.** If latent values at nearby locations are
-similar, the process is assumed to vary smoothly over space. This is a
-claim about ecology: that environmental gradients are continuous, that
+similar, the process is assumed to vary smoothly over space. A claim
+about ecology: that environmental gradients are continuous, that
 dispersal connects nearby sites, or that unmeasured factors vary
 gradually. Smoothness is not always appropriate. Discontinuities (edges,
 boundaries, abrupt transitions) may require different structure.
 
 **Similarity by grouping.** If latent values within a group (habitat
 type, experimental block, time period) are similar, the process is
-assumed to have group-level structure. This is a claim about hierarchy:
-that some variation is shared within groups and some is specific to
+assumed to have group-level structure. A claim about hierarchy: that
+some variation is shared within groups and some is specific to
 individual units.
 
 **Network or graph structure.** If latent values are similar for units
 connected in a network, the process is assumed to reflect network
-topology. This is a claim about connectivity: that dispersal pathways,
-trophic links, or human movement patterns shape ecological similarity.
+topology. A claim about connectivity: that dispersal pathways, trophic
+links, or human movement patterns shape ecological similarity.
 
 Each of these structures imposes a pattern on how latent values covary.
 None is automatically correct. The choice of structure should reflect
@@ -118,9 +116,9 @@ the form of that representation encodes ecological assumptions.
 ## Independence as a limiting case
 
 The simplest dependence structure is independence: latent values at
-different units are unrelated. This is also an assumption, not a
-default. It claims that knowing the latent state at one plot tells us
-nothing about the latent state at another.
+different units are unrelated. Also an assumption, not a default. Claims
+that knowing the latent state at one plot tells us nothing about the
+latent state at another.
 
 Independence may be appropriate when units are genuinely unconnected
 (widely separated in space, sampled from distinct populations, or
@@ -129,11 +127,11 @@ dependence: as the range of spatial correlation shrinks to zero, or as
 group effects vanish, structured models reduce to independent ones.
 
 If the process is structured and the model assumes independence, the
-model is misspecified. The consequences may include biased estimates,
+model is misspecified. Consequences may include biased estimates,
 overconfident uncertainty quantification, and failure to borrow strength
-across related observations. However, whether this misspecification
-matters depends on the scientific question and the magnitude of the
-ignored dependence.
+across related observations. Whether this misspecification matters
+depends on the scientific question and the magnitude of the ignored
+dependence.
 
 The hierarchical framework of Chapter 5 accommodates both independence
 and structured dependence. The structure of the latent layer (whether
@@ -155,7 +153,7 @@ in the observation model. The resulting dependence among observed values
 is complex and not directly parameterised.
 
 The observable dependence among cover proportions is not a parameter to
-be specified. It is an outcome of the model, a consequence of latent
+be specified. An outcome of the model, a consequence of latent
 structure, constraint geometry, and the observation process. Inference
 targets the latent dependence, which has ecological meaning. The
 observed dependence is derived, not primitive.
