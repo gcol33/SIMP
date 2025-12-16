@@ -11,13 +11,12 @@ $`\mathbb{R}^K`$.
 
 Any probability model for cover data must assign probability only to
 points in this space. A distribution that places positive mass outside
-$`\mathcal{S}^{K-1}`$—on negative values, on values exceeding one, or on
-vectors that do not sum to one—is not an approximate or convenient
-model. It is an invalid model. It describes a quantity other than the
-one measured.
+$`\mathcal{S}^{K-1}`$ (on negative values, on values exceeding one, or
+on vectors that do not sum to one) is an invalid model. It describes a
+quantity other than the one measured.
 
-This requirement is not a preference. It is a constraint that must be
-satisfied before any other modelling consideration.
+This constraint must be satisfied before any other modelling
+consideration.
 
 ## What admissibility requires
 
@@ -106,11 +105,10 @@ $`\mathcal{S}^{K-1}_\circ = \{\mathbf{y} : y_k > 0 \text{ for all } k\}`$.
 It assigns zero probability to the boundary—to any composition where at
 least one component is exactly zero.
 
-This is a serious limitation for cover data. Structural zeros are not
-rare edge cases; they are often the majority of observations. A model
-that assigns zero probability to exact zeros cannot represent the
-data-generating process. It treats a central feature of the data as
-impossible.
+This is a serious limitation for cover data. Structural zeros are often
+the majority of observations. A model that assigns zero probability to
+exact zeros cannot represent the data-generating process. It treats a
+central feature of the data as impossible.
 
 Within its domain, the logistic-normal permits more flexible covariance
 structures than the Dirichlet. The matrix $`\boldsymbol{\Sigma}`$ can
@@ -136,7 +134,7 @@ two grounds.
 
 First, all log-ratio transformations are undefined at zero. A
 composition with any $`y_k = 0`$ cannot be transformed. The standard
-remedy—adding a small constant before transformation—changes the data.
+remedy (adding a small constant before transformation) changes the data.
 The resulting analysis is not an analysis of the observed composition
 but of a perturbed version of it. The perturbation is arbitrary, and
 results can depend on the constant chosen.
@@ -160,8 +158,8 @@ admissible, but what their covariance structures can look like.
 Any random vector $`\mathbf{y}`$ on $`\mathcal{S}^{K-1}`$ must satisfy
 $`\sum_k y_k = 1`$ with probability one. This implies that the
 covariance matrix $`\text{Cov}(\mathbf{y})`$ is singular: it has rank at
-most $`K-1`$. The rows and columns sum to zero. This is not a property
-of specific distributions; it is forced by the constraint.
+most $`K-1`$. The rows and columns sum to zero. The constraint forces
+this property; it does not arise from specific distributional choices.
 
 Furthermore, not all covariance matrices with this structure are
 achievable. The matrix must be consistent with the non-negativity
@@ -198,7 +196,7 @@ components are coupled, whether some pairs are more dependent than
 others, and how dependence changes across the simplex.
 
 **Behaviour near boundaries.** Models differ in how they treat
-compositions close to the simplex boundary—where one or more components
+compositions close to the simplex boundary, where one or more components
 are near zero or near one. Some concentrate mass in the interior; others
 allow mass to accumulate near edges or vertices.
 
@@ -219,8 +217,8 @@ problem for any continuous distribution on the simplex. The Dirichlet
 can place mass near zero but not exactly at zero when
 $`\alpha_k \geq 1`$; it can place mass at zero only in a limiting sense
 when $`\alpha_k < 1`$. The logistic-normal excludes zeros entirely.
-Neither family, as stated, provides a complete model for compositions
-with structural zeros.
+Neither family provides a complete model for compositions with
+structural zeros.
 
 This is not a minor gap. It is a fundamental limitation that any
 complete framework must address.
@@ -228,8 +226,7 @@ complete framework must address.
 ## Summary
 
 The requirement that probability models respect the simplex geometry is
-not a technical nicety. It is a hard constraint that eliminates most
-familiar modelling options.
+a hard constraint that eliminates most familiar modelling options.
 
 Gaussian models on raw or transformed compositions are inadmissible.
 They place probability outside the feasible space.
@@ -246,5 +243,4 @@ zero probability to compositions with zeros.
 Any valid model for cover data must be defined on the simplex, assign
 probability only to feasible compositions, and handle structural zeros
 without requiring data modification. The space of such models is small.
-This is not a limitation to be regretted. It is a clarification of what
-honest modelling requires.
+This clarifies what honest modelling requires.

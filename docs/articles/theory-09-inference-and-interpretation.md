@@ -4,21 +4,20 @@
 
 The previous chapters established that SIMP operates through latent
 structure. Ecological variation lives in an unconstrained latent space.
-Observations are constrained projections of that space—compositions on
+Observations are constrained projections of that space: compositions on
 the simplex, with exact zeros determined by a discrete presence
 mechanism.
 
 This architecture determines what inference can target. The primary
 objects of inference are the latent quantities: the intensities,
 suitabilities, or tendencies that represent each species’ capacity to
-occupy space under given conditions. These quantities are not directly
-observed. They are inferred from constrained data through the
-observation model.
+occupy space under given conditions. These quantities are inferred from
+constrained data through the observation model.
 
 Inference about latent quantities is indirect. The data constrain latent
 values through the likelihood, but the constraint is mediated by the
 observation model’s structure. What we learn about latent values depends
-on how they map to observations—which transformations are applied, how
+on how they map to observations: which transformations are applied, how
 presence is determined, how cover is allocated among present species.
 
 This indirection is not a limitation to be overcome. It is the structure
@@ -60,7 +59,7 @@ latent values in constrained models, these summaries can be misleading.
 
 **Means on the simplex are not compositions.** Consider a posterior
 distribution over compositions. Each posterior sample is a valid
-composition—non-negative, summing to one. But the mean of these samples
+composition (non-negative, summing to one). The mean of these samples
 may not represent a typical composition. If the posterior is
 concentrated near the boundary (some components near zero), the mean
 will pull toward the interior, averaging over configurations that place
@@ -82,10 +81,10 @@ negative correlation between two species may reflect competition, or it
 may reflect the constraint, or both. Separating these contributions
 requires careful thought about what the latent model assumes.
 
-These issues are not unique to SIMP. They apply to any inference on
-constrained spaces. The appropriate response is to report joint
-summaries where possible, to interpret marginal summaries cautiously,
-and to be explicit about what the summaries represent.
+These issues apply to any inference on constrained spaces. The
+appropriate response is to report joint summaries where possible, to
+interpret marginal summaries cautiously, and to be explicit about what
+the summaries represent.
 
 ## How constraints distort familiar quantities
 
@@ -95,10 +94,10 @@ they do not account for how boundaries reshape distributions.
 
 **Means near boundaries.** On the simplex, the mean of a distribution
 may fall in a region of low probability. If a component’s posterior
-concentrates near zero—reflecting likely absence—the mean will be pulled
-away from zero by the rare samples where the species is present with
-substantial cover. The mean may suggest moderate presence when the mode
-is at or near zero. Reporting means without acknowledging this
+concentrates near zero (reflecting likely absence) the mean will be
+pulled away from zero by the rare samples where the species is present
+with substantial cover. The mean may suggest moderate presence when the
+mode is at or near zero. Reporting means without acknowledging this
 distortion misrepresents the inference.
 
 **Bounded variance.** A component with mean close to zero cannot have
@@ -110,10 +109,10 @@ constraint-induced limits with genuine differences in uncertainty.
 
 **Asymmetric intervals.** Credible intervals near boundaries are
 necessarily asymmetric. A species with posterior mean 0.03 cannot have a
-symmetric 95% interval; it would extend below zero. The asymmetry is not
-a feature of the estimation method—it is forced by the constraint.
-Symmetric intervals, if reported, are either wrong or have been computed
-on a transformed scale where symmetry is artificial.
+symmetric 95% interval; it would extend below zero. The constraint
+forces this asymmetry. Symmetric intervals, if reported, are either
+wrong or have been computed on a transformed scale where symmetry is
+artificial.
 
 **Correlations that sum to a fixed total.** The covariance matrix of any
 distribution on the simplex has rows and columns that sum to zero. This
@@ -135,14 +134,13 @@ observations.
 **Latent uncertainty** reflects what the data do not determine about the
 ecological process. It is shaped by the likelihood (how much the data
 constrain latent values), the prior (what is assumed in the absence of
-data), and the dependence structure (how information is borrowed across
-units).
+data), and the dependence structure (how information is borrowed).
 
 **Observation-level uncertainty** reflects the additional variability
 introduced by the mapping from latent values to observations. Even if
 latent values were known exactly, observations would still vary due to
-the stochastic elements of the observation model—the presence mechanism,
-the allocation process.
+the stochastic elements of the observation model (the presence
+mechanism, the allocation process).
 
 These sources combine in the posterior predictive distribution: the
 distribution of new observations given the observed data and the model.
@@ -163,14 +161,14 @@ principle:
 
 **Relative latent values among present species.** When species co-occur,
 their cover allocation provides information about their relative latent
-values. Higher cover implies higher relative latent value, given the
+values. Higher cover implies higher relative latent value given the
 allocation mechanism.
 
 **Covariate effects on latent values.** If covariates are included in
 the latent model, their effects are estimable to the extent that
 covariates vary across units and species respond to that variation. The
-effects describe how latent values change with covariates, not how
-observed cover changes—the latter depends on the full community context.
+effects describe how latent values change with covariates; how observed
+cover changes depends on the full community context.
 
 **Overall patterns of presence.** The presence model, driven by latent
 values and possibly additional structure, determines which species occur
@@ -178,8 +176,8 @@ where. Patterns of presence across species and plots are estimable,
 subject to the identifiability limitations discussed in Chapter 8.
 
 **Dependence structure at the latent level.** If structured dependence
-is specified, the parameters controlling that structure—spatial range,
-group-level variance, factor loadings—are estimable to varying degrees.
+is specified, the parameters controlling that structure (spatial range,
+group-level variance, factor loadings) are estimable to varying degrees.
 The estimates reflect the assumed form of dependence; they cannot
 validate it.
 
@@ -216,8 +214,8 @@ more than evidence.
 ## Joint versus marginal inference
 
 The simplex constraint means that valid inference is inherently joint.
-Marginal inference—considering one species at a time—discards structure
-that the constraint imposes.
+Marginal inference (considering one species at a time) discards
+structure that the constraint imposes.
 
 Consider predicting the cover of species A at a new plot. A marginal
 prediction would integrate over uncertainty in species A’s latent value
@@ -231,15 +229,15 @@ present, allocating cover among them, and recording species A’s share.
 The resulting distribution for species A’s cover accounts for
 competition, presence uncertainty, and the constraint.
 
-The difference matters most when species are interdependent—when
+The difference matters most when species are interdependent, when
 presence of one affects presence or allocation of others. In such cases,
 marginal predictions can be systematically biased, assigning probability
 to cover values that are unlikely given the community context.
 
-This does not mean marginal summaries are useless. For some
-purposes—broad patterns, rough comparisons—they may suffice. But users
-should understand that marginal summaries are simplifications of joint
-structure, and that the simplification may distort interpretation.
+For some purposes (broad patterns, rough comparisons) marginal summaries
+may suffice. Users should understand that marginal summaries are
+simplifications of joint structure, and that the simplification may
+distort interpretation.
 
 ## Causal interpretation and its limits
 
@@ -257,7 +255,7 @@ where moisture and the species happen to co-vary geographically.
 
 The model does not distinguish among these. The estimated association is
 descriptive, not causal. Interpreting it causally requires assumptions
-external to the model—assumptions about the data-generating process,
+external to the model: assumptions about the data-generating process,
 temporal ordering, absence of confounders.
 
 This limitation is not specific to constrained data or hierarchical
@@ -324,9 +322,8 @@ earned.
 ## Interpretation as discipline
 
 Interpreting results from SIMP requires discipline. The framework
-produces estimates, intervals, and predictions. These outputs are
-numerical. Their meaning depends on understanding what the model
-represents and what it assumes.
+produces estimates, intervals, and predictions. Their meaning depends on
+understanding what the model represents and what it assumes.
 
 A user who reports posterior means without acknowledging
 constraint-induced coupling has misrepresented the inference. A user who
@@ -341,10 +338,10 @@ user to match interpretation to the model’s capabilities.
 
 ## Summary
 
-Inference in SIMP targets latent quantities—the ecological intensities
-or suitabilities that underlie observed cover. These quantities are not
-directly observed; they are inferred through a constrained observation
-model that imposes the simplex structure and generates zeros.
+Inference in SIMP targets latent quantities: the ecological intensities
+or suitabilities that underlie observed cover. These quantities are
+inferred through a constrained observation model that imposes the
+simplex structure and generates zeros.
 
 This architecture shapes what can be learned. Relative latent values
 among present species are well-constrained. Absolute values are anchored
@@ -353,10 +350,10 @@ their translation to effects on cover depends on community context.
 Presence and allocation effects are confounded when they share
 covariates.
 
-Marginal summaries—means, variances, intervals for single components—can
-mislead because they discard the coupling imposed by constraints. Joint
-inference is the coherent target; marginal summaries are simplifications
-that should be interpreted cautiously.
+Marginal summaries (means, variances, intervals for single components)
+can mislead because they discard the coupling imposed by constraints.
+Joint inference is the coherent target; marginal summaries are
+simplifications that should be interpreted cautiously.
 
 Causal interpretation is not supported by the framework itself.
 Associations are descriptive. Translating them to causal claims requires

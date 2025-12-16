@@ -2,14 +2,14 @@
 
 ## The gap between process and observation
 
-Vegetation cover as recorded in a plot is not the same thing as the
-ecological process that generates it. The recorded value is a
-constrained, discretised, and bounded summary of something more
-fundamental: the capacity of a species to occupy space under the
-conditions present at that location.
+Vegetation cover as recorded in a plot differs from the ecological
+process that generates it. The recorded value is a constrained,
+discretised, and bounded summary of something more fundamental: the
+capacity of a species to occupy space under the conditions present at
+that location.
 
-This distinction matters. The ecological quantity of interest—call it
-suitability, intensity, or potential—is not inherently bounded between
+This distinction matters. The ecological quantity of interest (call it
+suitability, intensity, or potential) is not inherently bounded between
 zero and one. It is not inherently compositional. It does not sum to one
 across species because ecology demands it. These constraints arise from
 the act of measurement: we observe cover within a finite plot, so the
@@ -42,8 +42,7 @@ that does everything at the observation level leads to either: (a) a
 model that violates the constraints, (b) a model that cannot represent
 zeros, or (c) a model with an impoverished dependence structure.
 
-The problem is not that we lack sufficiently flexible distributions. The
-problem is that we are asking one layer to do too much. The simplex
+The problem is that we are asking one layer to do too much. The simplex
 constraint, the zero structure, and the ecological variation are
 distinct phenomena. Collapsing them into a single distributional choice
 forces compromises that distort what the model represents.
@@ -56,8 +55,8 @@ variables serve a specific structural role: they carry ecological
 variation in an unconstrained space, before the observation process
 imposes constraints.
 
-Consider a latent quantity for each species $`k`$ at each plot—call it
-an intensity, a suitability, or simply a latent value. The exact
+Consider a latent quantity for each species $`k`$ at each plot (call it
+an intensity, a suitability, or simply a latent value). The exact
 parameterisation and interpretation will be specified in later chapters.
 What matters here is the structural role: this latent quantity
 represents the species’ tendency to occupy space under the conditions
@@ -90,7 +89,7 @@ structure is where ecological inference happens.
 ## Hierarchy as logical necessity
 
 The term “hierarchical model” sometimes suggests an optional
-elaboration—a way to add complexity when simpler models fail. For
+elaboration, a way to add complexity when simpler models fail. For
 constrained intensity data, this framing is backwards. Hierarchy is not
 added to a simpler model. It is what remains when we refuse to conflate
 distinct sources of variation.
@@ -114,12 +113,11 @@ conditions. This is where ecological covariance belongs. This is where
 environmental predictors enter. This is where species-level parameters
 are specified.
 
-The factorisation is not a modelling convenience. It reflects the
-structure of the problem. Observed cover data are conditionally
-independent given the latent intensities: once we know the underlying
-ecological state, the observation process is determined. The dependence
-among observations arises from shared latent structure, not from direct
-connections among observed values.
+The factorisation reflects the structure of the problem. Observed cover
+data are conditionally independent given the latent intensities: once we
+know the underlying ecological state, the observation process is
+determined. The dependence among observations arises from shared latent
+structure, not from direct connections among observed values.
 
 ## Zeros revisited
 
@@ -133,11 +131,10 @@ includes a presence indicator: given the latent intensity, is the
 species present in this plot? If yes, what proportion of space does it
 occupy?
 
-This two-stage structure—presence given latent intensity, then
-allocation given presence—respects the compositional constraint while
-placing probability mass exactly at zero. The zeros are not
-approximations. They are outcomes of a discrete process that operates on
-latent quantities.
+This two-stage structure (presence given latent intensity, then
+allocation given presence) respects the compositional constraint while
+placing probability mass exactly at zero. The zeros are outcomes of a
+discrete process that operates on latent quantities.
 
 Importantly, presence and allocation are not modelled independently
 across species. The latent intensities are correlated. The presence
@@ -165,9 +162,9 @@ The observed dependence among cover proportions arises from two sources:
     structurally guaranteed.
 
 Direct modelling of observed proportions conflates these sources. The
-Dirichlet, for instance, imposes a specific mixture of geometric and
-ecological dependence that cannot be disentangled. The logistic-normal
-allows more flexible dependence but only among present species.
+Dirichlet imposes a specific mixture of geometric and ecological
+dependence that cannot be disentangled. The logistic-normal allows more
+flexible dependence but only among present species.
 
 In a hierarchical model, the sources are separated. Latent covariance
 encodes ecological dependence. The observation model encodes geometric
@@ -182,10 +179,10 @@ Given the latent intensities, the observed cover values are generated
 through a process that does not require further connections among plots
 or among species beyond what the latent layer provides.
 
-This does not mean observations are independent. It means their
-dependence is mediated. Two plots with similar observed cover have
-similar observations because they have similar latent structure, not
-because one plot’s cover directly influences another’s.
+Observations are not independent; their dependence is mediated. Two
+plots with similar observed cover have similar observations because they
+have similar latent structure, not because one plot’s cover directly
+influences another’s.
 
 Conditional independence has practical implications:
 
@@ -193,14 +190,13 @@ Conditional independence has practical implications:
   observations given their latent values.
 - Complex dependence structures are built into the latent layer, not the
   observation layer.
-- The observation model can be relatively simple—a mapping from latent
-  intensities to proportions—while the process model carries the
+- The observation model can be relatively simple (a mapping from latent
+  intensities to proportions) while the process model carries the
   ecological complexity.
 
-This is not a simplification for computational convenience. It is a
-statement about how the world works: observations are conditionally
-independent because the data-generating process goes through latent
-ecological states.
+This is a statement about how the world works: observations are
+conditionally independent because the data-generating process goes
+through latent ecological states.
 
 ## What hierarchy does not do
 
@@ -226,7 +222,7 @@ A hierarchical view does not eliminate these limitations. It makes them
 explicit. The latent layer is partly identified by the data (through
 observed presences and cover values) and partly regularised by structure
 (through the process model and any priors). What the data cannot tell
-us, the model cannot recover—regardless of how it is parameterised. The
+us, the model cannot recover, regardless of how it is parameterised. The
 role of structural assumptions and priors is to provide coherent
 behaviour in weakly identified regions, not to fabricate information.
 
@@ -241,7 +237,7 @@ The constraints, dependence, and zeros of cover data are features of
 observation, not of the underlying ecological process. Modelling
 observations directly requires a single distributional family to
 represent all of these features simultaneously. No such family exists
-that is both admissible and flexible.
+that is admissible and flexible.
 
 The alternative is to separate process from observation through latent
 structure. Latent intensities carry ecological variation in an

@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,12 +105,12 @@ simplex embedded in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mi>K</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^K</annotation></semantics></math>.</p>
 <p>Any probability model for cover data must assign probability only to
 points in this space. A distribution that places positive mass outside
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\mathcal{S}^{K-1}</annotation></semantics></math>—on
-negative values, on values exceeding one, or on vectors that do not sum
-to one—is not an approximate or convenient model. It is an invalid
-model. It describes a quantity other than the one measured.</p>
-<p>This requirement is not a preference. It is a constraint that must be
-satisfied before any other modelling consideration.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\mathcal{S}^{K-1}</annotation></semantics></math>
+(on negative values, on values exceeding one, or on vectors that do not
+sum to one) is an invalid model. It describes a quantity other than the
+one measured.</p>
+<p>This constraint must be satisfied before any other modelling
+consideration.</p>
 </div>
 <div class="section level2">
 <h2 id="what-admissibility-requires">What admissibility requires<a class="anchor" aria-label="anchor" href="#what-admissibility-requires"></a>
@@ -214,11 +214,10 @@ proper distribution on the interior of the simplex,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>𝒮</mi><mo>∘</mo><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>𝐲</mi><mo>:</mo><msub><mi>y</mi><mi>k</mi></msub><mo>&gt;</mo><mn>0</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for all </mtext><mspace width="0.333em"></mspace></mrow><mi>k</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal{S}^{K-1}_\circ = \{\mathbf{y} : y_k &gt; 0 \text{ for all } k\}</annotation></semantics></math>.
 It assigns zero probability to the boundary—to any composition where at
 least one component is exactly zero.</p>
-<p>This is a serious limitation for cover data. Structural zeros are not
-rare edge cases; they are often the majority of observations. A model
-that assigns zero probability to exact zeros cannot represent the
-data-generating process. It treats a central feature of the data as
-impossible.</p>
+<p>This is a serious limitation for cover data. Structural zeros are
+often the majority of observations. A model that assigns zero
+probability to exact zeros cannot represent the data-generating process.
+It treats a central feature of the data as impossible.</p>
 <p>Within its domain, the logistic-normal permits more flexible
 covariance structures than the Dirichlet. The matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\boldsymbol{\Sigma}</annotation></semantics></math>
@@ -243,11 +242,11 @@ on two grounds.</p>
 <p>First, all log-ratio transformations are undefined at zero. A
 composition with any
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k = 0</annotation></semantics></math>
-cannot be transformed. The standard remedy—adding a small constant
-before transformation—changes the data. The resulting analysis is not an
-analysis of the observed composition but of a perturbed version of it.
-The perturbation is arbitrary, and results can depend on the constant
-chosen.</p>
+cannot be transformed. The standard remedy (adding a small constant
+before transformation) changes the data. The resulting analysis is not
+an analysis of the observed composition but of a perturbed version of
+it. The perturbation is arbitrary, and results can depend on the
+constant chosen.</p>
 <p>Second, fitting a Gaussian model to transformed compositions and
 back-transforming does not yield a valid distribution on the simplex.
 The Gaussian places positive probability on the entire real line.
@@ -273,8 +272,8 @@ with probability one. This implies that the covariance matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Cov</mtext><mo stretchy="false" form="prefix">(</mo><mi>𝐲</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\text{Cov}(\mathbf{y})</annotation></semantics></math>
 is singular: it has rank at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K-1</annotation></semantics></math>.
-The rows and columns sum to zero. This is not a property of specific
-distributions; it is forced by the constraint.</p>
+The rows and columns sum to zero. The constraint forces this property;
+it does not arise from specific distributional choices.</p>
 <p>Furthermore, not all covariance matrices with this structure are
 achievable. The matrix must be consistent with the non-negativity
 constraints
@@ -314,7 +313,7 @@ Different admissible models encode different assumptions about how
 tightly components are coupled, whether some pairs are more dependent
 than others, and how dependence changes across the simplex.</p>
 <p><strong>Behaviour near boundaries.</strong> Models differ in how they
-treat compositions close to the simplex boundary—where one or more
+treat compositions close to the simplex boundary, where one or more
 components are near zero or near one. Some concentrate mass in the
 interior; others allow mass to accumulate near edges or vertices.</p>
 <p>These are modelling choices, not forced by geometry. But they are
@@ -335,8 +334,8 @@ can place mass near zero but not exactly at zero when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k \geq 1</annotation></semantics></math>;
 it can place mass at zero only in a limiting sense when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k &lt; 1</annotation></semantics></math>.
-The logistic-normal excludes zeros entirely. Neither family, as stated,
-provides a complete model for compositions with structural zeros.</p>
+The logistic-normal excludes zeros entirely. Neither family provides a
+complete model for compositions with structural zeros.</p>
 <p>This is not a minor gap. It is a fundamental limitation that any
 complete framework must address.</p>
 </div>
@@ -344,8 +343,8 @@ complete framework must address.</p>
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
 <p>The requirement that probability models respect the simplex geometry
-is not a technical nicety. It is a hard constraint that eliminates most
-familiar modelling options.</p>
+is a hard constraint that eliminates most familiar modelling
+options.</p>
 <p>Gaussian models on raw or transformed compositions are inadmissible.
 They place probability outside the feasible space.</p>
 <p>Log-ratio transformations require modifying data with zeros. The
@@ -358,8 +357,7 @@ zero probability to compositions with zeros.</p>
 <p>Any valid model for cover data must be defined on the simplex, assign
 probability only to feasible compositions, and handle structural zeros
 without requiring data modification. The space of such models is small.
-This is not a limitation to be regretted. It is a clarification of what
-honest modelling requires.</p>
+This clarifies what honest modelling requires.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

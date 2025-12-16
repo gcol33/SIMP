@@ -10,16 +10,16 @@ distinguish between them, regardless of sample size, estimation method,
 or computational resources.
 
 This definition is about information, not estimation. An identifiable
-parameter may still be difficult to estimate—requiring large samples,
-careful priors, or specialised algorithms. An unidentifiable parameter
+parameter may still be difficult to estimate (requiring large samples,
+careful priors, or specialised algorithms). An unidentifiable parameter
 cannot be estimated at all, in any principled sense. No amount of data
 resolves the ambiguity because there is no ambiguity to resolve: the
 likelihood surface is flat in the relevant direction.
 
 In hierarchical models with latent structure, identifiability becomes
 more complex. The parameters of interest include not just fixed effects
-or variance components but the entire latent configuration—the values of
-unobserved quantities at each unit. Some of these quantities may be
+or variance components but the entire latent configuration (the values
+of unobserved quantities at each unit). Some of these quantities may be
 well-identified; others may be weakly constrained; still others may be
 fundamentally underdetermined given the model structure.
 
@@ -33,15 +33,15 @@ not assumed away.
 
 The observation model maps latent values to constrained proportions.
 This mapping involves normalisation: the cover allocated to each present
-species depends on relative latent values, not absolute ones.
+species depends on relative latent values.
 
 Consider a simple case. Suppose two species are present in a plot, with
 latent values $`\lambda_1`$ and $`\lambda_2`$. The cover allocation
-depends on how these values compare—perhaps through a softmax or similar
-transformation. If we shift both values by the same constant, the
-relative comparison is unchanged. If we scale both values by the same
-factor, the relative comparison may also be unchanged, depending on the
-functional form.
+depends on how these values compare (perhaps through a softmax or
+similar transformation). If we shift both values by the same constant,
+the relative comparison is unchanged. If we scale both values by the
+same factor, the relative comparison may also be unchanged, depending on
+the functional form.
 
 This creates a scale ambiguity. The data constrain relative latent
 values but not their absolute level. A configuration where all latent
@@ -75,12 +75,12 @@ observation is censored: we learn that the latent value is in some
 region, but not where within that region.
 
 This creates a fundamental asymmetry. For present species, cover values
-constrain latent values relatively tightly—higher cover implies higher
-relative latent value. For absent species, the constraint is one-sided
+constrain latent values relatively tightly (higher cover implies higher
+relative latent value). For absent species, the constraint is one-sided
 and weak. The latent value could be slightly below the presence
 threshold or far below it; the data do not distinguish.
 
-When zeros dominate—when most species are absent from most plots—most
+When zeros dominate (when most species are absent from most plots) most
 latent values are weakly identified. The full latent configuration has
 high dimension, but the data inform only a small fraction of it. The
 remainder is determined by assumptions: the prior distribution over
@@ -98,7 +98,7 @@ The SIMP framework separates two processes: which species are present,
 and how cover is allocated among present species. Both processes depend
 on latent values. This creates potential for confounding.
 
-Consider a covariate—say, soil moisture—that affects both presence and
+Consider a covariate (say, soil moisture) that affects both presence and
 allocation. Wetter sites may have higher probability of certain species
 being present, and among present species, wetter sites may allocate more
 cover to moisture-loving species. The covariate acts on both stages.
@@ -224,7 +224,7 @@ A natural response to identifiability concerns is to collect more data.
 More plots, more species, more covariates. For some limitations, this
 helps. For others, it does not.
 
-More data helps when the limitation is statistical uncertainty—when the
+More data helps when the limitation is statistical uncertainty, when the
 parameter is identified but estimated imprecisely due to small samples.
 Additional observations tighten confidence intervals and resolve
 ambiguity.
@@ -239,12 +239,12 @@ For SIMP, several limitations are structural:
 - The scale ambiguity is resolved by constraints, not by data.
 - The weak identification of absent species’ latent values is a property
   of censoring, not sample size. Adding more plots where the species is
-  absent does not inform its latent value—only plots where it is present
-  do.
+  absent does not inform its latent value; only plots where it is
+  present do.
 - Confounding between presence and allocation is a property of the
   two-stage structure, not the number of observations.
-- Confounding between dependence and fixed effects depends on the
-  design—how covariates vary in space—not just the number of units.
+- Confounding between dependence and fixed effects depends on the design
+  (how covariates vary in space), not just the number of units.
 
 This does not mean data collection is futile. It means data collection
 should be strategic, targeting the specific identifiability limitations
@@ -258,10 +258,9 @@ determined by assumptions. In Bayesian terms, the posterior reflects the
 prior. In frequentist terms, estimates are determined by constraints or
 regularisation rather than data.
 
-This is not a defect to be eliminated. It is how inference works in
-partially identified models. The honest response is to acknowledge which
-components are informed by data and which by assumptions, and to assess
-sensitivity to those assumptions.
+This is how inference works in partially identified models. The honest
+response is to acknowledge which components are informed by data and
+which by assumptions, and to assess sensitivity to those assumptions.
 
 For SIMP, key assumptions that fill identifiability gaps include:
 
@@ -281,10 +280,10 @@ affects estimates even in data-rich settings.
 form of this mapping affects which latent configurations are consistent
 with observed data.
 
-These assumptions are not optional add-ons. They are structural
-components of the model that determine behaviour in weakly identified
-regions. A user who does not examine sensitivity to these assumptions
-does not understand what the model is doing.
+These assumptions are structural components of the model that determine
+behaviour in weakly identified regions. A user who does not examine
+sensitivity to these assumptions does not understand what the model is
+doing.
 
 ## Failure modes
 
@@ -299,8 +298,8 @@ prior assumptions, not strong data support.
 
 **Unstable covariate effects.** When presence-allocation confounding is
 severe, estimated covariate effects may be sensitive to modelling
-choices—which covariates are included, how the observation model is
-specified, what priors are used. Different defensible choices yield
+choices (which covariates are included, how the observation model is
+specified, what priors are used). Different defensible choices yield
 different conclusions.
 
 **Spatial smoothing that masks local heterogeneity.** If the dependence
@@ -315,15 +314,15 @@ structure, or vice versa. The estimated effect conflates multiple
 sources.
 
 **Posterior multimodality or poor mixing.** When ridges or flat regions
-are present, sampling algorithms may fail to explore the posterior
-adequately. Apparent convergence may mask unvisited regions of
-comparable posterior density.
+are present, sampling algorithms may fail to explore the posterior.
+Apparent convergence may mask unvisited regions of comparable posterior
+density.
 
 These failure modes are not always diagnosable from standard outputs. A
 model may fit well, produce smooth predictions, and yield narrow
 uncertainty intervals while suffering from one or more of these issues.
-The failures are failures of interpretation and generalisation, not
-necessarily of fit.
+The failures are failures of interpretation and generalisation, not of
+fit.
 
 ## What this means for use
 
