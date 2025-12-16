@@ -14,6 +14,37 @@ svg.inline-svg {
   display: block;
 }
 
+/* Mobile: match code block full-width behavior */
+/* Code blocks use negative margins to expand on mobile - plots should too */
+@media (max-width: 575.98px) {
+  .section > p > img.r-plt,
+  .section > .figure,
+  .section > figure,
+  .section > p > svg.inline-svg,
+  div > div > .figure,
+  div > div > figure {
+    margin-left: calc(var(--bs-gutter-x, 1.5rem) * -.5);
+    margin-right: calc(var(--bs-gutter-x, 1.5rem) * -.5);
+    width: calc(100% + var(--bs-gutter-x, 1.5rem));
+    max-width: none;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .section > .figure img,
+  .section > figure img,
+  .section > p > img.r-plt,
+  .section > p > svg.inline-svg,
+  div > div > .figure img,
+  div > div > figure img {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    max-width: none;
+  }
+}
+
 /* Dark mode border */
 [data-bs-theme="dark"] img.r-plt,
 [data-bs-theme="dark"] .figure img,
