@@ -1,7 +1,7 @@
 # Internal utilities for SIMP
 # These functions are not exported
 
-#' @importFrom stats as.formula median quantile
+#' @importFrom stats as.formula family formula median nobs pnorm qnorm quantile acf sd var
 NULL
 
 #' Check if input is a valid matrix-like object

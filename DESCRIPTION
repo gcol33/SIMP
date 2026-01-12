@@ -3,6 +3,8 @@ Title: Bayesian Modelling Framework for Constrained Intensity Data
 Version: 0.1.0
 Authors@R:
     person("Gilles", "Colling", , "gilles.colling051@gmail.com", role = c("aut", "cre"))
+Author: Gilles Colling [aut, cre]
+Maintainer: Gilles Colling <gilles.colling051@gmail.com>
 Description: A general Bayesian modelling framework for bounded, compositional,
     and zero-heavy intensity data. Treats constraints as defining features of
     the data-generating process rather than nuisances to be transformed away.
@@ -13,7 +15,11 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports:
-    cli (>= 3.0.0)
+    cli (>= 3.0.0),
+    Rcpp (>= 1.0.0)
+LinkingTo:
+    Rcpp,
+    RcppEigen
 Suggests:
     knitr,
     rmarkdown,
