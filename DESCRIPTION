@@ -1,19 +1,25 @@
 Package: SIMP
 Title: Bayesian Modelling Framework for Constrained Intensity Data
-Version: 0.0.1.1
+Version: 0.1.0
 Authors@R:
     person("Gilles", "Colling", , "gilles.colling051@gmail.com", role = c("aut", "cre"))
 Description: A general Bayesian modelling framework for bounded, compositional,
     and zero-heavy intensity data. Treats constraints as defining features of
     the data-generating process rather than nuisances to be transformed away.
+    Provides data structures for compositional data, prior specification,
+    and formula parsing for hierarchical models.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
+Imports:
+    cli (>= 3.0.0)
 Suggests:
     knitr,
     rmarkdown,
-    pkgdown
+    pkgdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://gcol33.github.io/SIMP/
 Config/Needs/website: pkgdown
+Config/testthat/edition: 3
