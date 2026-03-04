@@ -36,7 +36,7 @@ This mapping involves normalisation: the cover allocated to each present
 species depends on relative latent values.
 
 Consider a simple case. Suppose two species are present in a plot, with
-latent values $`\lambda_1`$ and $`\lambda_2`$. The cover allocation
+latent values \\\lambda_1\\ and \\\lambda_2\\. The cover allocation
 depends on how these values compare (perhaps through a softmax or
 similar transformation). If we shift both values by the same constant,
 the relative comparison is unchanged. If we scale both values by the
@@ -234,12 +234,15 @@ provide no new information. The configurations remain indistinguishable.
 For SIMP, several limitations are structural:
 
 - The scale ambiguity is resolved by constraints, not by data.
+
 - The weak identification of absent species’ latent values is a property
   of censoring, not sample size. Adding more plots where the species is
   absent does not inform its latent value; only plots where it is
   present do.
+
 - Confounding between presence and allocation is a property of the
   two-stage structure, not the number of observations.
+
 - Confounding between dependence and fixed effects depends on the design
   (how covariates vary in space), not just the number of units.
 
@@ -329,26 +332,34 @@ establish what the framework can and cannot deliver.
 SIMP is informative about:
 
 - Relative latent values among present species within plots.
+
 - Overall patterns of presence across species and plots, given
   assumptions about presence thresholds.
+
 - Combined effects of covariates on cover, integrating presence and
   allocation.
+
 - Broad patterns of spatial or group-level similarity, given assumptions
   about dependence structure.
 
 SIMP is weakly informative about:
 
 - Absolute latent values (resolved only by constraints).
+
 - Latent values for absent species (resolved primarily by priors).
+
 - Separate contributions of presence and allocation to covariate
   effects.
+
 - Fine-scale spatial structure when data are sparse.
 
 SIMP is silent about:
 
 - Whether the dependence structure is correctly specified.
+
 - Whether apparent covariate effects reflect confounding with unmeasured
   spatial structure.
+
 - Whether apparent precision reflects data or prior assumptions.
 
 A user who understands these boundaries can use the framework

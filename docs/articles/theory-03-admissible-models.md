@@ -3,15 +3,15 @@
 ## The constraint on models
 
 The previous chapters established that cover data live on a constrained
-space: the simplex. A composition of $`K`$ components is a vector
-$`\mathbf{y} = (y_1, \ldots, y_K)`$ satisfying $`y_k \geq 0`$ for all
-$`k`$ and $`\sum_{k=1}^{K} y_k = 1`$. This space is denoted
-$`\mathcal{S}^{K-1}`$, the $`(K-1)`$-dimensional simplex embedded in
-$`\mathbb{R}^K`$.
+space: the simplex. A composition of \\K\\ components is a vector
+\\\mathbf{y} = (y_1, \ldots, y_K)\\ satisfying \\y_k \geq 0\\ for all
+\\k\\ and \\\sum\_{k=1}^{K} y_k = 1\\. This space is denoted
+\\\mathcal{S}^{K-1}\\, the \\(K-1)\\-dimensional simplex embedded in
+\\\mathbb{R}^K\\.
 
 Any probability model for cover data must assign probability only to
 points in this space. A distribution that places positive mass outside
-$`\mathcal{S}^{K-1}`$ (on negative values, on values exceeding one, or
+\\\mathcal{S}^{K-1}\\ (on negative values, on values exceeding one, or
 on vectors that do not sum to one) is invalid. It describes a quantity
 other than the one measured.
 
@@ -23,9 +23,11 @@ consideration.
 A probability distribution is admissible for compositional data if and
 only if:
 
-1.  Its support is exactly $`\mathcal{S}^{K-1}`$ (or a well-defined
+1.  Its support is exactly \\\mathcal{S}^{K-1}\\ (or a well-defined
     subset of it).
+
 2.  It defines a proper probability measure on this space.
+
 3.  It does not require the data to be modified before the distribution
     applies.
 
@@ -42,21 +44,20 @@ the data it purports to describe.
 ## The Dirichlet family
 
 The Dirichlet distribution is the canonical probability distribution on
-the simplex. For a composition $`\mathbf{y} \in \mathcal{S}^{K-1}`$, the
-Dirichlet density with concentration parameters
-$`\boldsymbol{\alpha} = (\alpha_1, \ldots, \alpha_K)`$, where
-$`\alpha_k > 0`$, is:
+the simplex. For a composition \\\mathbf{y} \in \mathcal{S}^{K-1}\\, the
+Dirichlet density with concentration parameters \\\boldsymbol{\alpha} =
+(\alpha_1, \ldots, \alpha_K)\\, where \\\alpha_k \> 0\\, is:
 
-``` math
-p(\mathbf{y} \mid \boldsymbol{\alpha}) = \frac{\Gamma\left(\sum_{k=1}^{K} \alpha_k\right)}{\prod_{k=1}^{K} \Gamma(\alpha_k)} \prod_{k=1}^{K} y_k^{\alpha_k - 1}
-```
+\\ p(\mathbf{y} \mid \boldsymbol{\alpha}) =
+\frac{\Gamma\left(\sum\_{k=1}^{K} \alpha_k\right)}{\prod\_{k=1}^{K}
+\Gamma(\alpha_k)} \prod\_{k=1}^{K} y_k^{\alpha_k - 1} \\
 
 The Dirichlet is admissible. Defined natively on the constrained space,
 no transformation needed. Its behaviour near the simplex boundary
-depends on the concentration parameters: when $`\alpha_k < 1`$, the
-density is unbounded as $`y_k \to 0`$, concentrating mass near the
-vertices and edges of the simplex; when $`\alpha_k = 1`$, the
-distribution is uniform; when $`\alpha_k > 1`$, the density vanishes at
+depends on the concentration parameters: when \\\alpha_k \< 1\\, the
+density is unbounded as \\y_k \to 0\\, concentrating mass near the
+vertices and edges of the simplex; when \\\alpha_k = 1\\, the
+distribution is uniform; when \\\alpha_k \> 1\\, the density vanishes at
 the boundary, concentrating mass in the interior. This flexibility
 allows the Dirichlet to represent compositions that tend toward sparse
 configurations (few dominant components) or toward balanced
@@ -64,10 +65,10 @@ configurations (mass spread across components).
 
 The Dirichlet encodes specific assumptions about dependence. Components
 are negatively correlated, but the correlation structure is constrained:
-the correlation between any two components $`y_i`$ and $`y_j`$ is
+the correlation between any two components \\y_i\\ and \\y_j\\ is
 determined entirely by the concentration parameters and is always
 negative. No freedom to specify arbitrary pairwise correlations. The
-covariance matrix of a Dirichlet-distributed vector has rank $`K-1`$,
+covariance matrix of a Dirichlet-distributed vector has rank \\K-1\\,
 reflecting the sum constraint, and its off-diagonal elements are all
 negative.
 
@@ -89,20 +90,20 @@ log-ratio (clr) uses the geometric mean as reference; the isometric
 log-ratio (ilr) constructs an orthonormal basis in log-ratio space.
 Different coordinate systems for the same family of distributions.
 
-In the alr formulation, if $`\mathbf{y} \in \mathcal{S}^{K-1}`$ and we
-define $`\mathbf{z} = (\log(y_1/y_K), \ldots, \log(y_{K-1}/y_K))`$ using
-the $`K`$-th component as reference, then the logistic-normal assumes
-$`\mathbf{z} \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})`$
-for some mean vector $`\boldsymbol{\mu}`$ and covariance matrix
-$`\boldsymbol{\Sigma}`$. The choice of reference component is arbitrary
-and does not affect the distribution on the simplex, only the
-parameterisation.
+In the alr formulation, if \\\mathbf{y} \in \mathcal{S}^{K-1}\\ and we
+define \\\mathbf{z} = (\log(y_1/y_K), \ldots, \log(y\_{K-1}/y_K))\\
+using the \\K\\-th component as reference, then the logistic-normal
+assumes \\\mathbf{z} \sim \mathcal{N}(\boldsymbol{\mu},
+\boldsymbol{\Sigma})\\ for some mean vector \\\boldsymbol{\mu}\\ and
+covariance matrix \\\boldsymbol{\Sigma}\\. The choice of reference
+component is arbitrary and does not affect the distribution on the
+simplex, only the parameterisation.
 
 The logistic-normal is admissible in a restricted sense. It defines a
 proper distribution on the interior of the simplex,
-$`\mathcal{S}^{K-1}_\circ = \{\mathbf{y} : y_k > 0 \text{ for all } k\}`$.
-It assigns zero probability to the boundary: any composition where at
-least one component is exactly zero.
+\\\mathcal{S}^{K-1}\_\circ = \\\mathbf{y} : y_k \> 0 \text{ for all }
+k\\\\. It assigns zero probability to the boundary: any composition
+where at least one component is exactly zero.
 
 A serious limitation for cover data. Structural zeros are often the
 majority of observations. A model that assigns zero probability to exact
@@ -110,7 +111,7 @@ zeros cannot represent the data-generating process. It treats a central
 feature of the data as impossible.
 
 Within its domain, the logistic-normal permits more flexible covariance
-structures than the Dirichlet. The matrix $`\boldsymbol{\Sigma}`$ can
+structures than the Dirichlet. The matrix \\\boldsymbol{\Sigma}\\ can
 encode arbitrary correlations among log-ratios, allowing components to
 be more or less tightly coupled than the Dirichlet would permit.
 Valuable when ecological or observational processes induce
@@ -132,7 +133,7 @@ These approaches are not admissible models for cover data. They fail on
 two grounds.
 
 First, all log-ratio transformations are undefined at zero. A
-composition with any $`y_k = 0`$ cannot be transformed. The standard
+composition with any \\y_k = 0\\ cannot be transformed. The standard
 remedy (adding a small constant before transformation) changes the data.
 The resulting analysis is not an analysis of the observed composition
 but of a perturbed version. The perturbation is arbitrary, and results
@@ -154,26 +155,26 @@ probabilistic statements about compositions.
 The simplex geometry constrains not just which distributions are
 admissible, but what their covariance structures can look like.
 
-Any random vector $`\mathbf{y}`$ on $`\mathcal{S}^{K-1}`$ must satisfy
-$`\sum_k y_k = 1`$ with probability one. This implies that the
-covariance matrix $`\text{Cov}(\mathbf{y})`$ is singular: rank at most
-$`K-1`$. Rows and columns sum to zero. The constraint forces this
+Any random vector \\\mathbf{y}\\ on \\\mathcal{S}^{K-1}\\ must satisfy
+\\\sum_k y_k = 1\\ with probability one. This implies that the
+covariance matrix \\\text{Cov}(\mathbf{y})\\ is singular: rank at most
+\\K-1\\. Rows and columns sum to zero. The constraint forces this
 property; it does not arise from specific distributional choices.
 
 Not all covariance matrices with this structure are achievable. The
-matrix must be consistent with the non-negativity constraints
-$`y_k \geq 0`$. Consider a simple example: if $`K = 3`$ and one
-component has very high variance while the others have low variance, the
-high-variance component would frequently take values outside $`[0, 1]`$
-unless the covariances are carefully calibrated. More generally,
-variances near the boundary of the simplex are constrained by how close
-the mean is to that boundary. A component with mean 0.05 cannot have the
-same variance as a component with mean 0.50 without violating the
-non-negativity constraint.
+matrix must be consistent with the non-negativity constraints \\y_k \geq
+0\\. Consider a simple example: if \\K = 3\\ and one component has very
+high variance while the others have low variance, the high-variance
+component would frequently take values outside \\\[0, 1\]\\ unless the
+covariances are carefully calibrated. More generally, variances near the
+boundary of the simplex are constrained by how close the mean is to that
+boundary. A component with mean 0.05 cannot have the same variance as a
+component with mean 0.50 without violating the non-negativity
+constraint.
 
 The space of valid covariance matrices for compositions is smaller than
-it might appear. Specifying an arbitrary $`(K-1) \times (K-1)`$
-covariance matrix for log-ratios, or an arbitrary $`K \times K`$
+it might appear. Specifying an arbitrary \\(K-1) \times (K-1)\\
+covariance matrix for log-ratios, or an arbitrary \\K \times K\\
 covariance matrix for proportions, does not guarantee that a
 corresponding distribution exists on the simplex. Model specification
 must respect these geometric limits.
@@ -212,8 +213,8 @@ next chapter.
 
 For now, note that exact zeros create a boundary problem for any
 continuous distribution on the simplex. The Dirichlet can place mass
-near zero but not exactly at zero when $`\alpha_k \geq 1`$; it can place
-mass at zero only in a limiting sense when $`\alpha_k < 1`$. The
+near zero but not exactly at zero when \\\alpha_k \geq 1\\; it can place
+mass at zero only in a limiting sense when \\\alpha_k \< 1\\. The
 logistic-normal excludes zeros entirely. Neither family provides a
 complete model for compositions with structural zeros.
 

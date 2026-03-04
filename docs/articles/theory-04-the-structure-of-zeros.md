@@ -19,7 +19,7 @@ nothing to the total. It asserts something exact.
 
 ## Zeros are boundary values
 
-The simplex $`\mathcal{S}^{K-1}`$ is a bounded space. Its interior
+The simplex \\\mathcal{S}^{K-1}\\ is a bounded space. Its interior
 consists of compositions where every component is strictly positive. Its
 boundary consists of compositions where at least one component equals
 zero.
@@ -75,17 +75,17 @@ Probability densities on the simplex behave differently at the boundary
 than in the interior.
 
 Consider the Dirichlet distribution. When concentration parameter
-$`\alpha_k > 1`$, the density vanishes as $`y_k \to 0`$. The
+\\\alpha_k \> 1\\, the density vanishes as \\y_k \to 0\\. The
 distribution places negligible mass near the boundary for that
-component. When $`\alpha_k < 1`$, the density is unbounded as
-$`y_k \to 0`$, concentrating mass near zero without placing a point mass
-exactly at zero. When $`\alpha_k = 1`$, the density is flat.
+component. When \\\alpha_k \< 1\\, the density is unbounded as \\y_k \to
+0\\, concentrating mass near zero without placing a point mass exactly
+at zero. When \\\alpha_k = 1\\, the density is flat.
 
-None of these behaviours places positive probability on the event
-$`y_k = 0`$ exactly. The Dirichlet treats zero as a limit, not an
-outcome. For data where zeros are common and exact, this is inadequate.
-The model can concentrate mass arbitrarily close to zero, but it cannot
-represent the discrete event of absence.
+None of these behaviours places positive probability on the event \\y_k
+= 0\\ exactly. The Dirichlet treats zero as a limit, not an outcome. For
+data where zeros are common and exact, this is inadequate. The model can
+concentrate mass arbitrarily close to zero, but it cannot represent the
+discrete event of absence.
 
 The logistic-normal is worse in this respect. Because it is defined
 through log-ratios, it requires all components to be strictly positive.
@@ -192,9 +192,12 @@ A model for zero-heavy compositions must:
 
 1.  Place positive probability on exact zeros, not just on values
     approaching zero.
+
 2.  Respect the sum constraint across both zero and nonzero components.
+
 3.  Represent the joint structure of which components are zero and how
     cover is allocated among those that are not.
+
 4.  Acknowledge that zeros reduce effective dimensionality and alter the
     observable dependence structure.
 

@@ -19,8 +19,8 @@ about the world, even when motivated by the same conceptual goal.
 
 ## Why full joint specification is infeasible
 
-Consider a dataset with $`n`$ plots and $`K`$ species. The latent layer
-contains $`n \times K`$ values. A fully general joint distribution over
+Consider a dataset with \\n\\ plots and \\K\\ species. The latent layer
+contains \\n \times K\\ values. A fully general joint distribution over
 these values would require specifying all pairwise dependencies (and
 potentially higher-order dependencies) among them.
 

@@ -6,24 +6,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Admissible Models for Compositional Data • SIMP</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Admissible Models for Compositional Data">
-<script>
-// Redirect any case variation of /simp to /SIMP
-(function() {
-  var path = window.location.pathname;
-  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
-    var newPath = path.replace(/^\/simp/i, '/SIMP');
-    window.location.replace(newPath + window.location.search + window.location.hash);
-  }
-})();
-</script>
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+  pkgdown/mathjax-config.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,28 +107,16 @@
 <h2 id="the-constraint-on-models">The constraint on models<a class="anchor" aria-label="anchor" href="#the-constraint-on-models"></a>
 </h2>
 <p>The previous chapters established that cover data live on a
-constrained space: the simplex. A composition of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-components is a vector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐲</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>y</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>y</mi><mi>K</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{y} = (y_1, \ldots, y_K)</annotation></semantics></math>
-satisfying
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k \geq 0</annotation></semantics></math>
-for all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msub><mi>y</mi><mi>k</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_{k=1}^{K} y_k = 1</annotation></semantics></math>.
-This space is denoted
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\mathcal{S}^{K-1}</annotation></semantics></math>,
-the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(K-1)</annotation></semantics></math>-dimensional
-simplex embedded in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mi>K</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^K</annotation></semantics></math>.</p>
+constrained space: the simplex. A composition of <span class="math inline">\(K\)</span> components is a vector <span class="math inline">\(\mathbf{y} = (y_1, \ldots, y_K)\)</span>
+satisfying <span class="math inline">\(y_k \geq 0\)</span> for all <span class="math inline">\(k\)</span> and <span class="math inline">\(\sum_{k=1}^{K} y_k = 1\)</span>. This space is
+denoted <span class="math inline">\(\mathcal{S}^{K-1}\)</span>, the
+<span class="math inline">\((K-1)\)</span>-dimensional simplex embedded
+in <span class="math inline">\(\mathbb{R}^K\)</span>.</p>
 <p>Any probability model for cover data must assign probability only to
 points in this space. A distribution that places positive mass outside
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\mathcal{S}^{K-1}</annotation></semantics></math>
-(on negative values, on values exceeding one, or on vectors that do not
-sum to one) is invalid. It describes a quantity other than the one
-measured.</p>
+<span class="math inline">\(\mathcal{S}^{K-1}\)</span> (on negative
+values, on values exceeding one, or on vectors that do not sum to one)
+is invalid. It describes a quantity other than the one measured.</p>
 <p>This constraint must be satisfied before any other modelling
 consideration.</p>
 </div>
@@ -128,12 +126,11 @@ consideration.</p>
 <p>A probability distribution is admissible for compositional data if
 and only if:</p>
 <ol style="list-style-type: decimal">
-<li>Its support is exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\mathcal{S}^{K-1}</annotation></semantics></math>
-(or a well-defined subset of it).</li>
-<li>It defines a proper probability measure on this space.</li>
-<li>It does not require the data to be modified before the distribution
-applies.</li>
+<li><p>Its support is exactly <span class="math inline">\(\mathcal{S}^{K-1}\)</span> (or a well-defined
+subset of it).</p></li>
+<li><p>It defines a proper probability measure on this space.</p></li>
+<li><p>It does not require the data to be modified before the
+distribution applies.</p></li>
 </ol>
 <p>The third condition excludes models that are nominally defined on the
 simplex but require transformations that fail at the boundary. A model
@@ -148,43 +145,33 @@ with the data it purports to describe.</p>
 <h2 id="the-dirichlet-family">The Dirichlet family<a class="anchor" aria-label="anchor" href="#the-dirichlet-family"></a>
 </h2>
 <p>The Dirichlet distribution is the canonical probability distribution
-on the simplex. For a composition
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐲</mi><mo>∈</mo><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{y} \in \mathcal{S}^{K-1}</annotation></semantics></math>,
-the Dirichlet density with concentration parameters
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝛂</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>α</mi><mi>K</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\boldsymbol{\alpha} = (\alpha_1, \ldots, \alpha_K)</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_k &gt; 0</annotation></semantics></math>,
-is:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>𝐲</mi><mo>∣</mo><mi>𝛂</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi mathvariant="normal">Γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><munderover><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mi mathvariant="normal">Γ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><munderover><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msubsup><mi>y</mi><mi>k</mi><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>−</mo><mn>1</mn></mrow></msubsup></mrow><annotation encoding="application/x-tex">
-p(\mathbf{y} \mid \boldsymbol{\alpha}) = \frac{\Gamma\left(\sum_{k=1}^{K} \alpha_k\right)}{\prod_{k=1}^{K} \Gamma(\alpha_k)} \prod_{k=1}^{K} y_k^{\alpha_k - 1}
-</annotation></semantics></math></p>
+on the simplex. For a composition <span class="math inline">\(\mathbf{y}
+\in \mathcal{S}^{K-1}\)</span>, the Dirichlet density with concentration
+parameters <span class="math inline">\(\boldsymbol{\alpha} = (\alpha_1,
+\ldots, \alpha_K)\)</span>, where <span class="math inline">\(\alpha_k
+&gt; 0\)</span>, is:</p>
+<p><span class="math display">\[
+p(\mathbf{y} \mid \boldsymbol{\alpha}) =
+\frac{\Gamma\left(\sum_{k=1}^{K} \alpha_k\right)}{\prod_{k=1}^{K}
+\Gamma(\alpha_k)} \prod_{k=1}^{K} y_k^{\alpha_k - 1}
+\]</span></p>
 <p>The Dirichlet is admissible. Defined natively on the constrained
 space, no transformation needed. Its behaviour near the simplex boundary
-depends on the concentration parameters: when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k &lt; 1</annotation></semantics></math>,
-the density is unbounded as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k \to 0</annotation></semantics></math>,
-concentrating mass near the vertices and edges of the simplex; when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k = 1</annotation></semantics></math>,
-the distribution is uniform; when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k &gt; 1</annotation></semantics></math>,
-the density vanishes at the boundary, concentrating mass in the
-interior. This flexibility allows the Dirichlet to represent
-compositions that tend toward sparse configurations (few dominant
-components) or toward balanced configurations (mass spread across
-components).</p>
+depends on the concentration parameters: when <span class="math inline">\(\alpha_k &lt; 1\)</span>, the density is unbounded
+as <span class="math inline">\(y_k \to 0\)</span>, concentrating mass
+near the vertices and edges of the simplex; when <span class="math inline">\(\alpha_k = 1\)</span>, the distribution is
+uniform; when <span class="math inline">\(\alpha_k &gt; 1\)</span>, the
+density vanishes at the boundary, concentrating mass in the interior.
+This flexibility allows the Dirichlet to represent compositions that
+tend toward sparse configurations (few dominant components) or toward
+balanced configurations (mass spread across components).</p>
 <p>The Dirichlet encodes specific assumptions about dependence.
 Components are negatively correlated, but the correlation structure is
-constrained: the correlation between any two components
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>j</mi></msub><annotation encoding="application/x-tex">y_j</annotation></semantics></math>
-is determined entirely by the concentration parameters and is always
-negative. No freedom to specify arbitrary pairwise correlations. The
-covariance matrix of a Dirichlet-distributed vector has rank
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K-1</annotation></semantics></math>,
-reflecting the sum constraint, and its off-diagonal elements are all
-negative.</p>
+constrained: the correlation between any two components <span class="math inline">\(y_i\)</span> and <span class="math inline">\(y_j\)</span> is determined entirely by the
+concentration parameters and is always negative. No freedom to specify
+arbitrary pairwise correlations. The covariance matrix of a
+Dirichlet-distributed vector has rank <span class="math inline">\(K-1\)</span>, reflecting the sum constraint, and
+its off-diagonal elements are all negative.</p>
 <p>A strong structural assumption. The Dirichlet assumes that all
 dependence among components arises from the constraint and from a single
 shared precision parameter (the sum of concentrations). Components that
@@ -203,36 +190,30 @@ as reference and models the log-ratios relative to it; the centred
 log-ratio (clr) uses the geometric mean as reference; the isometric
 log-ratio (ilr) constructs an orthonormal basis in log-ratio space.
 Different coordinate systems for the same family of distributions.</p>
-<p>In the alr formulation, if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐲</mi><mo>∈</mo><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{y} \in \mathcal{S}^{K-1}</annotation></semantics></math>
-and we define
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐳</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>y</mi><mn>1</mn></msub><mi>/</mi><msub><mi>y</mi><mi>K</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>y</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>y</mi><mi>K</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{z} = (\log(y_1/y_K), \ldots, \log(y_{K-1}/y_K))</annotation></semantics></math>
-using the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>-th
-component as reference, then the logistic-normal assumes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐳</mi><mo>∼</mo><mi>𝒩</mi><mo stretchy="false" form="prefix">(</mo><mi>𝛍</mi><mo>,</mo><mi>𝚺</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{z} \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})</annotation></semantics></math>
-for some mean vector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛍</mi><annotation encoding="application/x-tex">\boldsymbol{\mu}</annotation></semantics></math>
-and covariance matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\boldsymbol{\Sigma}</annotation></semantics></math>.
-The choice of reference component is arbitrary and does not affect the
-distribution on the simplex, only the parameterisation.</p>
+<p>In the alr formulation, if <span class="math inline">\(\mathbf{y} \in
+\mathcal{S}^{K-1}\)</span> and we define <span class="math inline">\(\mathbf{z} = (\log(y_1/y_K), \ldots,
+\log(y_{K-1}/y_K))\)</span> using the <span class="math inline">\(K\)</span>-th component as reference, then the
+logistic-normal assumes <span class="math inline">\(\mathbf{z} \sim
+\mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> for some
+mean vector <span class="math inline">\(\boldsymbol{\mu}\)</span> and
+covariance matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. The choice of
+reference component is arbitrary and does not affect the distribution on
+the simplex, only the parameterisation.</p>
 <p>The logistic-normal is admissible in a restricted sense. It defines a
-proper distribution on the interior of the simplex,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>𝒮</mi><mo>∘</mo><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>𝐲</mi><mo>:</mo><msub><mi>y</mi><mi>k</mi></msub><mo>&gt;</mo><mn>0</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for all </mtext><mspace width="0.333em"></mspace></mrow><mi>k</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal{S}^{K-1}_\circ = \{\mathbf{y} : y_k &gt; 0 \text{ for all } k\}</annotation></semantics></math>.
-It assigns zero probability to the boundary: any composition where at
-least one component is exactly zero.</p>
+proper distribution on the interior of the simplex, <span class="math inline">\(\mathcal{S}^{K-1}_\circ = \{\mathbf{y} : y_k &gt;
+0 \text{ for all } k\}\)</span>. It assigns zero probability to the
+boundary: any composition where at least one component is exactly
+zero.</p>
 <p>A serious limitation for cover data. Structural zeros are often the
 majority of observations. A model that assigns zero probability to exact
 zeros cannot represent the data-generating process. It treats a central
 feature of the data as impossible.</p>
 <p>Within its domain, the logistic-normal permits more flexible
-covariance structures than the Dirichlet. The matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\boldsymbol{\Sigma}</annotation></semantics></math>
-can encode arbitrary correlations among log-ratios, allowing components
-to be more or less tightly coupled than the Dirichlet would permit.
-Valuable when ecological or observational processes induce
-non-exchangeable dependence.</p>
+covariance structures than the Dirichlet. The matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span> can encode arbitrary
+correlations among log-ratios, allowing components to be more or less
+tightly coupled than the Dirichlet would permit. Valuable when
+ecological or observational processes induce non-exchangeable
+dependence.</p>
 <p>But this flexibility operates only on compositions without zeros. For
 data with structural zeros, the logistic-normal is inadmissible as a
 complete model.</p>
@@ -248,11 +229,10 @@ transformations include the additive log-ratio (alr), centred log-ratio
 <p>These approaches are not admissible models for cover data. They fail
 on two grounds.</p>
 <p>First, all log-ratio transformations are undefined at zero. A
-composition with any
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k = 0</annotation></semantics></math>
-cannot be transformed. The standard remedy (adding a small constant
-before transformation) changes the data. The resulting analysis is not
-an analysis of the observed composition but of a perturbed version. The
+composition with any <span class="math inline">\(y_k = 0\)</span> cannot
+be transformed. The standard remedy (adding a small constant before
+transformation) changes the data. The resulting analysis is not an
+analysis of the observed composition but of a perturbed version. The
 perturbation is arbitrary, and results can depend on the constant
 chosen.</p>
 <p>Second, fitting a Gaussian model to transformed compositions and
@@ -270,38 +250,26 @@ probabilistic statements about compositions.</p>
 </h2>
 <p>The simplex geometry constrains not just which distributions are
 admissible, but what their covariance structures can look like.</p>
-<p>Any random vector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐲</mi><annotation encoding="application/x-tex">\mathbf{y}</annotation></semantics></math>
-on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\mathcal{S}^{K-1}</annotation></semantics></math>
-must satisfy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>k</mi></msub><msub><mi>y</mi><mi>k</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_k y_k = 1</annotation></semantics></math>
-with probability one. This implies that the covariance matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Cov</mtext><mo stretchy="false" form="prefix">(</mo><mi>𝐲</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\text{Cov}(\mathbf{y})</annotation></semantics></math>
-is singular: rank at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K-1</annotation></semantics></math>.
-Rows and columns sum to zero. The constraint forces this property; it
-does not arise from specific distributional choices.</p>
+<p>Any random vector <span class="math inline">\(\mathbf{y}\)</span> on
+<span class="math inline">\(\mathcal{S}^{K-1}\)</span> must satisfy
+<span class="math inline">\(\sum_k y_k = 1\)</span> with probability
+one. This implies that the covariance matrix <span class="math inline">\(\text{Cov}(\mathbf{y})\)</span> is singular: rank
+at most <span class="math inline">\(K-1\)</span>. Rows and columns sum
+to zero. The constraint forces this property; it does not arise from
+specific distributional choices.</p>
 <p>Not all covariance matrices with this structure are achievable. The
-matrix must be consistent with the non-negativity constraints
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k \geq 0</annotation></semantics></math>.
-Consider a simple example: if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">K = 3</annotation></semantics></math>
-and one component has very high variance while the others have low
-variance, the high-variance component would frequently take values
-outside
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math>
-unless the covariances are carefully calibrated. More generally,
-variances near the boundary of the simplex are constrained by how close
-the mean is to that boundary. A component with mean 0.05 cannot have the
-same variance as a component with mean 0.50 without violating the
-non-negativity constraint.</p>
+matrix must be consistent with the non-negativity constraints <span class="math inline">\(y_k \geq 0\)</span>. Consider a simple example: if
+<span class="math inline">\(K = 3\)</span> and one component has very
+high variance while the others have low variance, the high-variance
+component would frequently take values outside <span class="math inline">\([0, 1]\)</span> unless the covariances are
+carefully calibrated. More generally, variances near the boundary of the
+simplex are constrained by how close the mean is to that boundary. A
+component with mean 0.05 cannot have the same variance as a component
+with mean 0.50 without violating the non-negativity constraint.</p>
 <p>The space of valid covariance matrices for compositions is smaller
-than it might appear. Specifying an arbitrary
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(K-1) \times (K-1)</annotation></semantics></math>
-covariance matrix for log-ratios, or an arbitrary
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>×</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">K \times K</annotation></semantics></math>
-covariance matrix for proportions, does not guarantee that a
+than it might appear. Specifying an arbitrary <span class="math inline">\((K-1) \times (K-1)\)</span> covariance matrix for
+log-ratios, or an arbitrary <span class="math inline">\(K \times
+K\)</span> covariance matrix for proportions, does not guarantee that a
 corresponding distribution exists on the simplex. Model specification
 must respect these geometric limits.</p>
 </div>
@@ -336,12 +304,11 @@ distributions defined on its interior. The treatment of exact zeros
 next chapter.</p>
 <p>For now, note that exact zeros create a boundary problem for any
 continuous distribution on the simplex. The Dirichlet can place mass
-near zero but not exactly at zero when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k \geq 1</annotation></semantics></math>;
-it can place mass at zero only in a limiting sense when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k &lt; 1</annotation></semantics></math>.
-The logistic-normal excludes zeros entirely. Neither family provides a
-complete model for compositions with structural zeros.</p>
+near zero but not exactly at zero when <span class="math inline">\(\alpha_k \geq 1\)</span>; it can place mass at
+zero only in a limiting sense when <span class="math inline">\(\alpha_k
+&lt; 1\)</span>. The logistic-normal excludes zeros entirely. Neither
+family provides a complete model for compositions with structural
+zeros.</p>
 <p>Not a minor gap. A fundamental limitation that any complete framework
 must address.</p>
 </div>
@@ -386,5 +353,6 @@ This clarifies what honest modelling requires.</p>
 
 
 
-  </body>
+  
+</body>
 </html>

@@ -19,7 +19,7 @@ dependence directly on observed proportions is conceptually incoherent.
 
 ## Why dependence cannot live at the observation level
 
-Consider two plots, $`i`$ and $`j`$, close in space. We expect their
+Consider two plots, \\i\\ and \\j\\, close in space. We expect their
 vegetation to be similar. What does “similar” mean for compositional
 data?
 
@@ -59,8 +59,8 @@ The alternative: place dependence at the latent level. Latent values are
 unconstrained. They live in ordinary Euclidean space, where dependence
 is well-defined and familiar tools apply.
 
-If the latent value at plot $`i`$ is similar to the latent value at plot
-$`j`$, this similarity propagates through the observation model. Similar
+If the latent value at plot \\i\\ is similar to the latent value at plot
+\\j\\, this similarity propagates through the observation model. Similar
 latent values produce similar probabilities of presence. Similar latent
 values produce similar expected cover allocations. The observed
 compositions will tend to be similar, not because dependence was imposed

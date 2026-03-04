@@ -6,24 +6,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Finite Representations of Structured Dependence • SIMP</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Finite Representations of Structured Dependence">
-<script>
-// Redirect any case variation of /simp to /SIMP
-(function() {
-  var path = window.location.pathname;
-  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
-    var newPath = path.replace(/^\/simp/i, '/SIMP');
-    window.location.replace(newPath + window.location.search + window.location.hash);
-  }
-})();
-</script>
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+  pkgdown/mathjax-config.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,15 +123,12 @@ conceptual goal.</p>
 <div class="section level2">
 <h2 id="why-full-joint-specification-is-infeasible">Why full joint specification is infeasible<a class="anchor" aria-label="anchor" href="#why-full-joint-specification-is-infeasible"></a>
 </h2>
-<p>Consider a dataset with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-plots and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-species. The latent layer contains
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">n \times K</annotation></semantics></math>
-values. A fully general joint distribution over these values would
-require specifying all pairwise dependencies (and potentially
-higher-order dependencies) among them.</p>
+<p>Consider a dataset with <span class="math inline">\(n\)</span> plots
+and <span class="math inline">\(K\)</span> species. The latent layer
+contains <span class="math inline">\(n \times K\)</span> values. A fully
+general joint distribution over these values would require specifying
+all pairwise dependencies (and potentially higher-order dependencies)
+among them.</p>
 <p>The number of pairwise relationships grows as the square of the
 number of latent values. For a modest dataset with 500 plots and 20
 species, there are 10,000 latent values and roughly 50 million pairwise
@@ -302,5 +309,6 @@ be deferred to implementation.</p>
 
 
 
-  </body>
+  
+</body>
 </html>

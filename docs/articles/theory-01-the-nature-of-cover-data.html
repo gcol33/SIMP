@@ -6,24 +6,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>The Nature of Cover Data • SIMP</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="The Nature of Cover Data">
-<script>
-// Redirect any case variation of /simp to /SIMP
-(function() {
-  var path = window.location.pathname;
-  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
-    var newPath = path.replace(/^\/simp/i, '/SIMP');
-    window.location.replace(newPath + window.location.search + window.location.hash);
-  }
-})();
-</script>
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+  pkgdown/mathjax-config.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,19 +163,19 @@ assumption:</p>
 <p><strong>Covers summing above 100%.</strong> This occurs when canopy
 overlap is recorded within a layer, or when ordinal class midpoints are
 summed. The data must be rescaled to sum to one before modelling. SIMP
-provides <code>normalize_cover()</code> for this purpose.</p>
+provides <code><a href="../reference/normalize_cover.html">normalize_cover()</a></code> for this purpose.</p>
 <p><strong>Multiple vertical layers.</strong> Tree, shrub, and herb
 layers may each have separate cover estimates. These must be collapsed
-into a single composition. SIMP provides <code>collapse_layers()</code>
+into a single composition. SIMP provides <code><a href="../reference/collapse_layers.html">collapse_layers()</a></code>
 with options for how to combine them.</p>
 <p><strong>Missing residual category.</strong> If the recorded species
 do not exhaust the plot (no bare ground or litter category), a residual
 must be added to close the composition. SIMP provides
-<code>add_residual()</code> for this.</p>
+<code><a href="../reference/add_residual.html">add_residual()</a></code> for this.</p>
 <p><strong>Covers summing below 100% for unclear reasons.</strong> This
 may indicate missing data, recording errors, or a protocol that does not
 aim for exhaustive coverage. The user must decide how to handle it; SIMP
-provides <code>validate_composition()</code> to diagnose the issue.</p>
+provides <code><a href="../reference/validate_composition.html">validate_composition()</a></code> to diagnose the issue.</p>
 <p>Each of these functions makes explicit a choice that would otherwise
 be hidden. The user sees what transformation was applied and can assess
 whether it is appropriate for their data and question.</p>
@@ -281,5 +291,6 @@ be done.</p>
 
 
 
-  </body>
+  
+</body>
 </html>

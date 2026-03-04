@@ -6,24 +6,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Identifiability and Failure Modes • SIMP</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Identifiability and Failure Modes">
-<script>
-// Redirect any case variation of /simp to /SIMP
-(function() {
-  var path = window.location.pathname;
-  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
-    var newPath = path.replace(/^\/simp/i, '/SIMP');
-    window.location.replace(newPath + window.location.search + window.location.hash);
-  }
-})();
-</script>
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+  pkgdown/mathjax-config.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,15 +137,13 @@ not assumed away.</p>
 This mapping involves normalisation: the cover allocated to each present
 species depends on relative latent values.</p>
 <p>Consider a simple case. Suppose two species are present in a plot,
-with latent values
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\lambda_1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\lambda_2</annotation></semantics></math>.
-The cover allocation depends on how these values compare (perhaps
-through a softmax or similar transformation). If we shift both values by
-the same constant, the relative comparison is unchanged. If we scale
-both values by the same factor, the relative comparison may also be
-unchanged, depending on the functional form.</p>
+with latent values <span class="math inline">\(\lambda_1\)</span> and
+<span class="math inline">\(\lambda_2\)</span>. The cover allocation
+depends on how these values compare (perhaps through a softmax or
+similar transformation). If we shift both values by the same constant,
+the relative comparison is unchanged. If we scale both values by the
+same factor, the relative comparison may also be unchanged, depending on
+the functional form.</p>
 <p>This creates a scale ambiguity. The data constrain relative latent
 values but not their absolute level. A configuration where all latent
 values are high produces the same observable proportions as one where
@@ -312,16 +320,17 @@ provide no new information. The configurations remain
 indistinguishable.</p>
 <p>For SIMP, several limitations are structural:</p>
 <ul>
-<li>The scale ambiguity is resolved by constraints, not by data.</li>
-<li>The weak identification of absent species’ latent values is a
+<li><p>The scale ambiguity is resolved by constraints, not by
+data.</p></li>
+<li><p>The weak identification of absent species’ latent values is a
 property of censoring, not sample size. Adding more plots where the
 species is absent does not inform its latent value; only plots where it
-is present do.</li>
-<li>Confounding between presence and allocation is a property of the
-two-stage structure, not the number of observations.</li>
-<li>Confounding between dependence and fixed effects depends on the
+is present do.</p></li>
+<li><p>Confounding between presence and allocation is a property of the
+two-stage structure, not the number of observations.</p></li>
+<li><p>Confounding between dependence and fixed effects depends on the
 design (how covariates vary in space), not just the number of
-units.</li>
+units.</p></li>
 </ul>
 <p>This does not mean data collection is futile. Data collection should
 be strategic, targeting the specific identifiability limitations that
@@ -399,29 +408,31 @@ fit.</p>
 establish what the framework can and cannot deliver.</p>
 <p>SIMP is informative about:</p>
 <ul>
-<li>Relative latent values among present species within plots.</li>
-<li>Overall patterns of presence across species and plots, given
-assumptions about presence thresholds.</li>
-<li>Combined effects of covariates on cover, integrating presence and
-allocation.</li>
-<li>Broad patterns of spatial or group-level similarity, given
-assumptions about dependence structure.</li>
+<li><p>Relative latent values among present species within
+plots.</p></li>
+<li><p>Overall patterns of presence across species and plots, given
+assumptions about presence thresholds.</p></li>
+<li><p>Combined effects of covariates on cover, integrating presence and
+allocation.</p></li>
+<li><p>Broad patterns of spatial or group-level similarity, given
+assumptions about dependence structure.</p></li>
 </ul>
 <p>SIMP is weakly informative about:</p>
 <ul>
-<li>Absolute latent values (resolved only by constraints).</li>
-<li>Latent values for absent species (resolved primarily by
-priors).</li>
-<li>Separate contributions of presence and allocation to covariate
-effects.</li>
-<li>Fine-scale spatial structure when data are sparse.</li>
+<li><p>Absolute latent values (resolved only by constraints).</p></li>
+<li><p>Latent values for absent species (resolved primarily by
+priors).</p></li>
+<li><p>Separate contributions of presence and allocation to covariate
+effects.</p></li>
+<li><p>Fine-scale spatial structure when data are sparse.</p></li>
 </ul>
 <p>SIMP is silent about:</p>
 <ul>
-<li>Whether the dependence structure is correctly specified.</li>
-<li>Whether apparent covariate effects reflect confounding with
-unmeasured spatial structure.</li>
-<li>Whether apparent precision reflects data or prior assumptions.</li>
+<li><p>Whether the dependence structure is correctly specified.</p></li>
+<li><p>Whether apparent covariate effects reflect confounding with
+unmeasured spatial structure.</p></li>
+<li><p>Whether apparent precision reflects data or prior
+assumptions.</p></li>
 </ul>
 <p>A user who understands these boundaries can use the framework
 appropriately, interpret outputs cautiously, and recognise when
@@ -476,5 +487,6 @@ its limits is more trustworthy than one that obscures them.</p>
 
 
 
-  </body>
+  
+</body>
 </html>

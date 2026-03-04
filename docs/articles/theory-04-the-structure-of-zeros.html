@@ -6,24 +6,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>The Structure of Zeros • SIMP</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="The Structure of Zeros">
-<script>
-// Redirect any case variation of /simp to /SIMP
-(function() {
-  var path = window.location.pathname;
-  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
-    var newPath = path.replace(/^\/simp/i, '/SIMP');
-    window.location.replace(newPath + window.location.search + window.location.hash);
-  }
-})();
-</script>
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+  pkgdown/mathjax-config.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,9 +122,8 @@ nothing to the total. It asserts something exact.</p>
 <div class="section level2">
 <h2 id="zeros-are-boundary-values">Zeros are boundary values<a class="anchor" aria-label="anchor" href="#zeros-are-boundary-values"></a>
 </h2>
-<p>The simplex
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝒮</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\mathcal{S}^{K-1}</annotation></semantics></math>
-is a bounded space. Its interior consists of compositions where every
+<p>The simplex <span class="math inline">\(\mathcal{S}^{K-1}\)</span> is
+a bounded space. Its interior consists of compositions where every
 component is strictly positive. Its boundary consists of compositions
 where at least one component equals zero.</p>
 <p>When a species is absent from a plot, the observed composition lies
@@ -166,24 +175,20 @@ say.</p>
 <p>Probability densities on the simplex behave differently at the
 boundary than in the interior.</p>
 <p>Consider the Dirichlet distribution. When concentration parameter
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k &gt; 1</annotation></semantics></math>,
-the density vanishes as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k \to 0</annotation></semantics></math>.
-The distribution places negligible mass near the boundary for that
-component. When
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k &lt; 1</annotation></semantics></math>,
-the density is unbounded as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k \to 0</annotation></semantics></math>,
-concentrating mass near zero without placing a point mass exactly at
-zero. When
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha_k = 1</annotation></semantics></math>,
+<span class="math inline">\(\alpha_k &gt; 1\)</span>, the density
+vanishes as <span class="math inline">\(y_k \to 0\)</span>. The
+distribution places negligible mass near the boundary for that
+component. When <span class="math inline">\(\alpha_k &lt; 1\)</span>,
+the density is unbounded as <span class="math inline">\(y_k \to
+0\)</span>, concentrating mass near zero without placing a point mass
+exactly at zero. When <span class="math inline">\(\alpha_k = 1\)</span>,
 the density is flat.</p>
 <p>None of these behaviours places positive probability on the event
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>k</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y_k = 0</annotation></semantics></math>
-exactly. The Dirichlet treats zero as a limit, not an outcome. For data
-where zeros are common and exact, this is inadequate. The model can
-concentrate mass arbitrarily close to zero, but it cannot represent the
-discrete event of absence.</p>
+<span class="math inline">\(y_k = 0\)</span> exactly. The Dirichlet
+treats zero as a limit, not an outcome. For data where zeros are common
+and exact, this is inadequate. The model can concentrate mass
+arbitrarily close to zero, but it cannot represent the discrete event of
+absence.</p>
 <p>The logistic-normal is worse in this respect. Because it is defined
 through log-ratios, it requires all components to be strictly positive.
 It assigns probability zero to any composition with a zero component.
@@ -281,14 +286,14 @@ correctly represents what the data can and cannot tell us.</p>
 feature that shapes what valid models can look like.</p>
 <p>A model for zero-heavy compositions must:</p>
 <ol style="list-style-type: decimal">
-<li>Place positive probability on exact zeros, not just on values
-approaching zero.</li>
-<li>Respect the sum constraint across both zero and nonzero
-components.</li>
-<li>Represent the joint structure of which components are zero and how
-cover is allocated among those that are not.</li>
-<li>Acknowledge that zeros reduce effective dimensionality and alter the
-observable dependence structure.</li>
+<li><p>Place positive probability on exact zeros, not just on values
+approaching zero.</p></li>
+<li><p>Respect the sum constraint across both zero and nonzero
+components.</p></li>
+<li><p>Represent the joint structure of which components are zero and
+how cover is allocated among those that are not.</p></li>
+<li><p>Acknowledge that zeros reduce effective dimensionality and alter
+the observable dependence structure.</p></li>
 </ol>
 <p>No purely continuous distribution on the simplex satisfies these
 requirements. The Dirichlet cannot represent exact zeros. The
@@ -321,5 +326,6 @@ has not engaged with the problem. It has evaded it.</p>
 
 
 
-  </body>
+  
+</body>
 </html>

@@ -1,4 +1,4 @@
-pandoc: 3.8.2.1
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
@@ -11,7 +11,7 @@ articles:
   theory-07-finite-representations: theory-07-finite-representations.html
   theory-08-identifiability-and-failure-modes: theory-08-identifiability-and-failure-modes.html
   theory-09-inference-and-interpretation: theory-09-inference-and-interpretation.html
-last_built: 2025-12-16T14:26Z
+last_built: 2026-03-04T11:49Z
 urls:
   reference: https://gcol33.github.io/SIMP/reference
   article: https://gcol33.github.io/SIMP/articles

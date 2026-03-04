@@ -29,9 +29,12 @@ process. The model must:
 
 1.  Respect the simplex constraint (values non-negative, summing to
     one).
+
 2.  Allow exact zeros with positive probability.
+
 3.  Represent dependence among components that is partly geometric and
     partly ecological.
+
 4.  Accommodate variation that differs in character across species.
 
 No single distribution on the simplex accomplishes all of this. Chapter
@@ -55,7 +58,7 @@ variables serve a specific structural role: they carry ecological
 variation in an unconstrained space, before the observation process
 imposes constraints.
 
-Consider a latent quantity for each species $`k`$ at each plot (call it
+Consider a latent quantity for each species \\k\\ at each plot (call it
 an intensity, a suitability, or simply a latent value). The exact
 parameterisation and interpretation will be specified in later chapters.
 What matters here is the structural role: this latent quantity
@@ -78,6 +81,7 @@ This separation clarifies what each part of the model represents:
 - **Latent layer**: Ecological variation, species-specific effects,
   environmental responses. Modelled in unconstrained space with flexible
   dependence.
+
 - **Observation layer**: The constraint that cover must sum to one, the
   discretisation into presence/absence, the measurement of proportions
   within a bounded plot.
@@ -97,16 +101,15 @@ distinct sources of variation.
 The structure can be written schematically as a factorisation of the
 joint distribution:
 
-``` math
-p(\text{data}, \text{latent}) = p(\text{data} \mid \text{latent}) \times p(\text{latent})
-```
+\\ p(\text{data}, \text{latent}) = p(\text{data} \mid \text{latent})
+\times p(\text{latent}) \\
 
-The first term, $`p(\text{data} \mid \text{latent})`$, is the
+The first term, \\p(\text{data} \mid \text{latent})\\, is the
 observation model. It describes how latent intensities become observed
 proportions. Where the simplex constraint lives. Where zeros are
 generated. Where compositional structure is imposed.
 
-The second term, $`p(\text{latent})`$, is the process model. It
+The second term, \\p(\text{latent})\\, is the process model. It
 describes how latent intensities vary across species, plots, and
 conditions. Where ecological covariance belongs. Where environmental
 predictors enter. Where species-level parameters are specified.
@@ -122,7 +125,7 @@ structure, not from direct connections among observed values.
 Chapter 4 established that zeros require discrete structure to represent
 exactly. In a hierarchical view, this structure has a natural home.
 
-The latent intensity $`\lambda_k`$ for a species can be positive,
+The latent intensity \\\lambda_k\\ for a species can be positive,
 indicating some capacity to occupy space, or it can be such that the
 species has zero probability of presence. The observation model then
 includes a presence indicator: given the latent intensity, is the
@@ -185,8 +188,10 @@ Conditional independence has practical implications:
 
 - The likelihood factorises into terms that depend on individual
   observations given their latent values.
+
 - Complex dependence structures are built into the latent layer, not the
   observation layer.
+
 - The observation model can be relatively simple (a mapping from latent
   intensities to proportions) while the process model carries the
   ecological complexity.

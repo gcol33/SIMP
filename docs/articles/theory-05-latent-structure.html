@@ -6,24 +6,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Latent Structure and Hierarchy • SIMP</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Latent Structure and Hierarchy">
-<script>
-// Redirect any case variation of /simp to /SIMP
-(function() {
-  var path = window.location.pathname;
-  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
-    var newPath = path.replace(/^\/simp/i, '/SIMP');
-    window.location.replace(newPath + window.location.search + window.location.hash);
-  }
-})();
-</script>
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+  pkgdown/mathjax-config.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,12 +130,13 @@ structure.</p>
 <p>Consider attempting to model observed cover proportions as the
 primary process. The model must:</p>
 <ol style="list-style-type: decimal">
-<li>Respect the simplex constraint (values non-negative, summing to
-one).</li>
-<li>Allow exact zeros with positive probability.</li>
-<li>Represent dependence among components that is partly geometric and
-partly ecological.</li>
-<li>Accommodate variation that differs in character across species.</li>
+<li><p>Respect the simplex constraint (values non-negative, summing to
+one).</p></li>
+<li><p>Allow exact zeros with positive probability.</p></li>
+<li><p>Represent dependence among components that is partly geometric
+and partly ecological.</p></li>
+<li><p>Accommodate variation that differs in character across
+species.</p></li>
 </ol>
 <p>No single distribution on the simplex accomplishes all of this.
 Chapter 3 established that admissible distributions on the simplex have
@@ -147,14 +158,12 @@ process of interest and the data. In the context of cover data, latent
 variables serve a specific structural role: they carry ecological
 variation in an unconstrained space, before the observation process
 imposes constraints.</p>
-<p>Consider a latent quantity for each species
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-at each plot (call it an intensity, a suitability, or simply a latent
-value). The exact parameterisation and interpretation will be specified
-in later chapters. What matters here is the structural role: this latent
-quantity represents the species’ tendency to occupy space under the
-conditions present, before the observation process imposes
-constraints.</p>
+<p>Consider a latent quantity for each species <span class="math inline">\(k\)</span> at each plot (call it an intensity, a
+suitability, or simply a latent value). The exact parameterisation and
+interpretation will be specified in later chapters. What matters here is
+the structural role: this latent quantity represents the species’
+tendency to occupy space under the conditions present, before the
+observation process imposes constraints.</p>
 <p>The latent values are not bounded. Not required to sum to anything
 across species. They can be modelled with familiar tools: Gaussian
 distributions, linear predictors, covariance structures that encode
@@ -166,14 +175,12 @@ at the observation level become natural consequences of the mapping. Not
 forced onto the model; they emerge from structure.</p>
 <p>This separation clarifies what each part of the model represents:</p>
 <ul>
-<li>
-<strong>Latent layer</strong>: Ecological variation,
+<li><p><strong>Latent layer</strong>: Ecological variation,
 species-specific effects, environmental responses. Modelled in
-unconstrained space with flexible dependence.</li>
-<li>
-<strong>Observation layer</strong>: The constraint that cover must
-sum to one, the discretisation into presence/absence, the measurement of
-proportions within a bounded plot.</li>
+unconstrained space with flexible dependence.</p></li>
+<li><p><strong>Observation layer</strong>: The constraint that cover
+must sum to one, the discretisation into presence/absence, the
+measurement of proportions within a bounded plot.</p></li>
 </ul>
 <p>The observed data are projections of latent structure through an
 observation process. The projection imposes constraints. The latent
@@ -189,20 +196,19 @@ added to a simpler model. It is what remains when we refuse to conflate
 distinct sources of variation.</p>
 <p>The structure can be written schematically as a factorisation of the
 joint distribution:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">data</mtext><mo>,</mo><mtext mathvariant="normal">latent</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">data</mtext><mo>∣</mo><mtext mathvariant="normal">latent</mtext><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">latent</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
-p(\text{data}, \text{latent}) = p(\text{data} \mid \text{latent}) \times p(\text{latent})
-</annotation></semantics></math></p>
-<p>The first term,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">data</mtext><mo>∣</mo><mtext mathvariant="normal">latent</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(\text{data} \mid \text{latent})</annotation></semantics></math>,
-is the observation model. It describes how latent intensities become
-observed proportions. Where the simplex constraint lives. Where zeros
-are generated. Where compositional structure is imposed.</p>
-<p>The second term,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">latent</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(\text{latent})</annotation></semantics></math>,
-is the process model. It describes how latent intensities vary across
-species, plots, and conditions. Where ecological covariance belongs.
-Where environmental predictors enter. Where species-level parameters are
-specified.</p>
+<p><span class="math display">\[
+p(\text{data}, \text{latent}) = p(\text{data} \mid \text{latent}) \times
+p(\text{latent})
+\]</span></p>
+<p>The first term, <span class="math inline">\(p(\text{data} \mid
+\text{latent})\)</span>, is the observation model. It describes how
+latent intensities become observed proportions. Where the simplex
+constraint lives. Where zeros are generated. Where compositional
+structure is imposed.</p>
+<p>The second term, <span class="math inline">\(p(\text{latent})\)</span>, is the process model.
+It describes how latent intensities vary across species, plots, and
+conditions. Where ecological covariance belongs. Where environmental
+predictors enter. Where species-level parameters are specified.</p>
 <p>The factorisation reflects the structure of the problem. Observed
 cover data are conditionally independent given the latent intensities:
 once we know the underlying ecological state, the observation process is
@@ -215,8 +221,7 @@ structure, not from direct connections among observed values.</p>
 <p>Chapter 4 established that zeros require discrete structure to
 represent exactly. In a hierarchical view, this structure has a natural
 home.</p>
-<p>The latent intensity
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\lambda_k</annotation></semantics></math>
+<p>The latent intensity <span class="math inline">\(\lambda_k\)</span>
 for a species can be positive, indicating some capacity to occupy space,
 or it can be such that the species has zero probability of presence. The
 observation model then includes a presence indicator: given the latent
@@ -274,13 +279,13 @@ have similar latent structure, not because one plot’s cover directly
 influences another’s.</p>
 <p>Conditional independence has practical implications:</p>
 <ul>
-<li>The likelihood factorises into terms that depend on individual
-observations given their latent values.</li>
-<li>Complex dependence structures are built into the latent layer, not
-the observation layer.</li>
-<li>The observation model can be relatively simple (a mapping from
+<li><p>The likelihood factorises into terms that depend on individual
+observations given their latent values.</p></li>
+<li><p>Complex dependence structures are built into the latent layer,
+not the observation layer.</p></li>
+<li><p>The observation model can be relatively simple (a mapping from
 latent intensities to proportions) while the process model carries the
-ecological complexity.</li>
+ecological complexity.</p></li>
 </ul>
 <p>A statement about how the world works: observations are conditionally
 independent because the data-generating process goes through latent
@@ -360,5 +365,6 @@ measurement. It has conflated them.</p>
 
 
 
-  </body>
+  
+</body>
 </html>

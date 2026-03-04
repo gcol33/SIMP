@@ -60,21 +60,27 @@ assumption:
 **Covers summing above 100%.** This occurs when canopy overlap is
 recorded within a layer, or when ordinal class midpoints are summed. The
 data must be rescaled to sum to one before modelling. SIMP provides
-`normalize_cover()` for this purpose.
+[`normalize_cover()`](https://gcol33.github.io/SIMP/reference/normalize_cover.md)
+for this purpose.
 
 **Multiple vertical layers.** Tree, shrub, and herb layers may each have
 separate cover estimates. These must be collapsed into a single
-composition. SIMP provides `collapse_layers()` with options for how to
-combine them.
+composition. SIMP provides
+[`collapse_layers()`](https://gcol33.github.io/SIMP/reference/collapse_layers.md)
+with options for how to combine them.
 
 **Missing residual category.** If the recorded species do not exhaust
 the plot (no bare ground or litter category), a residual must be added
-to close the composition. SIMP provides `add_residual()` for this.
+to close the composition. SIMP provides
+[`add_residual()`](https://gcol33.github.io/SIMP/reference/add_residual.md)
+for this.
 
 **Covers summing below 100% for unclear reasons.** This may indicate
 missing data, recording errors, or a protocol that does not aim for
 exhaustive coverage. The user must decide how to handle it; SIMP
-provides `validate_composition()` to diagnose the issue.
+provides
+[`validate_composition()`](https://gcol33.github.io/SIMP/reference/validate_composition.md)
+to diagnose the issue.
 
 Each of these functions makes explicit a choice that would otherwise be
 hidden. The user sees what transformation was applied and can assess

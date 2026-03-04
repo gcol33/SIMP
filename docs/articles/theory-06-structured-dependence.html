@@ -6,24 +6,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Structured Dependence at the Latent Level • SIMP</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Structured Dependence at the Latent Level">
-<script>
-// Redirect any case variation of /simp to /SIMP
-(function() {
-  var path = window.location.pathname;
-  if (/^\/simp\b/i.test(path) && !/^\/SIMP/.test(path)) {
-    var newPath = path.replace(/^\/simp/i, '/SIMP');
-    window.location.replace(newPath + window.location.search + window.location.hash);
-  }
-})();
-</script>
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+  pkgdown/mathjax-config.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +41,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,12 +123,9 @@ incoherent.</p>
 <div class="section level2">
 <h2 id="why-dependence-cannot-live-at-the-observation-level">Why dependence cannot live at the observation level<a class="anchor" aria-label="anchor" href="#why-dependence-cannot-live-at-the-observation-level"></a>
 </h2>
-<p>Consider two plots,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
-close in space. We expect their vegetation to be similar. What does
-“similar” mean for compositional data?</p>
+<p>Consider two plots, <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, close in space. We expect their
+vegetation to be similar. What does “similar” mean for compositional
+data?</p>
 <p>If we attempt to specify dependence directly on observed cover
 proportions, we encounter the constraints established in earlier
 chapters. The observations lie on the simplex. A model that specifies
@@ -152,16 +159,13 @@ that makes “correlation” unambiguous.</p>
 <p>The alternative: place dependence at the latent level. Latent values
 are unconstrained. They live in ordinary Euclidean space, where
 dependence is well-defined and familiar tools apply.</p>
-<p>If the latent value at plot
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-is similar to the latent value at plot
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
-this similarity propagates through the observation model. Similar latent
-values produce similar probabilities of presence. Similar latent values
-produce similar expected cover allocations. The observed compositions
-will tend to be similar, not because dependence was imposed on them
-directly, but because they were generated from similar latent
-states.</p>
+<p>If the latent value at plot <span class="math inline">\(i\)</span> is
+similar to the latent value at plot <span class="math inline">\(j\)</span>, this similarity propagates through the
+observation model. Similar latent values produce similar probabilities
+of presence. Similar latent values produce similar expected cover
+allocations. The observed compositions will tend to be similar, not
+because dependence was imposed on them directly, but because they were
+generated from similar latent states.</p>
 <p>This propagation is automatic. The observation model, which maps
 latent values to constrained observations, transforms latent similarity
 into observed similarity. The constraints are respected because the
@@ -311,5 +315,6 @@ a structural requirement.</p>
 
 
 
-  </body>
+  
+</body>
 </html>
