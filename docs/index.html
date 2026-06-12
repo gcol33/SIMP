@@ -92,6 +92,103 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="simp">SIMP<a class="anchor" aria-label="anchor" href="#simp"></a>
 </h1></div>
+<blockquote>
+<p>Small exact engines for scientific computing in R.</p>
+</blockquote>
+<p><em>models for compositions full of zeros</em></p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></p>
+<p><strong>A Bayesian framework for bounded, compositional, zero-heavy data, sampled with a native C++ NUTS backend (no Stan).</strong></p>
+<p>Cover, market shares, budget shares, relative abundances: parts of a finite whole that sum to one, never go negative, and hit exact zero whenever a part is genuinely absent. SIMP treats those bounds and zeros as the data-generating process and builds the likelihood around them, so nothing has to be nudged off the boundary to fit a transform.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SIMP</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># compositional response: each row sums to 1</span></span>
+<span><span class="va">props</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">50</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">props</span> <span class="op">&lt;-</span> <span class="va">props</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">props</span><span class="op">)</span></span>
+<span><span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simp_composition.html">simp_composition</a></span><span class="op">(</span><span class="va">props</span>, components <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grass"</span>, <span class="st">"shrub"</span>, <span class="st">"bare"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>temp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># specify a hierarchical Dirichlet model, lme4-style random effects</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simp.html">simp</a></span><span class="op">(</span><span class="va">cover</span> <span class="op">~</span> <span class="va">temp</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">site</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">dat</span>, family <span class="op">=</span> <span class="fu"><a href="reference/simp_dirichlet.html">simp_dirichlet</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># sample the posterior with the built-in NUTS sampler</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, chains <span class="op">=</span> <span class="fl">4</span>, iter <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="zeros-are-kept-exact">Zeros are kept exact<a class="anchor" aria-label="anchor" href="#zeros-are-kept-exact"></a>
+</h2>
+<p>The usual route for compositional data is a log-ratio or logit transform onto an unbounded scale, a Gaussian model, and a back-transform. The transform is undefined at zero, so the zeros get a small constant added, replaced by half a detection limit, or dropped. Each fix moves the data off the boundary it actually sits on.</p>
+<p>SIMP models the simplex directly. Boundedness, the unit-sum closure, and structural zeros are constraints the likelihood respects rather than artefacts to smooth away. <code><a href="reference/simp_hurdle_dirichlet.html">simp_hurdle_dirichlet()</a></code> gives zeros their own two-part model: a probability that a component is absent, and a Dirichlet over what remains.</p>
+</div>
+<div class="section level2">
+<h2 id="families">Families<a class="anchor" aria-label="anchor" href="#families"></a>
+</h2>
+<ul>
+<li>
+<strong><code><a href="reference/simp_dirichlet.html">simp_dirichlet()</a></code></strong>: the natural distribution on the simplex; concentration estimated or fixed.</li>
+<li>
+<strong><code><a href="reference/simp_logistic_normal.html">simp_logistic_normal()</a></code></strong>: multivariate normal on additive log-ratios, for flexible correlation between components.</li>
+<li>
+<strong><code><a href="reference/simp_hurdle_dirichlet.html">simp_hurdle_dirichlet()</a></code></strong>: two-part model for structural zeros, with a covariate-dependent zero submodel.</li>
+<li>
+<strong><code><a href="reference/simp_stick_breaking.html">simp_stick_breaking()</a></code></strong>: sequential binary splits, for components with a natural order (e.g. canopy strata).</li>
+</ul>
+<p>Pick a family, then <code><a href="reference/simp.html">simp()</a></code> validates the response, parses the formula, and checks the family against the data (it warns if you hand zeros to a family that cannot hold them).</p>
+</div>
+<div class="section level2">
+<h2 id="compositional-and-cover-data-structures">Compositional and cover data structures<a class="anchor" aria-label="anchor" href="#compositional-and-cover-data-structures"></a>
+</h2>
+<p><code><a href="reference/simp_composition.html">simp_composition()</a></code> is the core class: a matrix whose rows sum to one, carrying its component names and zero pattern. <code><a href="reference/simp_cover.html">simp_cover()</a></code> extends it for vegetation surveys with layer (stratum) and residual support.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>grass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.4</span><span class="op">)</span>, shrub <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.4</span><span class="op">)</span>, bare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simp_composition.html">simp_composition</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># get cover data onto the simplex before modelling</span></span>
+<span><span class="fu"><a href="reference/normalize_cover.html">normalize_cover</a></span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>        <span class="co"># rescale rows that sum above or below one</span></span>
+<span><span class="fu"><a href="reference/collapse_layers.html">collapse_layers</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>          <span class="co"># combine tree / shrub / herb strata</span></span>
+<span><span class="fu"><a href="reference/add_residual.html">add_residual</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>             <span class="co"># close the composition with a residual category</span></span>
+<span><span class="fu"><a href="reference/identify_zeros.html">identify_zeros</a></span><span class="op">(</span><span class="va">comp</span><span class="op">)</span>        <span class="co"># classify zeros as structural or sampling</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="priors-and-formulas">Priors and formulas<a class="anchor" aria-label="anchor" href="#priors-and-formulas"></a>
+</h2>
+<p>Priors are family-aware closures (<code><a href="reference/prior_normal.html">prior_normal()</a></code>, <code><a href="reference/prior_gamma.html">prior_gamma()</a></code>, <code><a href="reference/prior_lkj.html">prior_lkj()</a></code>, <code><a href="reference/prior_pc.html">prior_pc()</a></code>, and more), assembled with <code><a href="reference/simp_priors.html">simp_priors()</a></code> or left to family defaults. Formulas use lme4-style random effects, including correlated slopes, nested (<code>region/site</code>), and crossed groupings; <code><a href="reference/parse_formula.html">parse_formula()</a></code> exposes the parsed structure.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/simp.html">simp</a></span><span class="op">(</span></span>
+<span>  <span class="va">cover</span> <span class="op">~</span> <span class="va">temp</span> <span class="op">+</span> <span class="va">precip</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">temp</span> <span class="op">|</span> <span class="va">site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">year</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>  family <span class="op">=</span> <span class="fu"><a href="reference/simp_dirichlet.html">simp_dirichlet</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  prior <span class="op">=</span> <span class="fu"><a href="reference/simp_priors.html">simp_priors</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fu"><a href="reference/prior_normal.html">prior_normal</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="status">Status<a class="anchor" aria-label="anchor" href="#status"></a>
+</h2>
+<p>SIMP is at v0.1.0 and under active development. The data structures, families, prior and formula machinery are in place, and <code><a href="reference/fit.html">fit()</a></code> runs the native NUTS sampler for the Dirichlet family. Logistic-normal, hurdle, and stick-breaking likelihoods, posterior prediction, and spatial/temporal effects are on the <a href="roadmap/ROADMAP.html">roadmap</a>. The nine <a href="https://gcol33.github.io/SIMP/">theory articles</a> develop the framework the implementation follows.</p>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"gcol33/SIMP"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
+<ul>
+<li>
+<a href="https://gcol33.github.io/SIMP/">Theory articles</a> — the mathematical framework, in nine chapters</li>
+<li>
+<a href="https://gcol33.github.io/SIMP/reference/">Reference</a> — function documentation</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>MIT (see the LICENSE file)</p>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
