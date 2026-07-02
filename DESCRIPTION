@@ -1,31 +1,30 @@
 Package: SIMP
-Title: Bayesian Modelling Framework for Constrained Intensity Data
+Title: Symplectic Integrators for Monte-Carlo Proposals
 Version: 0.1.0
 Authors@R:
     person("Gilles", "Colling", , "gilles.colling051@gmail.com", role = c("aut", "cre"))
 Author: Gilles Colling [aut, cre]
 Maintainer: Gilles Colling <gilles.colling051@gmail.com>
-Description: A general Bayesian modelling framework for bounded, compositional,
-    and zero-heavy intensity data. Treats constraints as defining features of
-    the data-generating process rather than nuisances to be transformed away.
-    Provides data structures for compositional data, prior specification,
-    and formula parsing for hierarchical models.
+Description: Symplectic integration of separable Hamiltonian systems and the
+    Hamiltonian Monte Carlo proposals built on them. The integrators are
+    splitting schemes: an alternating sequence of position and momentum
+    updates whose coefficients define the method. Leapfrog and the Yoshida
+    order 4, 6, and 8 members are generated from a single triple-jump
+    composition, so the whole family shares one stepper and one coefficient
+    source. The stepper is a header-only, scalar-templated C++ core that other
+    packages can link against, so it runs under automatic differentiation as
+    well as plain double precision.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports:
-    cli (>= 3.0.0),
     Rcpp (>= 1.0.0)
 LinkingTo:
     Rcpp,
     RcppEigen
 Suggests:
-    knitr,
-    rmarkdown,
-    pkgdown,
     testthat (>= 3.0.0)
-VignetteBuilder: knitr
-URL: https://gcol33.github.io/SIMP/
-Config/Needs/website: pkgdown
+URL: https://github.com/gcol33/SIMP
+BugReports: https://github.com/gcol33/SIMP/issues
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

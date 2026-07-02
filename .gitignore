@@ -1,1 +1,9 @@
 .claude/
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.o
+*.so
+*.dll
+src/symbols.rds

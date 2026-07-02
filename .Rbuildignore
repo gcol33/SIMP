@@ -1,9 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.claude$
-^roadmap$
-^docs$
-^pkgdown$
-^_pkgdown\.yml$
 ^\.github$
-^CLAUDE\.md$
+^LICENSE\.md$

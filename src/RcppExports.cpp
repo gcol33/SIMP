@@ -11,86 +11,39 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// cpp_fit_dirichlet
-List cpp_fit_dirichlet(Eigen::MatrixXd Y, Eigen::MatrixXd X, int n_iter, int n_warmup, Eigen::VectorXd init, int seed, int max_treedepth, double adapt_delta, double beta_prior_sd, double phi_prior_shape, double phi_prior_rate, bool verbose);
-RcppExport SEXP _SIMP_cpp_fit_dirichlet(SEXP YSEXP, SEXP XSEXP, SEXP n_iterSEXP, SEXP n_warmupSEXP, SEXP initSEXP, SEXP seedSEXP, SEXP max_treedepthSEXP, SEXP adapt_deltaSEXP, SEXP beta_prior_sdSEXP, SEXP phi_prior_shapeSEXP, SEXP phi_prior_rateSEXP, SEXP verboseSEXP) {
+// simp_schemes_cpp
+Rcpp::DataFrame simp_schemes_cpp();
+RcppExport SEXP _SIMP_simp_schemes_cpp() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< int >::type n_iter(n_iterSEXP);
-    Rcpp::traits::input_parameter< int >::type n_warmup(n_warmupSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type init(initSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    Rcpp::traits::input_parameter< int >::type max_treedepth(max_treedepthSEXP);
-    Rcpp::traits::input_parameter< double >::type adapt_delta(adapt_deltaSEXP);
-    Rcpp::traits::input_parameter< double >::type beta_prior_sd(beta_prior_sdSEXP);
-    Rcpp::traits::input_parameter< double >::type phi_prior_shape(phi_prior_shapeSEXP);
-    Rcpp::traits::input_parameter< double >::type phi_prior_rate(phi_prior_rateSEXP);
-    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_fit_dirichlet(Y, X, n_iter, n_warmup, init, seed, max_treedepth, adapt_delta, beta_prior_sd, phi_prior_shape, phi_prior_rate, verbose));
+    rcpp_result_gen = Rcpp::wrap(simp_schemes_cpp());
     return rcpp_result_gen;
 END_RCPP
 }
-// cpp_dirichlet_n_params
-int cpp_dirichlet_n_params(int n_predictors, int n_components);
-RcppExport SEXP _SIMP_cpp_dirichlet_n_params(SEXP n_predictorsSEXP, SEXP n_componentsSEXP) {
+// simp_integrate_cpp
+Rcpp::List simp_integrate_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0, Rcpp::Function grad_U, double eps, int n_steps, std::string scheme_name, Rcpp::NumericMatrix Minv, bool trajectory, Rcpp::Nullable<Rcpp::Function> U_fn);
+RcppExport SEXP _SIMP_simp_integrate_cpp(SEXP q0SEXP, SEXP p0SEXP, SEXP grad_USEXP, SEXP epsSEXP, SEXP n_stepsSEXP, SEXP scheme_nameSEXP, SEXP MinvSEXP, SEXP trajectorySEXP, SEXP U_fnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type n_predictors(n_predictorsSEXP);
-    Rcpp::traits::input_parameter< int >::type n_components(n_componentsSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_dirichlet_n_params(n_predictors, n_components));
-    return rcpp_result_gen;
-END_RCPP
-}
-// cpp_dirichlet_init
-Eigen::VectorXd cpp_dirichlet_init(int n_predictors, int n_components, double beta_init, double log_phi_init);
-RcppExport SEXP _SIMP_cpp_dirichlet_init(SEXP n_predictorsSEXP, SEXP n_componentsSEXP, SEXP beta_initSEXP, SEXP log_phi_initSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type n_predictors(n_predictorsSEXP);
-    Rcpp::traits::input_parameter< int >::type n_components(n_componentsSEXP);
-    Rcpp::traits::input_parameter< double >::type beta_init(beta_initSEXP);
-    Rcpp::traits::input_parameter< double >::type log_phi_init(log_phi_initSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_dirichlet_init(n_predictors, n_components, beta_init, log_phi_init));
-    return rcpp_result_gen;
-END_RCPP
-}
-// cpp_test_log_dirichlet
-double cpp_test_log_dirichlet(Eigen::VectorXd y, Eigen::VectorXd alpha);
-RcppExport SEXP _SIMP_cpp_test_log_dirichlet(SEXP ySEXP, SEXP alphaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type y(ySEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha(alphaSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_test_log_dirichlet(y, alpha));
-    return rcpp_result_gen;
-END_RCPP
-}
-// cpp_test_log_dirichlet_softmax
-double cpp_test_log_dirichlet_softmax(Eigen::VectorXd y, Eigen::VectorXd eta, double phi);
-RcppExport SEXP _SIMP_cpp_test_log_dirichlet_softmax(SEXP ySEXP, SEXP etaSEXP, SEXP phiSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type y(ySEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type eta(etaSEXP);
-    Rcpp::traits::input_parameter< double >::type phi(phiSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_test_log_dirichlet_softmax(y, eta, phi));
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type q0(q0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type p0(p0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type grad_U(grad_USEXP);
+    Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
+    Rcpp::traits::input_parameter< int >::type n_steps(n_stepsSEXP);
+    Rcpp::traits::input_parameter< std::string >::type scheme_name(scheme_nameSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type Minv(MinvSEXP);
+    Rcpp::traits::input_parameter< bool >::type trajectory(trajectorySEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::Function> >::type U_fn(U_fnSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_integrate_cpp(q0, p0, grad_U, eps, n_steps, scheme_name, Minv, trajectory, U_fn));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_SIMP_cpp_fit_dirichlet", (DL_FUNC) &_SIMP_cpp_fit_dirichlet, 12},
-    {"_SIMP_cpp_dirichlet_n_params", (DL_FUNC) &_SIMP_cpp_dirichlet_n_params, 2},
-    {"_SIMP_cpp_dirichlet_init", (DL_FUNC) &_SIMP_cpp_dirichlet_init, 4},
-    {"_SIMP_cpp_test_log_dirichlet", (DL_FUNC) &_SIMP_cpp_test_log_dirichlet, 2},
-    {"_SIMP_cpp_test_log_dirichlet_softmax", (DL_FUNC) &_SIMP_cpp_test_log_dirichlet_softmax, 3},
+    {"_SIMP_simp_schemes_cpp", (DL_FUNC) &_SIMP_simp_schemes_cpp, 0},
+    {"_SIMP_simp_integrate_cpp", (DL_FUNC) &_SIMP_simp_integrate_cpp, 9},
     {NULL, NULL, 0}
 };
 

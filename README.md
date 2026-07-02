@@ -1,23 +1,71 @@
-# SIMP (superseded)
+# SIMP
 
-[![Lifecycle: superseded](https://img.shields.io/badge/lifecycle-superseded-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#superseded)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: start -->
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: end -->
 
-SIMP's compositional models now live in **[tulpaComp](https://github.com/gcol33/tulpaComp)**, where each family is a likelihood plugin on the [tulpa](https://github.com/gcol33/tulpa) inference engine. Running on the engine gives them shared exact-MCMC (NUTS) and Laplace tiers with autodiff gradients. This repository is archived for reference and no longer developed.
+**S**ymplectic **I**ntegrators for **M**onte-carlo **P**roposals.
 
-The four families SIMP set out to build are all implemented in tulpaComp against the engine, each with multi-seed parameter-recovery and credible-interval coverage tests:
+SIMP integrates separable Hamiltonian systems and builds the Hamiltonian Monte
+Carlo proposals that run on them. Symplectic integrators conserve a nearby
+energy, so a trajectory holds its total energy over long horizons and the
+proposals it produces are accepted at high rates.
 
-- **Dirichlet**: the natural distribution on the simplex; concentration estimated or fixed.
-- **logistic-normal**: multivariate normal on additive log-ratios, for flexible correlation between components.
-- **hurdle-Dirichlet**: two-part model for structural zeros, with a covariate-dependent zero submodel.
-- **stick-breaking**: sequential binary splits, for components with a natural order.
+The integrators are splitting schemes: an alternating sequence of position and
+momentum updates whose coefficients define the method. Leapfrog and the Yoshida
+order 4, 6, and 8 members come from a single triple-jump composition, so the
+whole family shares one stepper and one coefficient source. Adding a scheme is
+one registry entry.
 
-The zero-handling data structures (`composition()`, `identify_zeros()`, structural vs sampling zeros) carried over as well.
+The stepper is a header-only, scalar-templated C++ core. Consumers link against
+it with `LinkingTo: SIMP` and drive it with a native gradient under automatic
+differentiation, so the same code path serves plain-double integration and
+gradient-based inference engines.
 
-## Theory articles
+## Install
 
-The nine [theory articles](https://gcol33.github.io/SIMP/) that develop the mathematical framework remain available here. They document the simplex likelihoods, the zero taxonomy, and the prior and formula design that the tulpaComp implementation follows.
+```r
+# install.packages("remotes")
+remotes::install_github("gcol33/SIMP")
+```
+
+## Integrate a trajectory
+
+```r
+library(SIMP)
+
+# Unit Gaussian target: U(q) = 0.5 q'q, so grad_U(q) = q.
+grad_U <- function(q) q
+
+out <- simp_integrate(
+  q0 = c(1, 0), p0 = c(0, 1),
+  grad_U = grad_U, eps = 0.1, n_steps = 60,
+  integrator = "yoshida4"
+)
+out$q
+```
+
+`simp_schemes()` lists the built-in integrators with their order and gradient
+cost per step.
+
+## Sample with HMC
+
+```r
+Sigma <- matrix(c(1, 0.8, 0.8, 1), 2)
+P <- solve(Sigma)
+U <- function(q) 0.5 * as.numeric(t(q) %*% P %*% q)
+grad_U <- function(q) as.numeric(P %*% q)
+
+fit <- simp_hmc(U, grad_U, init = c(0, 0), n_iter = 2000, eps = 0.2,
+                n_steps = 20, warmup = 500, integrator = "leapfrog")
+
+colMeans(fit$draws)
+fit$accept_rate
+```
+
+Pass any name from `simp_schemes()` as `integrator` to compare schemes on the
+same target.
 
 ## License
 
-MIT (see the LICENSE file)
+MIT (c) Gilles Colling.
