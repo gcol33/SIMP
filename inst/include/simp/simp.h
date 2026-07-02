@@ -5,5 +5,6 @@
 // with LinkingTo: SIMP and include <simp/simp.h>.
 #include "scheme.h"
 #include "integrate.h"
+#include "implicit.h"
 
 #endif  // SIMP_SIMP_H

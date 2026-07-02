@@ -9,3 +9,7 @@ simp_integrate_cpp <- function(q0, p0, grad_U, eps, n_steps, scheme_name, Minv, 
     .Call(`_SIMP_simp_integrate_cpp`, q0, p0, grad_U, eps, n_steps, scheme_name, Minv, trajectory, U_fn)
 }
 
+simp_integrate_nonsep_cpp <- function(q0, p0, dH_dq, dH_dp, eps, n_steps, tol, max_iter, trajectory, H_fn) {
+    .Call(`_SIMP_simp_integrate_nonsep_cpp`, q0, p0, dH_dq, dH_dp, eps, n_steps, tol, max_iter, trajectory, H_fn)
+}
+

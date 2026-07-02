@@ -46,6 +46,21 @@ inline Scheme leapfrog() {
                 {{Op::Kick, 0.5}, {Op::Drift, 1.0}, {Op::Kick, 0.5}}};
 }
 
+// Two-stage order-two integrator, kick-drift-kick-drift-kick with kick weights
+// b, 1-2b, b and drift weights 1/2, 1/2. The free weight is fixed at
+// b = (3 - sqrt(5)) / 4 = 1 / (3 + sqrt(5)), the value that cancels the leading
+// energy-error term on a harmonic oscillator. A Gaussian target has harmonic
+// dynamics, and mass adaptation drives a target toward an isotropic Gaussian,
+// so this integrator carries almost no energy error near the adapted optimum
+// and admits large steps without the stability cliff of the high-order
+// composition schemes. It costs two force evaluations per step.
+inline Scheme minerror2() {
+  const double b = (3.0 - std::sqrt(5.0)) / 4.0;
+  return Scheme{"minerror2", 2,
+                {{Op::Kick, b}, {Op::Drift, 0.5}, {Op::Kick, 1.0 - 2.0 * b},
+                 {Op::Drift, 0.5}, {Op::Kick, b}}};
+}
+
 // Scale a scheme so one step covers a fraction w of the step size.
 inline Scheme scale(const Scheme& s, double w) {
   Scheme out = s;
@@ -89,7 +104,7 @@ inline std::vector<Scheme> registry() {
   Scheme y4 = triple_jump(lf, "yoshida4");
   Scheme y6 = triple_jump(y4, "yoshida6");
   Scheme y8 = triple_jump(y6, "yoshida8");
-  return {lf, y4, y6, y8};
+  return {lf, minerror2(), y4, y6, y8};
 }
 
 inline Scheme scheme_by_name(const std::string& name) {

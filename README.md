@@ -15,12 +15,19 @@ The integrators are splitting schemes: an alternating sequence of position and
 momentum updates whose coefficients define the method. Leapfrog and the Yoshida
 order 4, 6, and 8 members come from a single triple-jump composition, so the
 whole family shares one stepper and one coefficient source. Adding a scheme is
-one registry entry.
+one registry entry. A two-stage member, `minerror2`, uses the kick weight
+`(3 - sqrt(5)) / 4` that cancels the leading energy error on a Gaussian target,
+which makes it the accurate choice for Hamiltonian Monte Carlo on near-Gaussian
+posteriors.
 
-The stepper is a header-only, scalar-templated C++ core. Consumers link against
-it with `LinkingTo: SIMP` and drive it with a native gradient under automatic
-differentiation, so the same code path serves plain-double integration and
-gradient-based inference engines.
+For non-separable Hamiltonians, such as Riemannian dynamics with a
+position-dependent mass, `simp_integrate_nonsep()` uses the generalized
+(implicit) leapfrog.
+
+The steppers are a header-only, scalar-templated C++ core. Consumers link
+against it with `LinkingTo: SIMP` and drive it with a native gradient under
+automatic differentiation, so the same code path serves plain-double
+integration and gradient-based inference engines.
 
 ## Install
 

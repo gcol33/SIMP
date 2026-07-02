@@ -2,6 +2,7 @@
 
 export(simp_hmc)
 export(simp_integrate)
+export(simp_integrate_nonsep)
 export(simp_schemes)
 importFrom(Rcpp,sourceCpp)
 useDynLib(SIMP, .registration = TRUE)

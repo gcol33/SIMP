@@ -40,10 +40,31 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// simp_integrate_nonsep_cpp
+Rcpp::List simp_integrate_nonsep_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0, Rcpp::Function dH_dq, Rcpp::Function dH_dp, double eps, int n_steps, double tol, int max_iter, bool trajectory, Rcpp::Nullable<Rcpp::Function> H_fn);
+RcppExport SEXP _SIMP_simp_integrate_nonsep_cpp(SEXP q0SEXP, SEXP p0SEXP, SEXP dH_dqSEXP, SEXP dH_dpSEXP, SEXP epsSEXP, SEXP n_stepsSEXP, SEXP tolSEXP, SEXP max_iterSEXP, SEXP trajectorySEXP, SEXP H_fnSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type q0(q0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type p0(p0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type dH_dq(dH_dqSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type dH_dp(dH_dpSEXP);
+    Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
+    Rcpp::traits::input_parameter< int >::type n_steps(n_stepsSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< bool >::type trajectory(trajectorySEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::Function> >::type H_fn(H_fnSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_integrate_nonsep_cpp(q0, p0, dH_dq, dH_dp, eps, n_steps, tol, max_iter, trajectory, H_fn));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_SIMP_simp_schemes_cpp", (DL_FUNC) &_SIMP_simp_schemes_cpp, 0},
     {"_SIMP_simp_integrate_cpp", (DL_FUNC) &_SIMP_simp_integrate_cpp, 9},
+    {"_SIMP_simp_integrate_nonsep_cpp", (DL_FUNC) &_SIMP_simp_integrate_nonsep_cpp, 10},
     {NULL, NULL, 0}
 };
 

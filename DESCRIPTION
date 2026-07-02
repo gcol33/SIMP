@@ -1,19 +1,21 @@
 Package: SIMP
 Title: Symplectic Integrators for Monte-Carlo Proposals
-Version: 0.1.0
+Version: 0.2.0
 Authors@R:
     person("Gilles", "Colling", , "gilles.colling051@gmail.com", role = c("aut", "cre"))
 Author: Gilles Colling [aut, cre]
 Maintainer: Gilles Colling <gilles.colling051@gmail.com>
-Description: Symplectic integration of separable Hamiltonian systems and the
-    Hamiltonian Monte Carlo proposals built on them. The integrators are
-    splitting schemes: an alternating sequence of position and momentum
-    updates whose coefficients define the method. Leapfrog and the Yoshida
-    order 4, 6, and 8 members are generated from a single triple-jump
+Description: Symplectic integration of Hamiltonian systems and the Hamiltonian
+    Monte Carlo proposals built on them. Explicit splitting schemes for
+    separable Hamiltonians cover leapfrog, a two-stage minimum-error member
+    tuned to cancel the leading energy error on a Gaussian target, and the
+    Yoshida order 4, 6, and 8 members generated from a single triple-jump
     composition, so the whole family shares one stepper and one coefficient
-    source. The stepper is a header-only, scalar-templated C++ core that other
-    packages can link against, so it runs under automatic differentiation as
-    well as plain double precision.
+    source. A generalized (implicit) leapfrog handles non-separable
+    Hamiltonians, as in Riemannian dynamics with a position-dependent mass. The
+    steppers are a header-only, scalar-templated C++ core that other packages
+    can link against, so they run under automatic differentiation as well as
+    plain double precision.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -90,3 +90,64 @@ Rcpp::List simp_integrate_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0,
                             _["p_path"] = Rcpp::wrap(p_path),
                             _["energy"] = energy);
 }
+
+// Integrate a non-separable Hamiltonian with the generalized (implicit)
+// leapfrog. dH_dq(q, p) and dH_dp(q, p) return the partial gradients; H(q, p)
+// is optional and records the total energy along the retained points.
+// [[Rcpp::export]]
+Rcpp::List simp_integrate_nonsep_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0,
+                                     Rcpp::Function dH_dq, Rcpp::Function dH_dp,
+                                     double eps, int n_steps, double tol,
+                                     int max_iter, bool trajectory,
+                                     Rcpp::Nullable<Rcpp::Function> H_fn) {
+  Vec q = as_vec(q0);
+  Vec p = as_vec(p0);
+  const int d = q.size();
+  const bool want_energy = H_fn.isNotNull();
+  Rcpp::Function H = want_energy ? Rcpp::Function(H_fn.get()) : dH_dq;
+
+  auto dHdq = [&](const Vec& qq, const Vec& pp) -> Vec {
+    Rcpp::NumericVector g = dH_dq(Rcpp::wrap(qq), Rcpp::wrap(pp));
+    return as_vec(g);
+  };
+  auto dHdp = [&](const Vec& qq, const Vec& pp) -> Vec {
+    Rcpp::NumericVector g = dH_dp(Rcpp::wrap(qq), Rcpp::wrap(pp));
+    return as_vec(g);
+  };
+  auto energy_at = [&](const Vec& qq, const Vec& pp) -> double {
+    return Rcpp::as<double>(H(Rcpp::wrap(qq), Rcpp::wrap(pp)));
+  };
+
+  const int n_keep = trajectory ? (n_steps + 1) : 1;
+  Mat q_path(d, n_keep);
+  Mat p_path(d, n_keep);
+  Rcpp::NumericVector energy(want_energy ? n_keep : 0);
+  bool all_converged = true;
+
+  if (trajectory) {
+    q_path.col(0) = q;
+    p_path.col(0) = p;
+    if (want_energy) energy[0] = energy_at(q, p);
+  }
+  for (int i = 0; i < n_steps; ++i) {
+    simp::ImplicitResult res =
+        simp::step_implicit(q, p, eps, dHdq, dHdp, tol, max_iter);
+    all_converged = all_converged && res.converged;
+    if (trajectory) {
+      q_path.col(i + 1) = q;
+      p_path.col(i + 1) = p;
+      if (want_energy) energy[i + 1] = energy_at(q, p);
+    }
+  }
+  if (!trajectory) {
+    q_path.col(0) = q;
+    p_path.col(0) = p;
+    if (want_energy) energy[0] = energy_at(q, p);
+  }
+
+  return Rcpp::List::create(_["q"] = Rcpp::wrap(q), _["p"] = Rcpp::wrap(p),
+                            _["q_path"] = Rcpp::wrap(q_path),
+                            _["p_path"] = Rcpp::wrap(p_path),
+                            _["energy"] = energy,
+                            _["converged"] = all_converged);
+}

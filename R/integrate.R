@@ -92,6 +92,75 @@ simp_integrate <- function(q0, p0, grad_U, eps, n_steps,
   out
 }
 
+#' Integrate a non-separable Hamiltonian (generalized leapfrog)
+#'
+#' Advance a Hamiltonian H(q, p) whose kinetic and potential parts do not
+#' separate, as in Riemannian dynamics with a position-dependent mass, using
+#' the generalized (implicit) leapfrog. The step is symmetric, time reversible,
+#' and symplectic; its two implicit stages are solved by fixed-point iteration.
+#' For a separable H = U(q) + K(p) it reduces to [simp_integrate()] with the
+#' leapfrog scheme.
+#'
+#' @param q0 Numeric vector, the starting position.
+#' @param p0 Numeric vector, the starting momentum, same length as `q0`.
+#' @param dH_dq Function of `(q, p)` returning the partial gradient dH/dq.
+#' @param dH_dp Function of `(q, p)` returning the partial gradient dH/dp.
+#' @param eps Positive step size.
+#' @param n_steps Number of integrator steps.
+#' @param tol Fixed-point tolerance for the implicit stages.
+#' @param max_iter Maximum fixed-point iterations per stage.
+#' @param trajectory If `TRUE`, return the position and momentum at every step.
+#' @param H Optional function of `(q, p)` returning the total energy, recorded
+#'   along the returned points.
+#'
+#' @return A list with the endpoint `q` and `p`, a `converged` flag reporting
+#'   whether every implicit stage met `tol`, and, when requested, `q_path`,
+#'   `p_path`, and `energy`.
+#'
+#' @examples
+#' # Separable check: H = 0.5 p'p + 0.5 q'q reduces to leapfrog.
+#' out <- simp_integrate_nonsep(
+#'   q0 = c(1, 0), p0 = c(0, 1),
+#'   dH_dq = function(q, p) q, dH_dp = function(q, p) p,
+#'   eps = 0.1, n_steps = 60)
+#' out$q
+#'
+#' @export
+simp_integrate_nonsep <- function(q0, p0, dH_dq, dH_dp, eps, n_steps,
+                                  tol = 1e-10, max_iter = 100L,
+                                  trajectory = FALSE, H = NULL) {
+  q0 <- as.numeric(q0)
+  p0 <- as.numeric(p0)
+  if (length(p0) != length(q0)) {
+    stop("q0 and p0 must have the same length", call. = FALSE)
+  }
+  if (!is.function(dH_dq) || !is.function(dH_dp)) {
+    stop("dH_dq and dH_dp must be functions of (q, p)", call. = FALSE)
+  }
+  if (!is.numeric(eps) || length(eps) != 1 || eps <= 0) {
+    stop("eps must be a single positive number", call. = FALSE)
+  }
+  n_steps <- as.integer(n_steps)
+  if (is.na(n_steps) || n_steps < 1) {
+    stop("n_steps must be a positive integer", call. = FALSE)
+  }
+
+  res <- simp_integrate_nonsep_cpp(q0, p0, dH_dq, dH_dp, eps, n_steps,
+                                   as.numeric(tol), as.integer(max_iter),
+                                   isTRUE(trajectory), H)
+
+  out <- list(q = as.numeric(res$q), p = as.numeric(res$p),
+              converged = isTRUE(res$converged))
+  if (isTRUE(trajectory)) {
+    out$q_path <- t(res$q_path)
+    out$p_path <- t(res$p_path)
+  }
+  if (!is.null(H)) {
+    out$energy <- as.numeric(res$energy)
+  }
+  out
+}
+
 #' Available symplectic integrators
 #'
 #' The built-in scheme family: leapfrog and the Yoshida members generated from

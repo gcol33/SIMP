@@ -37,6 +37,40 @@ test_that("each scheme converges at its declared order", {
   }
 })
 
+test_that("minerror2 cancels the leading energy error on a Gaussian target", {
+  U <- function(q) 0.5 * sum(q^2)
+  energy_range <- function(scheme, eps, nstep) {
+    out <- simp_integrate(1.0, 0.0, osc_grad, eps, nstep, integrator = scheme,
+                          trajectory = TRUE, U = U)
+    max(out$energy) - min(out$energy)
+  }
+  # On the harmonic oscillator the leading (h^2) energy error is cancelled, so
+  # the residual scales like h^4 -- halving eps divides it by about 16.
+  e1 <- energy_range("minerror2", 0.20, 200)
+  e2 <- energy_range("minerror2", 0.10, 400)
+  expect_gt(log2(e1 / e2), 3.4)
+  # And it is far below leapfrog's error at the same step size.
+  expect_lt(e1, energy_range("leapfrog", 0.20, 200) / 50)
+})
+
+test_that("minerror2 is order two on a nonlinear problem", {
+  # Anharmonic U = q^2/2 + q^4/4, no closed form: use self-convergence, where
+  # halving eps divides the endpoint change by about 2^order.
+  grad <- function(q) q + q^3
+  horizon <- 3.0
+  endpoint <- function(eps) {
+    nn <- round(horizon / eps)
+    out <- simp_integrate(0.8, 0.2, grad, horizon / nn, nn,
+                          integrator = "minerror2")
+    c(out$q, out$p)
+  }
+  e <- lapply(c(0.08, 0.04, 0.02, 0.01), endpoint)
+  r1 <- log2(sqrt(sum((e[[1]] - e[[2]])^2)) / sqrt(sum((e[[2]] - e[[3]])^2)))
+  r2 <- log2(sqrt(sum((e[[2]] - e[[3]])^2)) / sqrt(sum((e[[3]] - e[[4]])^2)))
+  expect_true(abs(r1 - 2) < 0.6, info = paste("r1 =", round(r1, 2)))
+  expect_true(abs(r2 - 2) < 0.6, info = paste("r2 =", round(r2, 2)))
+})
+
 test_that("integration is time reversible", {
   grad_U <- function(q) q^3  # nonlinear, U = 0.25 q^4
   q0 <- c(0.7, -0.3)
