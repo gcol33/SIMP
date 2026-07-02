@@ -21,14 +21,14 @@ Rcpp::DataFrame simp_schemes_cpp() {
   std::vector<simp::Scheme> reg = simp::registry();
   Rcpp::CharacterVector name(reg.size());
   Rcpp::IntegerVector order(reg.size());
-  Rcpp::IntegerVector stages(reg.size());
+  Rcpp::IntegerVector gevals(reg.size());
   for (std::size_t i = 0; i < reg.size(); ++i) {
     name[i] = reg[i].name;
     order[i] = reg[i].order;
-    stages[i] = reg[i].stages();
+    gevals[i] = reg[i].gradient_evals();
   }
   return Rcpp::DataFrame::create(_["integrator"] = name, _["order"] = order,
-                                 _["gradient_evals"] = stages,
+                                 _["gradient_evals"] = gevals,
                                  _["stringsAsFactors"] = false);
 }
 
@@ -50,9 +50,11 @@ Rcpp::List simp_integrate_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0,
   Vec p = as_vec(p0);
   const int d = q.size();
 
-  auto gradU = [&](const Vec& qq) -> Vec {
+  // The stepper works in the force convention (force = -dU/dq), so negate the
+  // user's potential gradient.
+  auto force = [&](const Vec& qq) -> Vec {
     Rcpp::NumericVector g = grad_U(Rcpp::wrap(qq));
-    return as_vec(g);
+    return -as_vec(g);
   };
   auto applyMinv = [&](const Vec& pp) -> Vec { return MinvE * pp; };
 
@@ -71,13 +73,13 @@ Rcpp::List simp_integrate_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0,
     p_path.col(0) = p;
     if (want_energy) energy[0] = energy_at(q, p);
     for (int i = 0; i < n_steps; ++i) {
-      simp::step(q, p, eps, s, gradU, applyMinv);
+      simp::step(q, p, eps, s, force, applyMinv);
       q_path.col(i + 1) = q;
       p_path.col(i + 1) = p;
       if (want_energy) energy[i + 1] = energy_at(q, p);
     }
   } else {
-    simp::integrate(q, p, eps, n_steps, s, gradU, applyMinv);
+    simp::integrate(q, p, eps, n_steps, s, force, applyMinv);
     q_path.col(0) = q;
     p_path.col(0) = p;
     if (want_energy) energy[0] = energy_at(q, p);

@@ -3,64 +3,76 @@
 
 #include <string>
 #include <vector>
+#include <utility>
 #include <stdexcept>
 #include <cmath>
 
 namespace simp {
 
-// An explicit symplectic integrator for a separable Hamiltonian
-// H(q, p) = U(q) + K(p), stored as an ABA (drift-first, drift-last) splitting.
-// One step of size eps advances (q, p) by
-//
-//   for j in 0 .. s-1:
-//     q += a[j] * eps * Minv * p
-//     p -= b[j] * eps * gradU(q)
-//   q += a[s] * eps * Minv * p
-//
-// a holds s+1 drift coefficients, b holds s kick coefficients. Both are
-// palindromic and normalised to sum to one, which makes the map time
-// reversible and consistent. The kick count s equals the number of gradient
-// evaluations per step, the cost unit for comparing schemes.
+// Elementary flow of a separable Hamiltonian H(q, p) = U(q) + K(p).
+// A Kick advances momentum along the force (p += c * eps * force, with
+// force = -dU/dq); a Drift advances position (q += c * eps * Minv * p).
+enum class Op { Drift, Kick };
+
+// A symplectic splitting integrator, stored as the sequence of elementary
+// flows applied in one step. Leapfrog is kick-drift-kick. The kick
+// coefficients sum to one and the drift coefficients sum to one, and the
+// sequence is palindromic, which makes the step consistent and time
+// reversible. Higher-order members are built from leapfrog by composition, so
+// the coefficients are constructed, never tabulated.
 struct Scheme {
   std::string name;
   int order;
-  std::vector<double> a;
-  std::vector<double> b;
+  std::vector<std::pair<Op, double>> ops;
 
-  int stages() const { return static_cast<int>(b.size()); }
+  int n_kicks() const {
+    int k = 0;
+    for (const auto& op : ops) if (op.first == Op::Kick) ++k;
+    return k;
+  }
+
+  // Force evaluations per step along a trajectory. Consecutive steps share the
+  // boundary kick (first-same-as-last), so a step costs one fewer gradient
+  // than its kick count.
+  int gradient_evals() const {
+    int k = n_kicks();
+    return k > 1 ? k - 1 : k;
+  }
 };
 
-// Leapfrog (Stormer-Verlet): order two, one gradient per step.
+// Leapfrog (Stormer-Verlet), kick-drift-kick, order two.
 inline Scheme leapfrog() {
-  return Scheme{"leapfrog", 2, {0.5, 0.5}, {1.0}};
+  return Scheme{"leapfrog", 2,
+                {{Op::Kick, 0.5}, {Op::Drift, 1.0}, {Op::Kick, 0.5}}};
 }
 
-// Scale a scheme so one step covers a fraction w of the step size. A drift or
-// kick of size w * eps carries weight w * coefficient.
+// Scale a scheme so one step covers a fraction w of the step size.
 inline Scheme scale(const Scheme& s, double w) {
   Scheme out = s;
-  for (double& x : out.a) x *= w;
-  for (double& x : out.b) x *= w;
+  for (auto& op : out.ops) op.second *= w;
   return out;
 }
 
-// Run p then q, merging the trailing drift of p with the leading drift of q
-// (two consecutive drifts add). The result is again in ABA form.
-inline Scheme concat(const Scheme& p, const Scheme& q) {
-  const int sp = p.stages();
+// Apply A then B, merging the seam when both sides are the same kind (two
+// consecutive kicks, or two consecutive drifts, add). The result is again a
+// valid splitting.
+inline Scheme concat(const Scheme& A, const Scheme& B) {
   Scheme out;
-  out.a = std::vector<double>(p.a.begin(), p.a.begin() + sp);   // p.a[0 .. sp-1]
-  out.a.push_back(p.a[sp] + q.a[0]);                            // merged seam
-  out.a.insert(out.a.end(), q.a.begin() + 1, q.a.end());        // q.a[1 .. end]
-  out.b = p.b;
-  out.b.insert(out.b.end(), q.b.begin(), q.b.end());
+  out.ops = A.ops;
+  if (!out.ops.empty() && !B.ops.empty() &&
+      out.ops.back().first == B.ops.front().first) {
+    out.ops.back().second += B.ops.front().second;
+    out.ops.insert(out.ops.end(), B.ops.begin() + 1, B.ops.end());
+  } else {
+    out.ops.insert(out.ops.end(), B.ops.begin(), B.ops.end());
+  }
   return out;
 }
 
 // Yoshida triple jump: three scaled copies of a symmetric scheme of even order
-// n raise the order to n+2. The outer copies use w1 = 1 / (2 - 2^(1/(n+1)))
-// and the inner copy uses w0 = 1 - 2 * w1 (negative). The construction is
-// exact; the coefficients are functions of n, not tabulated constants.
+// n raise the order to n+2, with w1 = 1 / (2 - 2^(1/(n+1))) on the outer copies
+// and w0 = 1 - 2 * w1 on the inner one. The weights are functions of n, not
+// tabulated constants.
 inline Scheme triple_jump(const Scheme& base, const std::string& name) {
   const double n = static_cast<double>(base.order);
   const double w1 = 1.0 / (2.0 - std::pow(2.0, 1.0 / (n + 1.0)));
