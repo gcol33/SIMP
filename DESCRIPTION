@@ -25,8 +25,13 @@ LinkingTo:
     Rcpp,
     RcppEigen
 Suggests:
-    testthat (>= 3.0.0)
-URL: https://github.com/gcol33/SIMP
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    pkgdown
+VignetteBuilder: knitr
+URL: https://gcol33.github.io/SIMP/, https://github.com/gcol33/SIMP
 BugReports: https://github.com/gcol33/SIMP/issues
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0
+Config/Needs/website: pkgdown

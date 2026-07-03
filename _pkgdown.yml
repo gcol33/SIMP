@@ -1,0 +1,30 @@
+url: https://gcol33.github.io/SIMP
+
+template:
+  bootstrap: 5
+
+figures:
+  dev: svglite
+  fig.ext: svg
+  bg: "#FFFFFF"
+
+reference:
+- title: Integrate
+  desc: Advance a Hamiltonian trajectory.
+  contents:
+  - simp_integrate
+  - simp_integrate_nonsep
+- title: Sample
+  desc: Hamiltonian Monte Carlo built on the integrators.
+  contents:
+  - simp_hmc
+- title: Schemes
+  desc: The available integrators.
+  contents:
+  - simp_schemes
+
+articles:
+- title: Get started
+  navbar: ~
+  contents:
+  - simp

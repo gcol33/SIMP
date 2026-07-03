@@ -6,10 +6,10 @@
 
 **S**ymplectic **I**ntegrators for **M**onte-carlo **P**roposals.
 
-SIMP integrates separable Hamiltonian systems and builds the Hamiltonian Monte
-Carlo proposals that run on them. Symplectic integrators conserve a nearby
-energy, so a trajectory holds its total energy over long horizons and the
-proposals it produces are accepted at high rates.
+SIMP integrates Hamiltonian systems and builds the Hamiltonian Monte Carlo
+proposals that run on them. Symplectic integrators conserve a nearby energy, so
+a trajectory holds its total energy over long horizons and the proposals it
+produces are accepted at high rates.
 
 The integrators are splitting schemes: an alternating sequence of position and
 momentum updates whose coefficients define the method. Leapfrog and the Yoshida

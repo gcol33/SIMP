@@ -6,11 +6,12 @@
 \alias{SIMP-package}
 \title{SIMP: Symplectic Integrators for Monte-Carlo Proposals}
 \description{
-Symplectic integration of separable Hamiltonian systems and the Hamiltonian Monte Carlo proposals built on them. The integrators are splitting schemes: an alternating sequence of position and momentum updates whose coefficients define the method. Leapfrog and the Yoshida order 4, 6, and 8 members are generated from a single triple-jump composition, so the whole family shares one stepper and one coefficient source. The stepper is a header-only, scalar-templated C++ core that other packages can link against, so it runs under automatic differentiation as well as plain double precision.
+Symplectic integration of Hamiltonian systems and the Hamiltonian Monte Carlo proposals built on them. Explicit splitting schemes for separable Hamiltonians cover leapfrog, a two-stage minimum-error member tuned to cancel the leading energy error on a Gaussian target, and the Yoshida order 4, 6, and 8 members generated from a single triple-jump composition, so the whole family shares one stepper and one coefficient source. A generalized (implicit) leapfrog handles non-separable Hamiltonians, as in Riemannian dynamics with a position-dependent mass. The steppers are a header-only, scalar-templated C++ core that other packages can link against, so they run under automatic differentiation as well as plain double precision.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://gcol33.github.io/SIMP/}
   \item \url{https://github.com/gcol33/SIMP}
   \item Report bugs at \url{https://github.com/gcol33/SIMP/issues}
 }
