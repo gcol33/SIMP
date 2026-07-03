@@ -1,3 +1,30 @@
+# SIMP 0.3.0
+
+* Step-adapted minimum-error integrators. `simp_b_optimal()` returns the
+  multistage coefficients that minimize the worst-case energy error a splitting
+  integrator induces on a harmonic (Gaussian) target across a band of
+  dimensionless steps `(0, nu_max]`, where `nu_max = omega_max * eps` follows
+  from the highest target frequency (the largest mass-scaled Hessian
+  eigenvalue). `simp_integrate()` and `simp_hmc()` take `integrator =
+  "adaptive2"` / `"adaptive3"` with `nu_max` to use the tuned two- or
+  three-stage scheme. Exposed in C++ as `simp::two_stage_adaptive` /
+  `simp::three_stage_adaptive` in `<simp/adapt.h>`.
+* Exact harmonic energy-error analysis backing the adaptation, in
+  `<simp/harmonic.h>`: `simp::harmonic_energy_error(scheme, nu)` is the relative
+  energy-oscillation amplitude the scheme induces on the unit oscillator at
+  dimensionless step `nu`, and `simp::harmonic_stability_limit(scheme)` is the
+  largest stable step. Both come from the scheme's exact 2x2 propagation matrix
+  and its invariant quadratic form.
+* Parametric multistage constructors `simp::two_stage(b)` and
+  `simp::three_stage(b, a)` in `<simp/scheme.h>`; `minerror2()` is now the
+  `b = (3 - sqrt(5)) / 4` member of `two_stage`.
+* `simp_integrate_mts()` advances a split potential `U = U_slow + U_fast` with
+  the multiple-time-stepping (RESPA / Verlet-I) integrator: the slow force is
+  evaluated once per outer step while the fast force drives `m` inner substeps,
+  so a stiff-but-cheap part takes small steps without the expensive part paying
+  the same rate. Exposed in C++ as `simp::step_mts` / `simp::integrate_mts` in
+  `<simp/mts.h>`.
+
 # SIMP 0.2.0
 
 * New integrator `"minerror2"`: a two-stage order-two scheme whose free kick

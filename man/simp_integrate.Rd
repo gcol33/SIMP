@@ -12,6 +12,7 @@ simp_integrate(
   n_steps,
   integrator = "leapfrog",
   mass = NULL,
+  nu_max = NULL,
   trajectory = FALSE,
   U = NULL
 )
@@ -29,11 +30,17 @@ potential energy U, that is dU/dq. For a target density with log-density
 
 \item{n_steps}{Number of integrator steps.}
 
-\item{integrator}{Name of a built-in scheme; see \code{\link[=simp_schemes]{simp_schemes()}}. Defaults
-to \code{"leapfrog"}.}
+\item{integrator}{Name of a built-in scheme (see \code{\link[=simp_schemes]{simp_schemes()}}), or
+\code{"adaptive2"} / \code{"adaptive3"} for the step-adapted minimum-error two- or
+three-stage scheme, which additionally needs \code{nu_max}. Defaults to
+\code{"leapfrog"}.}
 
 \item{mass}{Mass matrix M. \code{NULL} (the default) uses the identity; a numeric
 vector uses a diagonal mass; a matrix uses a dense mass.}
+
+\item{nu_max}{Largest dimensionless step \code{omega_max * eps} (with \code{omega_max}
+the highest target frequency) the adapted integrators tune for. Required
+when \code{integrator} is \code{"adaptive2"} or \code{"adaptive3"}, ignored otherwise.}
 
 \item{trajectory}{If \code{TRUE}, return the position and momentum at every step.
 If \code{FALSE} (the default), return only the endpoint.}

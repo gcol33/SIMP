@@ -6,7 +6,7 @@
 \alias{SIMP-package}
 \title{SIMP: Symplectic Integrators for Monte-Carlo Proposals}
 \description{
-Symplectic integration of Hamiltonian systems and the Hamiltonian Monte Carlo proposals built on them. Explicit splitting schemes for separable Hamiltonians cover leapfrog, a two-stage minimum-error member tuned to cancel the leading energy error on a Gaussian target, and the Yoshida order 4, 6, and 8 members generated from a single triple-jump composition, so the whole family shares one stepper and one coefficient source. A generalized (implicit) leapfrog handles non-separable Hamiltonians, as in Riemannian dynamics with a position-dependent mass. The steppers are a header-only, scalar-templated C++ core that other packages can link against, so they run under automatic differentiation as well as plain double precision.
+Symplectic integration of Hamiltonian systems and the Hamiltonian Monte Carlo proposals built on them. Explicit splitting schemes for separable Hamiltonians cover leapfrog, minimum-error two- and three-stage members, and the Yoshida order 4, 6, and 8 members generated from a single triple-jump composition, so the whole family shares one stepper and one coefficient source. The multistage coefficients can be adapted to a target's step band from an exact harmonic energy-error analysis, and a multiple-time-stepping (RESPA) integrator advances a split potential at two rates. A generalized (implicit) leapfrog handles non-separable Hamiltonians, as in Riemannian dynamics with a position-dependent mass. The steppers are a header-only, scalar-templated C++ core that other packages can link against, so they run under automatic differentiation as well as plain double precision.
 }
 \seealso{
 Useful links:

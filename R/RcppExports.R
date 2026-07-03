@@ -5,8 +5,32 @@ simp_schemes_cpp <- function() {
     .Call(`_SIMP_simp_schemes_cpp`)
 }
 
-simp_integrate_cpp <- function(q0, p0, grad_U, eps, n_steps, scheme_name, Minv, trajectory, U_fn) {
-    .Call(`_SIMP_simp_integrate_cpp`, q0, p0, grad_U, eps, n_steps, scheme_name, Minv, trajectory, U_fn)
+simp_scheme_ops_cpp <- function(name) {
+    .Call(`_SIMP_simp_scheme_ops_cpp`, name)
+}
+
+simp_adaptive_ops_cpp <- function(nu_max, stages) {
+    .Call(`_SIMP_simp_adaptive_ops_cpp`, nu_max, stages)
+}
+
+simp_b_optimal_cpp <- function(nu_max, stages) {
+    .Call(`_SIMP_simp_b_optimal_cpp`, nu_max, stages)
+}
+
+simp_harmonic_error_cpp <- function(kind, coef, nu) {
+    .Call(`_SIMP_simp_harmonic_error_cpp`, kind, coef, nu)
+}
+
+simp_stability_limit_cpp <- function(kind, coef, nu_hi) {
+    .Call(`_SIMP_simp_stability_limit_cpp`, kind, coef, nu_hi)
+}
+
+simp_integrate_ops_cpp <- function(q0, p0, grad_U, eps, n_steps, kind, coef, Minv, trajectory, U_fn) {
+    .Call(`_SIMP_simp_integrate_ops_cpp`, q0, p0, grad_U, eps, n_steps, kind, coef, Minv, trajectory, U_fn)
+}
+
+simp_integrate_mts_cpp <- function(q0, p0, grad_slow, grad_fast, eps, n_steps, m, Minv, trajectory, U_fn) {
+    .Call(`_SIMP_simp_integrate_mts_cpp`, q0, p0, grad_slow, grad_fast, eps, n_steps, m, Minv, trajectory, U_fn)
 }
 
 simp_integrate_nonsep_cpp <- function(q0, p0, dH_dq, dH_dp, eps, n_steps, tol, max_iter, trajectory, H_fn) {

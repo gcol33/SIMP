@@ -27,3 +27,21 @@ test_that("an unknown integrator name errors", {
     "unknown integrator"
   )
 })
+
+test_that("built-in and adaptive schemes are valid palindromic splittings", {
+  # kicks sum to one, drifts sum to one, and the op sequence is a palindrome, so
+  # the step is consistent and time reversible.
+  check_valid <- function(ops) {
+    kind <- ops$kind
+    coef <- ops$coef
+    expect_equal(sum(coef[kind == 1]), 1, tolerance = 1e-12)  # kicks
+    expect_equal(sum(coef[kind == 0]), 1, tolerance = 1e-12)  # drifts
+    expect_equal(kind, rev(kind))
+    expect_equal(coef, rev(coef), tolerance = 1e-12)
+  }
+  for (nm in simp_schemes()$integrator) {
+    check_valid(SIMP:::simp_scheme_ops_cpp(nm))
+  }
+  check_valid(SIMP:::simp_adaptive_ops_cpp(1.3, 2L))
+  check_valid(SIMP:::simp_adaptive_ops_cpp(1.3, 3L))
+})

@@ -21,9 +21,70 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// simp_integrate_cpp
-Rcpp::List simp_integrate_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0, Rcpp::Function grad_U, double eps, int n_steps, std::string scheme_name, Rcpp::NumericMatrix Minv, bool trajectory, Rcpp::Nullable<Rcpp::Function> U_fn);
-RcppExport SEXP _SIMP_simp_integrate_cpp(SEXP q0SEXP, SEXP p0SEXP, SEXP grad_USEXP, SEXP epsSEXP, SEXP n_stepsSEXP, SEXP scheme_nameSEXP, SEXP MinvSEXP, SEXP trajectorySEXP, SEXP U_fnSEXP) {
+// simp_scheme_ops_cpp
+Rcpp::List simp_scheme_ops_cpp(std::string name);
+RcppExport SEXP _SIMP_simp_scheme_ops_cpp(SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_scheme_ops_cpp(name));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simp_adaptive_ops_cpp
+Rcpp::List simp_adaptive_ops_cpp(double nu_max, int stages);
+RcppExport SEXP _SIMP_simp_adaptive_ops_cpp(SEXP nu_maxSEXP, SEXP stagesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type nu_max(nu_maxSEXP);
+    Rcpp::traits::input_parameter< int >::type stages(stagesSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_adaptive_ops_cpp(nu_max, stages));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simp_b_optimal_cpp
+Rcpp::NumericVector simp_b_optimal_cpp(double nu_max, int stages);
+RcppExport SEXP _SIMP_simp_b_optimal_cpp(SEXP nu_maxSEXP, SEXP stagesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type nu_max(nu_maxSEXP);
+    Rcpp::traits::input_parameter< int >::type stages(stagesSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_b_optimal_cpp(nu_max, stages));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simp_harmonic_error_cpp
+double simp_harmonic_error_cpp(Rcpp::IntegerVector kind, Rcpp::NumericVector coef, double nu);
+RcppExport SEXP _SIMP_simp_harmonic_error_cpp(SEXP kindSEXP, SEXP coefSEXP, SEXP nuSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type kind(kindSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type coef(coefSEXP);
+    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_harmonic_error_cpp(kind, coef, nu));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simp_stability_limit_cpp
+double simp_stability_limit_cpp(Rcpp::IntegerVector kind, Rcpp::NumericVector coef, double nu_hi);
+RcppExport SEXP _SIMP_simp_stability_limit_cpp(SEXP kindSEXP, SEXP coefSEXP, SEXP nu_hiSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type kind(kindSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type coef(coefSEXP);
+    Rcpp::traits::input_parameter< double >::type nu_hi(nu_hiSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_stability_limit_cpp(kind, coef, nu_hi));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simp_integrate_ops_cpp
+Rcpp::List simp_integrate_ops_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0, Rcpp::Function grad_U, double eps, int n_steps, Rcpp::IntegerVector kind, Rcpp::NumericVector coef, Rcpp::NumericMatrix Minv, bool trajectory, Rcpp::Nullable<Rcpp::Function> U_fn);
+RcppExport SEXP _SIMP_simp_integrate_ops_cpp(SEXP q0SEXP, SEXP p0SEXP, SEXP grad_USEXP, SEXP epsSEXP, SEXP n_stepsSEXP, SEXP kindSEXP, SEXP coefSEXP, SEXP MinvSEXP, SEXP trajectorySEXP, SEXP U_fnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,11 +93,32 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::Function >::type grad_U(grad_USEXP);
     Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
     Rcpp::traits::input_parameter< int >::type n_steps(n_stepsSEXP);
-    Rcpp::traits::input_parameter< std::string >::type scheme_name(scheme_nameSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type kind(kindSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type coef(coefSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type Minv(MinvSEXP);
     Rcpp::traits::input_parameter< bool >::type trajectory(trajectorySEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::Function> >::type U_fn(U_fnSEXP);
-    rcpp_result_gen = Rcpp::wrap(simp_integrate_cpp(q0, p0, grad_U, eps, n_steps, scheme_name, Minv, trajectory, U_fn));
+    rcpp_result_gen = Rcpp::wrap(simp_integrate_ops_cpp(q0, p0, grad_U, eps, n_steps, kind, coef, Minv, trajectory, U_fn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simp_integrate_mts_cpp
+Rcpp::List simp_integrate_mts_cpp(Rcpp::NumericVector q0, Rcpp::NumericVector p0, Rcpp::Function grad_slow, Rcpp::Function grad_fast, double eps, int n_steps, int m, Rcpp::NumericMatrix Minv, bool trajectory, Rcpp::Nullable<Rcpp::Function> U_fn);
+RcppExport SEXP _SIMP_simp_integrate_mts_cpp(SEXP q0SEXP, SEXP p0SEXP, SEXP grad_slowSEXP, SEXP grad_fastSEXP, SEXP epsSEXP, SEXP n_stepsSEXP, SEXP mSEXP, SEXP MinvSEXP, SEXP trajectorySEXP, SEXP U_fnSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type q0(q0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type p0(p0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type grad_slow(grad_slowSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type grad_fast(grad_fastSEXP);
+    Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
+    Rcpp::traits::input_parameter< int >::type n_steps(n_stepsSEXP);
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type Minv(MinvSEXP);
+    Rcpp::traits::input_parameter< bool >::type trajectory(trajectorySEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::Function> >::type U_fn(U_fnSEXP);
+    rcpp_result_gen = Rcpp::wrap(simp_integrate_mts_cpp(q0, p0, grad_slow, grad_fast, eps, n_steps, m, Minv, trajectory, U_fn));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -63,7 +145,13 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_SIMP_simp_schemes_cpp", (DL_FUNC) &_SIMP_simp_schemes_cpp, 0},
-    {"_SIMP_simp_integrate_cpp", (DL_FUNC) &_SIMP_simp_integrate_cpp, 9},
+    {"_SIMP_simp_scheme_ops_cpp", (DL_FUNC) &_SIMP_simp_scheme_ops_cpp, 1},
+    {"_SIMP_simp_adaptive_ops_cpp", (DL_FUNC) &_SIMP_simp_adaptive_ops_cpp, 2},
+    {"_SIMP_simp_b_optimal_cpp", (DL_FUNC) &_SIMP_simp_b_optimal_cpp, 2},
+    {"_SIMP_simp_harmonic_error_cpp", (DL_FUNC) &_SIMP_simp_harmonic_error_cpp, 3},
+    {"_SIMP_simp_stability_limit_cpp", (DL_FUNC) &_SIMP_simp_stability_limit_cpp, 3},
+    {"_SIMP_simp_integrate_ops_cpp", (DL_FUNC) &_SIMP_simp_integrate_ops_cpp, 10},
+    {"_SIMP_simp_integrate_mts_cpp", (DL_FUNC) &_SIMP_simp_integrate_mts_cpp, 10},
     {"_SIMP_simp_integrate_nonsep_cpp", (DL_FUNC) &_SIMP_simp_integrate_nonsep_cpp, 10},
     {NULL, NULL, 0}
 };

@@ -13,9 +13,14 @@
 #' @param n_iter Number of retained iterations.
 #' @param eps Positive leapfrog step size.
 #' @param n_steps Number of integrator steps per proposal.
-#' @param integrator Name of a built-in scheme; see [simp_schemes()].
+#' @param integrator Name of a built-in scheme (see [simp_schemes()]), or
+#'   `"adaptive2"` / `"adaptive3"` for the step-adapted minimum-error scheme,
+#'   which additionally needs `nu_max`.
 #' @param mass Mass matrix M, as in [simp_integrate()]. Momenta are drawn from
 #'   N(0, M).
+#' @param nu_max Largest dimensionless step `omega_max * eps` the adapted
+#'   integrators tune for. Required when `integrator` is `"adaptive2"` or
+#'   `"adaptive3"`, ignored otherwise.
 #' @param warmup Number of initial iterations to discard.
 #' @param divergence_threshold Energy-error magnitude above which a proposal is
 #'   counted as divergent and rejected.
@@ -36,7 +41,7 @@
 #'
 #' @export
 simp_hmc <- function(U, grad_U, init, n_iter, eps, n_steps,
-                     integrator = "leapfrog", mass = NULL,
+                     integrator = "leapfrog", mass = NULL, nu_max = NULL,
                      warmup = 0L, divergence_threshold = 1000) {
   if (!is.function(U) || !is.function(grad_U)) {
     stop("U and grad_U must be functions", call. = FALSE)
@@ -51,6 +56,7 @@ simp_hmc <- function(U, grad_U, init, n_iter, eps, n_steps,
   Minv <- .simp_minv(mass, d)
   M <- solve(Minv)
   M_chol <- chol(M)  # upper triangular, M = t(M_chol) %*% M_chol
+  ops <- .simp_ops(integrator, nu_max)
 
   kinetic <- function(p) 0.5 * sum(p * (Minv %*% p))
 
@@ -62,8 +68,8 @@ simp_hmc <- function(U, grad_U, init, n_iter, eps, n_steps,
   for (it in seq_len(total)) {
     p0 <- as.numeric(crossprod(M_chol, stats::rnorm(d)))  # ~ N(0, M)
     H0 <- U(q) + kinetic(p0)
-    prop <- simp_integrate_cpp(q, p0, grad_U, eps, n_steps, integrator,
-                               Minv, FALSE, NULL)
+    prop <- simp_integrate_ops_cpp(q, p0, grad_U, eps, n_steps, ops$kind,
+                                   ops$coef, Minv, FALSE, NULL)
     q1 <- as.numeric(prop$q)
     p1 <- as.numeric(prop$p)
     dH <- U(q1) + kinetic(p1) - H0

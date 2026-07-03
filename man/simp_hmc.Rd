@@ -13,6 +13,7 @@ simp_hmc(
   n_steps,
   integrator = "leapfrog",
   mass = NULL,
+  nu_max = NULL,
   warmup = 0L,
   divergence_threshold = 1000
 )
@@ -31,10 +32,16 @@ density of the target up to an additive constant.}
 
 \item{n_steps}{Number of integrator steps per proposal.}
 
-\item{integrator}{Name of a built-in scheme; see \code{\link[=simp_schemes]{simp_schemes()}}.}
+\item{integrator}{Name of a built-in scheme (see \code{\link[=simp_schemes]{simp_schemes()}}), or
+\code{"adaptive2"} / \code{"adaptive3"} for the step-adapted minimum-error scheme,
+which additionally needs \code{nu_max}.}
 
 \item{mass}{Mass matrix M, as in \code{\link[=simp_integrate]{simp_integrate()}}. Momenta are drawn from
 N(0, M).}
+
+\item{nu_max}{Largest dimensionless step \code{omega_max * eps} the adapted
+integrators tune for. Required when \code{integrator} is \code{"adaptive2"} or
+\code{"adaptive3"}, ignored otherwise.}
 
 \item{warmup}{Number of initial iterations to discard.}
 

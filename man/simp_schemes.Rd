@@ -11,8 +11,10 @@ A data frame with one row per integrator giving its name, order of
 accuracy, and number of gradient evaluations per step.
 }
 \description{
-The built-in scheme family: leapfrog and the Yoshida members generated from
-it by triple-jump composition.
+The built-in scheme family: leapfrog, the two-stage minimum-error member, and
+the Yoshida members generated from leapfrog by triple-jump composition. The
+step-adapted \code{"adaptive2"} / \code{"adaptive3"} schemes are not listed here because
+their coefficients depend on the step band; see \code{\link[=simp_b_optimal]{simp_b_optimal()}}.
 }
 \examples{
 simp_schemes()
