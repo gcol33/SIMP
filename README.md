@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Codecov test coverage](https://codecov.io/gh/gcol33/SIMP/graph/badge.svg)](https://app.codecov.io/gh/gcol33/SIMP)
 <!-- badges: end -->
 
 **S**ymplectic **I**ntegrators for **M**onte-carlo **P**roposals.
