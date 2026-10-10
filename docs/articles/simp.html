@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SIMP</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,13 @@
 
     
     
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gcol33/SIMP"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gcol33.github.io/SIMP/">SIMP</a></span><span class="op">)</span></span></code></pre></div>
 <p>SIMP integrates Hamiltonian systems and builds the Hamiltonian Monte
 Carlo proposals that run on them. A Hamiltonian
@@ -75,12 +81,13 @@ a momentum <code>p</code>; its flow conserves energy. A
 flow, so it conserves a nearby energy over long trajectories instead of
 drifting. That property is what makes the trajectory usable as an MCMC
 proposal.</p>
+</div>
 <div class="section level2">
 <h2 id="the-integrators">The integrators<a class="anchor" aria-label="anchor" href="#the-integrators"></a>
 </h2>
 <p>Each integrator is a splitting scheme: an alternating sequence of
 position and momentum updates whose coefficients define the method.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/simp_schemes.html">simp_schemes</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   integrator order gradient_evals</span></span>
 <span><span class="co">#&gt; 1   leapfrog     2              1</span></span>
@@ -102,7 +109,7 @@ the cost per step along a trajectory.</p>
 force is <code>-q</code> and the gradient of the potential is
 <code>grad_U(q) = q</code>. Starting on the unit circle in phase space,
 the exact flow is a rotation.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grad_U</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="va">q</span></span>
 <span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simp_integrate.html">simp_integrate</a></span><span class="op">(</span></span>
 <span>  q0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, p0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, grad_U <span class="op">=</span> <span class="va">grad_U</span>,</span>
@@ -120,7 +127,7 @@ symplectic integrator keeps it in a bounded band. The two-stage
 <code>minerror2</code> cancels the leading error term on this Gaussian
 target, so its energy error sits far below leapfrog’s at the same step
 size, at two gradient evaluations per step.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">U</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">q</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">energy_err</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scheme</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simp_integrate.html">simp_integrate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">grad_U</span>, eps <span class="op">=</span> <span class="fl">0.3</span>, n_steps <span class="op">=</span> <span class="fl">200</span>,</span>
@@ -143,7 +150,7 @@ size, at two gradient evaluations per step.</p>
 target’s Hamiltonian flow and accepting it by the Metropolis rule on the
 energy. The integrator is a free choice, so any scheme above can drive
 the sampler.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.8</span>, <span class="fl">0.8</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="va">Sigma</span><span class="op">)</span></span>
 <span><span class="va">U_hmc</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">P</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">q</span><span class="op">)</span></span>
@@ -170,7 +177,7 @@ the explicit schemes no longer apply.
 <code><a href="../reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> uses the generalized (implicit)
 leapfrog, which solves its two implicit stages by fixed-point iteration.
 Here <code>m(q) = 1 + 0.5 q^2</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span>  <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">q</span><span class="op">^</span><span class="fl">2</span></span>
 <span><span class="va">H</span>  <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span>, <span class="va">p</span><span class="op">)</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">p</span><span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="fu">m</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">q</span><span class="op">^</span><span class="fl">2</span></span>
 <span><span class="va">dHdq</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span>, <span class="va">p</span><span class="op">)</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> <span class="va">p</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">q</span> <span class="op">/</span> <span class="fu">m</span><span class="op">(</span><span class="va">q</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">q</span></span>
@@ -198,7 +205,7 @@ standard leapfrog, so it is a strict extension of the explicit path.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
