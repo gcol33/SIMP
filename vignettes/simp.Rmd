@@ -13,6 +13,13 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7,
 set.seed(1)
 ```
 
+## Installation
+
+```{r, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("gcol33/SIMP")
+```
+
 ```{r setup}
 library(SIMP)
 ```
