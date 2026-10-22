@@ -17,6 +17,7 @@ simp_integrate(
   n_steps,
   integrator = "leapfrog",
   mass = NULL,
+  nu_max = NULL,
   trajectory = FALSE,
   U = NULL
 )
@@ -48,14 +49,23 @@ simp_integrate(
 
 - integrator:
 
-  Name of a built-in scheme; see
-  [`simp_schemes()`](https://gcol33.github.io/SIMP/reference/simp_schemes.md).
+  Name of a built-in scheme (see
+  [`simp_schemes()`](https://gcol33.github.io/SIMP/reference/simp_schemes.md)),
+  or `"adaptive2"` / `"adaptive3"` for the step-adapted minimum-error
+  two- or three-stage scheme, which additionally needs `nu_max`.
   Defaults to `"leapfrog"`.
 
 - mass:
 
   Mass matrix M. `NULL` (the default) uses the identity; a numeric
   vector uses a diagonal mass; a matrix uses a dense mass.
+
+- nu_max:
+
+  Largest dimensionless step `omega_max * eps` (with `omega_max` the
+  highest target frequency) the adapted integrators tune for. Required
+  when `integrator` is `"adaptive2"` or `"adaptive3"`, ignored
+  otherwise.
 
 - trajectory:
 
@@ -82,5 +92,4 @@ grad_U <- function(q) q
 out <- simp_integrate(q0 = c(1, 0), p0 = c(0, 1), grad_U = grad_U,
                       eps = 0.1, n_steps = 60, integrator = "yoshida4")
 out$q
-#> [1]  0.9601592 -0.2794526
 ```

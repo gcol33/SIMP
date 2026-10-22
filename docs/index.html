@@ -10,9 +10,24 @@
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Symplectic Integrators for Monte-Carlo Proposals">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="Symplectic Integrators for Monte-Carlo Proposals">
 <meta name="description" content="Symplectic integration of Hamiltonian systems and the Hamiltonian Monte Carlo proposals built on them. Explicit splitting schemes for separable Hamiltonians cover leapfrog, minimum-error two- and three-stage members, and the Yoshida order 4, 6, and 8 members generated from a single triple-jump composition, so the whole family shares one stepper and one coefficient source. The multistage coefficients can be adapted to a target's step band from an exact harmonic energy-error analysis, and a multiple-time-stepping (RESPA) integrator advances a split potential at two rates. A generalized (implicit) leapfrog handles non-separable Hamiltonians, as in Riemannian dynamics with a position-dependent mass. The steppers are a header-only, scalar-templated C++ core that other packages can link against, so they run under automatic differentiation as well as plain double precision.">
 <meta property="og:description" content="Symplectic integration of Hamiltonian systems and the Hamiltonian Monte Carlo proposals built on them. Explicit splitting schemes for separable Hamiltonians cover leapfrog, minimum-error two- and three-stage members, and the Yoshida order 4, 6, and 8 members generated from a single triple-jump composition, so the whole family shares one stepper and one coefficient source. The multistage coefficients can be adapted to a target's step band from an exact harmonic energy-error analysis, and a multiple-time-stepping (RESPA) integrator advances a split potential at two rates. A generalized (implicit) leapfrog handles non-separable Hamiltonians, as in Riemannian dynamics with a position-dependent mass. The steppers are a header-only, scalar-templated C++ core that other packages can link against, so they run under automatic differentiation as well as plain double precision.">
+<script>
+(function () {
+  var D = String.fromCharCode(36);
+  window.MathJax = {
+    tex: {
+      inlineMath: [[D, D], ["\\(", "\\)"]],
+      displayMath: [[D + D, D + D], ["\\[", "\\]"]]
+    },
+    chtml: { linebreaks: { automatic: true, width: "90% container" } },
+    svg: { linebreaks: { automatic: true, width: "90% container" } },
+    options: { renderActions: { addMenu: [] } }
+  };
+})();
+</script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -55,57 +70,160 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="simp">SIMP<a class="anchor" aria-label="anchor" href="#simp"></a>
 </h1></div>
+<p><em>symplectic integrators for Hamiltonian Monte Carlo</em></p>
 <!-- badges: start -->
 
-<p><strong>S</strong>ymplectic <strong>I</strong>ntegrators for <strong>M</strong>onte-carlo <strong>P</strong>roposals.</p>
-<p>SIMP integrates Hamiltonian systems and builds the Hamiltonian Monte Carlo proposals that run on them. Symplectic integrators conserve a nearby energy, so a trajectory holds its total energy over long horizons and the proposals it produces are accepted at high rates.</p>
-<p>The integrators are splitting schemes: an alternating sequence of position and momentum updates whose coefficients define the method. Leapfrog and the Yoshida order 4, 6, and 8 members come from a single triple-jump composition, so the whole family shares one stepper and one coefficient source. Adding a scheme is one registry entry. A two-stage member, <code>minerror2</code>, uses the kick weight <code>(3 - sqrt(5)) / 4</code> that cancels the leading energy error on a Gaussian target, which makes it the accurate choice for Hamiltonian Monte Carlo on near-Gaussian posteriors.</p>
-<p>For non-separable Hamiltonians, such as Riemannian dynamics with a position-dependent mass, <code><a href="reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> uses the generalized (implicit) leapfrog.</p>
-<p>The steppers are a header-only, scalar-templated C++ core. Consumers link against it with <code>LinkingTo: SIMP</code> and drive it with a native gradient under automatic differentiation, so the same code path serves plain-double integration and gradient-based inference engines.</p>
+<p>SIMP (Symplectic Integrators for Monte-Carlo Proposals) integrates Hamiltonian systems and builds the Hamiltonian Monte Carlo proposals that run on them.</p>
+<p>The integrators are splitting schemes: an alternating sequence of position and momentum updates whose coefficients define the method. A symplectic scheme conserves a nearby energy, so a trajectory keeps its total energy within a bounded band over long horizons and the proposals it produces are accepted at high rates. Leapfrog and the Yoshida order 4, 6 and 8 members come from a single triple-jump composition, so the whole family shares one stepper and one coefficient source, written as header-only C++. You can compare schemes on your target by their energy error and their gradient cost per step, and choose the one that drives your sampler.</p>
+<p>SIMP supports:</p>
+<ul>
+<li>
+<strong>A family of schemes.</strong> Leapfrog, the two-stage minimum-error member <code>minerror2</code> and Yoshida orders 4, 6 and 8. <a href="https://gillescolling.com/SIMP/reference/simp_schemes.html" class="external-link"><code>simp_schemes()</code></a> lists each with its order and gradient evaluations per step.</li>
+<li>
+<strong>Coefficients tuned to the step band.</strong> The <code>"adaptive2"</code> and <code>"adaptive3"</code> schemes take the two- or three-stage weights that minimise the worst-case energy error on a Gaussian target over the band of dimensionless steps up to <code>nu_max</code>, computed from an exact harmonic analysis (<a href="https://gillescolling.com/SIMP/reference/simp_b_optimal.html" class="external-link"><code>simp_b_optimal()</code></a>).</li>
+<li>
+<strong>Hamiltonian Monte Carlo.</strong> <code><a href="reference/simp_hmc.html">simp_hmc()</a></code> draws each proposal by integrating the target’s Hamiltonian flow and accepts it by the Metropolis rule on the energy, with any scheme as the integrator.</li>
+<li>
+<strong>Split potentials.</strong> <code><a href="reference/simp_integrate_mts.html">simp_integrate_mts()</a></code> advances a potential split into a slow and a fast part at two rates (RESPA), so the fast part takes small inner steps without evaluating the slow part at the same rate.</li>
+<li>
+<strong>Non-separable Hamiltonians.</strong> <code><a href="reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> uses the generalized (implicit) leapfrog, as in Riemannian dynamics with a position-dependent mass.</li>
+<li>
+<strong>A C++ core for other packages.</strong> The steppers are scalar-templated headers in <code>inst/include</code>. A package reaches them with <code>LinkingTo: SIMP</code> and drives them with its own gradient, under automatic differentiation as well as in double precision.</li>
+</ul>
 <div class="section level2">
-<h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>SIMP compiles C++ code. Install the build tools for your operating system first:</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Operating system</th>
+<th>Build tools</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td>
+<a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> matching your R version</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>Run <code>xcode-select --install</code> in Terminal</td>
+</tr>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>Install <code>r-base-dev</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Check that R can find the compiler:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gcol33/SIMP"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pkgbuild</span><span class="fu">::</span><span class="fu"><a href="https://pkgbuild.r-lib.org/reference/has_build_tools.html" class="external-link">has_build_tools</a></span><span class="op">(</span>debug <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Then install SIMP from GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"gcol33/SIMP"</span><span class="op">)</span></span></code></pre></div>
+<p>The C++ code uses the Eigen headers that RcppEigen supplies and needs no system library.</p>
 </div>
 <div class="section level2">
-<h2 id="integrate-a-trajectory">Integrate a trajectory<a class="anchor" aria-label="anchor" href="#integrate-a-trajectory"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<ol style="list-style-type: decimal">
+<li>Write the gradient of the potential energy <code>U(q)</code> as an R function of the position.</li>
+<li>Call <code><a href="reference/simp_integrate.html">simp_integrate()</a></code> with a starting position and momentum, the gradient, the step size and the number of steps.</li>
+<li>Sample a target with <code><a href="reference/simp_hmc.html">simp_hmc()</a></code>, which runs the same integrator inside each proposal.</li>
+</ol>
+<p>The potential of a unit Gaussian target is <code>U(q) = 0.5 q'q</code>, so its gradient is <code>q</code>. Starting on the unit circle in phase space, the exact flow is a rotation:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gcol33.github.io/SIMP/">SIMP</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Unit Gaussian target: U(q) = 0.5 q'q, so grad_U(q) = q.</span></span>
 <span><span class="va">grad_U</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="va">q</span></span>
-<span></span>
-<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simp_integrate.html">simp_integrate</a></span><span class="op">(</span></span>
-<span>  q0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, p0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  grad_U <span class="op">=</span> <span class="va">grad_U</span>, eps <span class="op">=</span> <span class="fl">0.1</span>, n_steps <span class="op">=</span> <span class="fl">60</span>,</span>
-<span>  integrator <span class="op">=</span> <span class="st">"yoshida4"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">out</span><span class="op">$</span><span class="va">q</span></span></code></pre></div>
-<p><code><a href="reference/simp_schemes.html">simp_schemes()</a></code> lists the built-in integrators with their order and gradient cost per step.</p>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simp_integrate.html">simp_integrate</a></span><span class="op">(</span>q0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, p0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, grad_U <span class="op">=</span> <span class="va">grad_U</span>,</span>
+<span>                      eps <span class="op">=</span> <span class="fl">0.1</span>, n_steps <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
+<span><span class="va">out</span><span class="op">$</span><span class="va">q</span></span>
+<span><span class="co">#&gt; [1]  0.9608666 -0.2773584</span></span></code></pre></div>
+<p>The result is a list with the endpoint position <code>q</code> and momentum <code>p</code>. The default integrator is leapfrog, and <code>integrator</code> takes any name that <code><a href="reference/simp_schemes.html">simp_schemes()</a></code> lists:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/simp_schemes.html">simp_schemes</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   integrator order gradient_evals</span></span>
+<span><span class="co">#&gt; 1   leapfrog     2              1</span></span>
+<span><span class="co">#&gt; 2  minerror2     2              2</span></span>
+<span><span class="co">#&gt; 3   yoshida4     4              3</span></span>
+<span><span class="co">#&gt; 4   yoshida6     6              9</span></span>
+<span><span class="co">#&gt; 5   yoshida8     8             27</span></span></code></pre></div>
+<p><code>trajectory = TRUE</code> returns every step, and a potential <code>U</code> passed to the call records the total energy along it.</p>
 </div>
 <div class="section level2">
-<h2 id="sample-with-hmc">Sample with HMC<a class="anchor" aria-label="anchor" href="#sample-with-hmc"></a>
+<h2 id="sampling-with-hamiltonian-monte-carlo">Sampling with Hamiltonian Monte Carlo<a class="anchor" aria-label="anchor" href="#sampling-with-hamiltonian-monte-carlo"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p><code><a href="reference/simp_hmc.html">simp_hmc()</a></code> takes the potential and its gradient. For a bivariate Gaussian with correlation 0.8, the potential uses the precision matrix:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.8</span>, <span class="fl">0.8</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="va">Sigma</span><span class="op">)</span></span>
+<span><span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chol2inv.html" class="external-link">chol2inv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">Sigma</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">U</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">P</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">q</span><span class="op">)</span></span>
 <span><span class="va">grad_U</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">P</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">q</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simp_hmc.html">simp_hmc</a></span><span class="op">(</span><span class="va">U</span>, <span class="va">grad_U</span>, init <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, n_iter <span class="op">=</span> <span class="fl">2000</span>, eps <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span>                n_steps <span class="op">=</span> <span class="fl">20</span>, warmup <span class="op">=</span> <span class="fl">500</span>, integrator <span class="op">=</span> <span class="st">"leapfrog"</span><span class="op">)</span></span>
-<span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simp_hmc.html">simp_hmc</a></span><span class="op">(</span><span class="va">U</span>, <span class="va">grad_U</span>, init <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, n_iter <span class="op">=</span> <span class="fl">2000</span>, eps <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>                n_steps <span class="op">=</span> <span class="fl">16</span>, warmup <span class="op">=</span> <span class="fl">500</span>, integrator <span class="op">=</span> <span class="st">"minerror2"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">draws</span><span class="op">)</span></span>
-<span><span class="va">fit</span><span class="op">$</span><span class="va">accept_rate</span></span></code></pre></div>
-<p>Pass any name from <code><a href="reference/simp_schemes.html">simp_schemes()</a></code> as <code>integrator</code> to compare schemes on the same target.</p>
+<span><span class="co">#&gt; [1] -0.0005825939 -0.0005670790</span></span>
+<span><span class="va">fit</span><span class="op">$</span><span class="va">accept_rate</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
+<p>The sample means are close to the target mean of zero. <a href="https://gillescolling.com/SIMP/articles/simp.html" class="external-link">Symplectic integration with SIMP</a> compares the energy error of leapfrog, <code>minerror2</code> and <code>yoshida4</code> at the same step size on this kind of target.</p>
+</div>
+<div class="section level2">
+<h2 id="non-separable-and-split-hamiltonians">Non-separable and split Hamiltonians<a class="anchor" aria-label="anchor" href="#non-separable-and-split-hamiltonians"></a>
+</h2>
+<p>When the kinetic and potential parts do not separate, as with a position-dependent mass, <code><a href="reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. <code><a href="reference/simp_integrate_mts.html">simp_integrate_mts()</a></code> handles a potential split into a stiff, cheap part and a smooth, expensive part, with <code>m</code> inner substeps of the fast part per outer step. <a href="https://gillescolling.com/SIMP/articles/simp.html" class="external-link">Symplectic integration with SIMP</a> runs the generalized leapfrog on a mass of <code>1 + 0.5 q^2</code>.</p>
+</div>
+<div class="section level2">
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
+<p>Start with <a href="https://gillescolling.com/SIMP/articles/simp.html" class="external-link">Symplectic integration with SIMP</a>: the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.</p>
+<ul>
+<li>
+<a href="https://gillescolling.com/SIMP/reference/" class="external-link">Full reference</a>: every function, grouped by job.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>Questions and bug reports go to the <a href="https://github.com/gcol33/SIMP/issues" class="external-link">GitHub issues</a>. A bug report is easiest to act on with a small reproducible example, for instance made with <a href="https://reprex.tidyverse.org/" class="external-link">reprex</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="support">Support<a class="anchor" aria-label="anchor" href="#support"></a>
+</h2>
+<blockquote>
+<p>“Software is like sex: it’s better when it’s free.” — Linus Torvalds</p>
+</blockquote>
+<p>I’m a PhD student who builds R packages in my free time because I believe good tools should be free and open. I started these projects for my own work and figured others might find them useful too.</p>
+<p>If this package saved you some time, buying me a coffee is a nice way to say thanks. It helps with my coffee addiction.</p>
+<p><a href="https://buymeacoffee.com/gcol33" class="external-link"><img src="https://img.shields.io/badge/-Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&amp;logoColor=black" alt="Buy Me A Coffee"></a></p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
-<p>MIT (c) Gilles Colling.</p>
+<p>SIMP is licensed under MIT.</p>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>To cite SIMP in publications use:</p>
+<pre class="text"><code>Colling G (2026). _SIMP: Symplectic Integrators for Monte-Carlo
+Proposals_. R package version 0.3.0, &lt;https://gillescolling.com/SIMP/&gt;.</code></pre>
+<p>BibTeX:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="va">@Manual</span>{<span class="ot">colling2026simp</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="dt">title</span> = {SIMP: Symplectic Integrators for Monte-Carlo Proposals},</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="dt">author</span> = {Gilles Colling},</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="dt">year</span> = {2026},</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 0.3.0},</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="dt">url</span> = {https://gillescolling.com/SIMP/},</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>}</span></code></pre></div>
+<p>Download the citation as <a href="https://gillescolling.com/SIMP/SIMP.bib" class="external-link">BibTeX</a> or <a href="https://gillescolling.com/SIMP/SIMP.ris" class="external-link">RIS</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -143,8 +261,8 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a></li>
 <li><a href="https://app.codecov.io/gh/gcol33/SIMP" class="external-link"><img src="https://codecov.io/gh/gcol33/SIMP/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
 </ul>
 </div>
 

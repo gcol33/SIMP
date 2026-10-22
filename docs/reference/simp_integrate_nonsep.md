@@ -83,5 +83,4 @@ out <- simp_integrate_nonsep(
   dH_dq = function(q, p) q, dH_dp = function(q, p) p,
   eps = 0.1, n_steps = 60)
 out$q
-#> [1]  0.9608666 -0.2773584
 ```

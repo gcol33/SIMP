@@ -1,7 +1,10 @@
 # Available symplectic integrators
 
-The built-in scheme family: leapfrog and the Yoshida members generated
-from it by triple-jump composition.
+The built-in scheme family: leapfrog, the two-stage minimum-error
+member, and the Yoshida members generated from leapfrog by triple-jump
+composition. The step-adapted `"adaptive2"` / `"adaptive3"` schemes are
+not listed here because their coefficients depend on the step band; see
+[`simp_b_optimal()`](https://gcol33.github.io/SIMP/reference/simp_b_optimal.md).
 
 ## Usage
 
@@ -18,10 +21,4 @@ accuracy, and number of gradient evaluations per step.
 
 ``` r
 simp_schemes()
-#>   integrator order gradient_evals
-#> 1   leapfrog     2              1
-#> 2  minerror2     2              2
-#> 3   yoshida4     4              3
-#> 4   yoshida6     6              9
-#> 5   yoshida8     8             27
 ```

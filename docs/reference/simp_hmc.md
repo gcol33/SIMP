@@ -19,6 +19,7 @@ simp_hmc(
   n_steps,
   integrator = "leapfrog",
   mass = NULL,
+  nu_max = NULL,
   warmup = 0L,
   divergence_threshold = 1000
 )
@@ -53,14 +54,22 @@ simp_hmc(
 
 - integrator:
 
-  Name of a built-in scheme; see
-  [`simp_schemes()`](https://gcol33.github.io/SIMP/reference/simp_schemes.md).
+  Name of a built-in scheme (see
+  [`simp_schemes()`](https://gcol33.github.io/SIMP/reference/simp_schemes.md)),
+  or `"adaptive2"` / `"adaptive3"` for the step-adapted minimum-error
+  scheme, which additionally needs `nu_max`.
 
 - mass:
 
   Mass matrix M, as in
   [`simp_integrate()`](https://gcol33.github.io/SIMP/reference/simp_integrate.md).
   Momenta are drawn from N(0, M).
+
+- nu_max:
+
+  Largest dimensionless step `omega_max * eps` the adapted integrators
+  tune for. Required when `integrator` is `"adaptive2"` or
+  `"adaptive3"`, ignored otherwise.
 
 - warmup:
 
@@ -88,5 +97,4 @@ grad_U <- function(q) as.numeric(P %*% q)
 fit <- simp_hmc(U, grad_U, init = c(0, 0), n_iter = 200, eps = 0.2,
                 n_steps = 20, warmup = 100)
 colMeans(fit$draws)
-#> [1]  0.004591804 -0.010837943
 ```

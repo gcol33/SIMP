@@ -6,3 +6,7 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^\.run.*$
+^README\.Rmd$
+^sidecars$
+^CITATION\.cff$

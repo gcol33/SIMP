@@ -7,15 +7,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/gcol33/SIMP/blob/HEAD/DESCRIPTION)
+[`inst/CITATION`](https://github.com/gcol33/SIMP/blob/HEAD/inst/CITATION)
 
 Colling G (2026). *SIMP: Symplectic Integrators for Monte-Carlo
-Proposals*. R package version 0.2.0, <https://gcol33.github.io/SIMP/>.
+Proposals*. R package version 0.3.0, <https://gillescolling.com/SIMP/>.
 
-    @Manual{,
+    @Manual{colling2026simp,
       title = {SIMP: Symplectic Integrators for Monte-Carlo Proposals},
       author = {Gilles Colling},
       year = {2026},
-      note = {R package version 0.2.0},
-      url = {https://gcol33.github.io/SIMP/},
+      note = {R package version 0.3.0},
+      url = {https://gillescolling.com/SIMP/},
     }

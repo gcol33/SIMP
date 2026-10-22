@@ -1,0 +1,11 @@
+citHeader("To cite SIMP in publications use:")
+
+bibentry(
+  bibtype  = "Manual",
+  key      = "colling2026simp",
+  title    = paste0("SIMP: ", meta$Title),
+  author   = person("Gilles", "Colling", comment = c(ORCID = "0000-0003-3070-6066")),
+  year     = "2026",
+  note     = paste("R package version", meta$Version),
+  url      = "https://gillescolling.com/SIMP/"
+)

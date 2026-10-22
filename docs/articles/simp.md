@@ -1,5 +1,13 @@
 # Symplectic integration with SIMP
 
+## Installation
+
+``` r
+
+# install.packages("remotes")
+remotes::install_github("gcol33/SIMP")
+```
+
 ``` r
 
 library(SIMP)
