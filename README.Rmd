@@ -23,8 +23,8 @@ The integrators are splitting schemes: an alternating sequence of position and m
 
 SIMP supports:
 
-- **A family of schemes.** Leapfrog, the two-stage minimum-error member `minerror2` and Yoshida orders 4, 6 and 8. [`simp_schemes()`](https://gillescolling.com/SIMP/reference/simp_schemes.html) lists each with its order and gradient evaluations per step.
-- **Coefficients tuned to the step band.** The `"adaptive2"` and `"adaptive3"` schemes take the two- or three-stage weights that minimise the worst-case energy error on a Gaussian target over the band of dimensionless steps up to `nu_max`, computed from an exact harmonic analysis ([`simp_b_optimal()`](https://gillescolling.com/SIMP/reference/simp_b_optimal.html)).
+- **A family of schemes.** Leapfrog, the two-stage minimum-error member `minerror2` and Yoshida orders 4, 6 and 8. [`simp_schemes()`](https://gcol33.github.io/SIMP/reference/simp_schemes.html) lists each with its order and gradient evaluations per step.
+- **Coefficients tuned to the step band.** The `"adaptive2"` and `"adaptive3"` schemes take the two- or three-stage weights that minimise the worst-case energy error on a Gaussian target over a band of dimensionless steps, computed from an exact harmonic analysis. [`simp_b_optimal()`](https://gcol33.github.io/SIMP/reference/simp_b_optimal.html) returns the weights for a given band.
 - **Hamiltonian Monte Carlo.** `simp_hmc()` draws each proposal by integrating the target's Hamiltonian flow and accepts it by the Metropolis rule on the energy, with any scheme as the integrator.
 - **Split potentials.** `simp_integrate_mts()` advances a potential split into a slow and a fast part at two rates (RESPA), so the fast part takes small inner steps without evaluating the slow part at the same rate.
 - **Non-separable Hamiltonians.** `simp_integrate_nonsep()` uses the generalized (implicit) leapfrog, as in Riemannian dynamics with a position-dependent mass.
@@ -96,17 +96,17 @@ colMeans(fit$draws)
 fit$accept_rate
 ```
 
-The sample means are close to the target mean of zero. [Symplectic integration with SIMP](https://gillescolling.com/SIMP/articles/simp.html) compares the energy error of leapfrog, `minerror2` and `yoshida4` at the same step size on this kind of target.
+The sample means are close to the target mean of zero. [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html) compares the energy error of leapfrog, `minerror2` and `yoshida4` at the same step size on this kind of target.
 
 ## Non-separable and split Hamiltonians
 
-When the kinetic and potential parts do not separate, as with a position-dependent mass, `simp_integrate_nonsep()` solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. `simp_integrate_mts()` handles a potential split into a stiff, cheap part and a smooth, expensive part, with `m` inner substeps of the fast part per outer step. [Symplectic integration with SIMP](https://gillescolling.com/SIMP/articles/simp.html) runs the generalized leapfrog on a mass of `1 + 0.5 q^2`.
+When the kinetic and potential parts do not separate, as with a position-dependent mass, `simp_integrate_nonsep()` solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. `simp_integrate_mts()` handles a potential split into a stiff, cheap part and a smooth, expensive part, with `m` inner substeps of the fast part per outer step. [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html) runs the generalized leapfrog on a mass of `1 + 0.5 q^2`.
 
 ## Documentation
 
-Start with [Symplectic integration with SIMP](https://gillescolling.com/SIMP/articles/simp.html): the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.
+Start with [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html): the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.
 
-- [Full reference](https://gillescolling.com/SIMP/reference/): every function, grouped by job.
+- [Full reference](https://gcol33.github.io/SIMP/reference/): every function, grouped by job.
 
 ## Getting help
 
@@ -137,4 +137,4 @@ cat("BibTeX:\n\n")
 fence("bibtex", format(cit, style = "bibtex"))
 ```
 
-Download the citation as [BibTeX](https://gillescolling.com/SIMP/SIMP.bib) or [RIS](https://gillescolling.com/SIMP/SIMP.ris).
+Download the citation as [BibTeX](https://gcol33.github.io/SIMP/SIMP.bib) or [RIS](https://gcol33.github.io/SIMP/SIMP.ris).
