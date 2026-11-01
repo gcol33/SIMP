@@ -21,14 +21,14 @@ SIMP supports:
 
 - **A family of schemes.** Leapfrog, the two-stage minimum-error member
   `minerror2` and Yoshida orders 4, 6 and 8.
-  [`simp_schemes()`](https://gillescolling.com/SIMP/reference/simp_schemes.html)
+  [`simp_schemes()`](https://gcol33.github.io/SIMP/reference/simp_schemes.html)
   lists each with its order and gradient evaluations per step.
 - **Coefficients tuned to the step band.** The `"adaptive2"` and
   `"adaptive3"` schemes take the two- or three-stage weights that
-  minimise the worst-case energy error on a Gaussian target over the
-  band of dimensionless steps up to `nu_max`, computed from an exact
-  harmonic analysis
-  ([`simp_b_optimal()`](https://gillescolling.com/SIMP/reference/simp_b_optimal.html)).
+  minimise the worst-case energy error on a Gaussian target over a band
+  of dimensionless steps, computed from an exact harmonic analysis.
+  [`simp_b_optimal()`](https://gcol33.github.io/SIMP/reference/simp_b_optimal.html)
+  returns the weights for a given band.
 - **Hamiltonian Monte Carlo.**
   [`simp_hmc()`](https://gcol33.github.io/SIMP/reference/simp_hmc.md)
   draws each proposal by integrating the target’s Hamiltonian flow and
@@ -145,10 +145,9 @@ fit$accept_rate
 ```
 
 The sample means are close to the target mean of zero. [Symplectic
-integration with
-SIMP](https://gillescolling.com/SIMP/articles/simp.html) compares the
-energy error of leapfrog, `minerror2` and `yoshida4` at the same step
-size on this kind of target.
+integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html)
+compares the energy error of leapfrog, `minerror2` and `yoshida4` at the
+same step size on this kind of target.
 
 ## Non-separable and split Hamiltonians
 
@@ -162,17 +161,17 @@ standard leapfrog.
 handles a potential split into a stiff, cheap part and a smooth,
 expensive part, with `m` inner substeps of the fast part per outer step.
 [Symplectic integration with
-SIMP](https://gillescolling.com/SIMP/articles/simp.html) runs the
+SIMP](https://gcol33.github.io/SIMP/articles/simp.html) runs the
 generalized leapfrog on a mass of `1 + 0.5 q^2`.
 
 ## Documentation
 
 Start with [Symplectic integration with
-SIMP](https://gillescolling.com/SIMP/articles/simp.html): the schemes,
+SIMP](https://gcol33.github.io/SIMP/articles/simp.html): the schemes,
 one trajectory, energy conservation, Hamiltonian Monte Carlo and a
 non-separable Hamiltonian.
 
-- [Full reference](https://gillescolling.com/SIMP/reference/): every
+- [Full reference](https://gcol33.github.io/SIMP/reference/): every
   function, grouped by job.
 
 ## Getting help
@@ -206,7 +205,7 @@ To cite SIMP in publications use:
 
 ``` text
 Colling G (2026). _SIMP: Symplectic Integrators for Monte-Carlo
-Proposals_. R package version 0.3.0, <https://gillescolling.com/SIMP/>.
+Proposals_. R package version 0.3.0, <https://gcol33.github.io/SIMP/>.
 ```
 
 BibTeX:
@@ -217,10 +216,10 @@ BibTeX:
   author = {Gilles Colling},
   year = {2026},
   note = {R package version 0.3.0},
-  url = {https://gillescolling.com/SIMP/},
+  url = {https://gcol33.github.io/SIMP/},
 }
 ```
 
 Download the citation as
-[BibTeX](https://gillescolling.com/SIMP/SIMP.bib) or
-[RIS](https://gillescolling.com/SIMP/SIMP.ris).
+[BibTeX](https://gcol33.github.io/SIMP/SIMP.bib) or
+[RIS](https://gcol33.github.io/SIMP/SIMP.ris).

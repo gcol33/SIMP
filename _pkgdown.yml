@@ -17,6 +17,22 @@ template:
         };
       })();
       </script>
+
+navbar:
+  structure:
+    left:
+    - intro
+    - reference
+    - news
+    right:
+    - search
+    - github
+    - lightswitch
+  components:
+    intro:
+      text: Get started
+      href: articles/simp.html
+
 figures:
   dev: svglite
   fig.ext: svg
@@ -38,5 +54,5 @@ reference:
   - simp_b_optimal
 articles:
 - title: Get started
-  navbar: ~
-  contents: simp
+  contents:
+  - simp

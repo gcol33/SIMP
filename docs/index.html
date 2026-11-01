@@ -46,13 +46,8 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/simp.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/simp.html">Symplectic integration with SIMP</a></li>
-  </ul>
-</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -78,9 +73,9 @@
 <p>SIMP supports:</p>
 <ul>
 <li>
-<strong>A family of schemes.</strong> Leapfrog, the two-stage minimum-error member <code>minerror2</code> and Yoshida orders 4, 6 and 8. <a href="https://gillescolling.com/SIMP/reference/simp_schemes.html" class="external-link"><code>simp_schemes()</code></a> lists each with its order and gradient evaluations per step.</li>
+<strong>A family of schemes.</strong> Leapfrog, the two-stage minimum-error member <code>minerror2</code> and Yoshida orders 4, 6 and 8. <a href="https://gcol33.github.io/SIMP/reference/simp_schemes.html"><code>simp_schemes()</code></a> lists each with its order and gradient evaluations per step.</li>
 <li>
-<strong>Coefficients tuned to the step band.</strong> The <code>"adaptive2"</code> and <code>"adaptive3"</code> schemes take the two- or three-stage weights that minimise the worst-case energy error on a Gaussian target over the band of dimensionless steps up to <code>nu_max</code>, computed from an exact harmonic analysis (<a href="https://gillescolling.com/SIMP/reference/simp_b_optimal.html" class="external-link"><code>simp_b_optimal()</code></a>).</li>
+<strong>Coefficients tuned to the step band.</strong> The <code>"adaptive2"</code> and <code>"adaptive3"</code> schemes take the two- or three-stage weights that minimise the worst-case energy error on a Gaussian target over a band of dimensionless steps, computed from an exact harmonic analysis. <a href="https://gcol33.github.io/SIMP/reference/simp_b_optimal.html"><code>simp_b_optimal()</code></a> returns the weights for a given band.</li>
 <li>
 <strong>Hamiltonian Monte Carlo.</strong> <code><a href="reference/simp_hmc.html">simp_hmc()</a></code> draws each proposal by integrating the target’s Hamiltonian flow and accepts it by the Metropolis rule on the energy, with any scheme as the integrator.</li>
 <li>
@@ -173,20 +168,20 @@
 <span><span class="co">#&gt; [1] -0.0005825939 -0.0005670790</span></span>
 <span><span class="va">fit</span><span class="op">$</span><span class="va">accept_rate</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
-<p>The sample means are close to the target mean of zero. <a href="https://gillescolling.com/SIMP/articles/simp.html" class="external-link">Symplectic integration with SIMP</a> compares the energy error of leapfrog, <code>minerror2</code> and <code>yoshida4</code> at the same step size on this kind of target.</p>
+<p>The sample means are close to the target mean of zero. <a href="https://gcol33.github.io/SIMP/articles/simp.html">Symplectic integration with SIMP</a> compares the energy error of leapfrog, <code>minerror2</code> and <code>yoshida4</code> at the same step size on this kind of target.</p>
 </div>
 <div class="section level2">
 <h2 id="non-separable-and-split-hamiltonians">Non-separable and split Hamiltonians<a class="anchor" aria-label="anchor" href="#non-separable-and-split-hamiltonians"></a>
 </h2>
-<p>When the kinetic and potential parts do not separate, as with a position-dependent mass, <code><a href="reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. <code><a href="reference/simp_integrate_mts.html">simp_integrate_mts()</a></code> handles a potential split into a stiff, cheap part and a smooth, expensive part, with <code>m</code> inner substeps of the fast part per outer step. <a href="https://gillescolling.com/SIMP/articles/simp.html" class="external-link">Symplectic integration with SIMP</a> runs the generalized leapfrog on a mass of <code>1 + 0.5 q^2</code>.</p>
+<p>When the kinetic and potential parts do not separate, as with a position-dependent mass, <code><a href="reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. <code><a href="reference/simp_integrate_mts.html">simp_integrate_mts()</a></code> handles a potential split into a stiff, cheap part and a smooth, expensive part, with <code>m</code> inner substeps of the fast part per outer step. <a href="https://gcol33.github.io/SIMP/articles/simp.html">Symplectic integration with SIMP</a> runs the generalized leapfrog on a mass of <code>1 + 0.5 q^2</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>Start with <a href="https://gillescolling.com/SIMP/articles/simp.html" class="external-link">Symplectic integration with SIMP</a>: the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.</p>
+<p>Start with <a href="https://gcol33.github.io/SIMP/articles/simp.html">Symplectic integration with SIMP</a>: the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.</p>
 <ul>
 <li>
-<a href="https://gillescolling.com/SIMP/reference/" class="external-link">Full reference</a>: every function, grouped by job.</li>
+<a href="https://gcol33.github.io/SIMP/reference/">Full reference</a>: every function, grouped by job.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -214,16 +209,16 @@
 </h2>
 <p>To cite SIMP in publications use:</p>
 <pre class="text"><code>Colling G (2026). _SIMP: Symplectic Integrators for Monte-Carlo
-Proposals_. R package version 0.3.0, &lt;https://gillescolling.com/SIMP/&gt;.</code></pre>
+Proposals_. R package version 0.3.0, &lt;https://gcol33.github.io/SIMP/&gt;.</code></pre>
 <p>BibTeX:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="va">@Manual</span>{<span class="ot">colling2026simp</span>,</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="dt">title</span> = {SIMP: Symplectic Integrators for Monte-Carlo Proposals},</span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="dt">author</span> = {Gilles Colling},</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="dt">year</span> = {2026},</span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 0.3.0},</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="dt">url</span> = {https://gillescolling.com/SIMP/},</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="dt">url</span> = {https://gcol33.github.io/SIMP/},</span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>}</span></code></pre></div>
-<p>Download the citation as <a href="https://gillescolling.com/SIMP/SIMP.bib" class="external-link">BibTeX</a> or <a href="https://gillescolling.com/SIMP/SIMP.ris" class="external-link">RIS</a>.</p>
+<p>Download the citation as <a href="https://gcol33.github.io/SIMP/SIMP.bib">BibTeX</a> or <a href="https://gcol33.github.io/SIMP/SIMP.ris">RIS</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
