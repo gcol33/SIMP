@@ -1,6 +1,6 @@
 # Articles
 
-### Get started
+### All vignettes
 
 - [Symplectic integration with
-  SIMP](https://gcol33.github.io/SIMP/articles/simp.md):
+  SIMP](https://gcol33.github.io/SIMP/articles/SIMP.md):

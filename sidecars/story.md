@@ -22,8 +22,8 @@ splitting-scheme family beyond leapfrog.
 - answer: leapfrog, the minimum-error two-stage member and Yoshida 4, 6 and 8 from one triple-jump
   composition share one stepper; `simp_schemes()` lists order and gradient evaluations per step
 - payoff: the reader picks a scheme by name and compares energy errors on the same target
-- evidence: vignettes/simp.Rmd "Energy conservation"
-- home: vignettes/simp.Rmd
+- evidence: vignettes/SIMP.Rmd "Energy conservation"
+- home: vignettes/SIMP.Rmd
 - also: README, DESCRIPTION
 
 ### A2 Coefficients adapted to the step band
@@ -40,16 +40,16 @@ splitting-scheme family beyond leapfrog.
 - answer: `simp_hmc()` integrates the flow and accepts by the Metropolis rule on the energy, with
   any scheme as `integrator`
 - payoff: the reader samples a target
-- evidence: vignettes/simp.Rmd "Hamiltonian Monte Carlo"
-- home: vignettes/simp.Rmd
+- evidence: vignettes/SIMP.Rmd "Hamiltonian Monte Carlo"
+- home: vignettes/SIMP.Rmd
 - also: README
 
 ### A4 Beyond the separable case
 - question: "what if the mass depends on position, or the potential has a stiff part?"
 - answer: `simp_integrate_nonsep()` (generalized leapfrog) and `simp_integrate_mts()` (RESPA)
 - payoff: the reader integrates Riemannian or split-potential dynamics
-- evidence: vignettes/simp.Rmd "Non-separable Hamiltonians"; ?simp_integrate_mts
-- home: vignettes/simp.Rmd
+- evidence: vignettes/SIMP.Rmd "Non-separable Hamiltonians"; ?simp_integrate_mts
+- home: vignettes/SIMP.Rmd
 - also: README, DESCRIPTION
 
 ### A5 A C++ core for other packages
@@ -66,7 +66,7 @@ splitting-scheme family beyond leapfrog.
 ## Documents
 - DESCRIPTION: listing text; claim, A1, A2, A4, A5
 - README / landing: entry point; claim, first example, one section per arc, routing
-- Get started (simp.Rmd): tutorial; schemes, a trajectory, energy, HMC, non-separable
+- Get started (SIMP.Rmd): tutorial; schemes, a trajectory, energy, HMC, non-separable
 
 ## Open
 - A5 has no article showing a consumer package's C++.

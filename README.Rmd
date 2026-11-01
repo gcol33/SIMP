@@ -96,15 +96,15 @@ colMeans(fit$draws)
 fit$accept_rate
 ```
 
-The sample means are close to the target mean of zero. [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html) compares the energy error of leapfrog, `minerror2` and `yoshida4` at the same step size on this kind of target.
+The sample means are close to the target mean of zero. [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/SIMP.html) compares the energy error of leapfrog, `minerror2` and `yoshida4` at the same step size on this kind of target.
 
 ## Non-separable and split Hamiltonians
 
-When the kinetic and potential parts do not separate, as with a position-dependent mass, `simp_integrate_nonsep()` solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. `simp_integrate_mts()` handles a potential split into a stiff, cheap part and a smooth, expensive part, with `m` inner substeps of the fast part per outer step. [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html) runs the generalized leapfrog on a mass of `1 + 0.5 q^2`.
+When the kinetic and potential parts do not separate, as with a position-dependent mass, `simp_integrate_nonsep()` solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. `simp_integrate_mts()` handles a potential split into a stiff, cheap part and a smooth, expensive part, with `m` inner substeps of the fast part per outer step. [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/SIMP.html) runs the generalized leapfrog on a mass of `1 + 0.5 q^2`.
 
 ## Documentation
 
-Start with [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html): the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.
+Start with [Symplectic integration with SIMP](https://gcol33.github.io/SIMP/articles/SIMP.html): the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.
 
 - [Full reference](https://gcol33.github.io/SIMP/reference/): every function, grouped by job.
 

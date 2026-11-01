@@ -28,11 +28,6 @@ navbar:
     - search
     - github
     - lightswitch
-  components:
-    intro:
-      text: Get started
-      href: articles/simp.html
-
 figures:
   dev: svglite
   fig.ext: svg
@@ -52,7 +47,3 @@ reference:
   contents:
   - simp_schemes
   - simp_b_optimal
-articles:
-- title: Get started
-  contents:
-  - simp

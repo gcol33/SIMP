@@ -145,7 +145,7 @@ fit$accept_rate
 ```
 
 The sample means are close to the target mean of zero. [Symplectic
-integration with SIMP](https://gcol33.github.io/SIMP/articles/simp.html)
+integration with SIMP](https://gcol33.github.io/SIMP/articles/SIMP.html)
 compares the energy error of leapfrog, `minerror2` and `yoshida4` at the
 same step size on this kind of target.
 
@@ -161,13 +161,13 @@ standard leapfrog.
 handles a potential split into a stiff, cheap part and a smooth,
 expensive part, with `m` inner substeps of the fast part per outer step.
 [Symplectic integration with
-SIMP](https://gcol33.github.io/SIMP/articles/simp.html) runs the
+SIMP](https://gcol33.github.io/SIMP/articles/SIMP.html) runs the
 generalized leapfrog on a mass of `1 + 0.5 q^2`.
 
 ## Documentation
 
 Start with [Symplectic integration with
-SIMP](https://gcol33.github.io/SIMP/articles/simp.html): the schemes,
+SIMP](https://gcol33.github.io/SIMP/articles/SIMP.html): the schemes,
 one trajectory, energy conservation, Hamiltonian Monte Carlo and a
 non-separable Hamiltonian.
 
@@ -255,7 +255,7 @@ The available integrators.
 
 # Articles
 
-### Get started
+### All vignettes
 
 - [Symplectic integration with
-  SIMP](https://gcol33.github.io/SIMP/articles/simp.md):
+  SIMP](https://gcol33.github.io/SIMP/articles/SIMP.md):

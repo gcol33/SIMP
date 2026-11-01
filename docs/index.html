@@ -46,7 +46,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="articles/simp.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/SIMP.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
@@ -168,17 +168,17 @@
 <span><span class="co">#&gt; [1] -0.0005825939 -0.0005670790</span></span>
 <span><span class="va">fit</span><span class="op">$</span><span class="va">accept_rate</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
-<p>The sample means are close to the target mean of zero. <a href="https://gcol33.github.io/SIMP/articles/simp.html">Symplectic integration with SIMP</a> compares the energy error of leapfrog, <code>minerror2</code> and <code>yoshida4</code> at the same step size on this kind of target.</p>
+<p>The sample means are close to the target mean of zero. <a href="https://gcol33.github.io/SIMP/articles/SIMP.html">Symplectic integration with SIMP</a> compares the energy error of leapfrog, <code>minerror2</code> and <code>yoshida4</code> at the same step size on this kind of target.</p>
 </div>
 <div class="section level2">
 <h2 id="non-separable-and-split-hamiltonians">Non-separable and split Hamiltonians<a class="anchor" aria-label="anchor" href="#non-separable-and-split-hamiltonians"></a>
 </h2>
-<p>When the kinetic and potential parts do not separate, as with a position-dependent mass, <code><a href="reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. <code><a href="reference/simp_integrate_mts.html">simp_integrate_mts()</a></code> handles a potential split into a stiff, cheap part and a smooth, expensive part, with <code>m</code> inner substeps of the fast part per outer step. <a href="https://gcol33.github.io/SIMP/articles/simp.html">Symplectic integration with SIMP</a> runs the generalized leapfrog on a mass of <code>1 + 0.5 q^2</code>.</p>
+<p>When the kinetic and potential parts do not separate, as with a position-dependent mass, <code><a href="reference/simp_integrate_nonsep.html">simp_integrate_nonsep()</a></code> solves the two implicit stages of the generalized leapfrog by fixed-point iteration. For a separable Hamiltonian it reduces to the standard leapfrog. <code><a href="reference/simp_integrate_mts.html">simp_integrate_mts()</a></code> handles a potential split into a stiff, cheap part and a smooth, expensive part, with <code>m</code> inner substeps of the fast part per outer step. <a href="https://gcol33.github.io/SIMP/articles/SIMP.html">Symplectic integration with SIMP</a> runs the generalized leapfrog on a mass of <code>1 + 0.5 q^2</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>Start with <a href="https://gcol33.github.io/SIMP/articles/simp.html">Symplectic integration with SIMP</a>: the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.</p>
+<p>Start with <a href="https://gcol33.github.io/SIMP/articles/SIMP.html">Symplectic integration with SIMP</a>: the schemes, one trajectory, energy conservation, Hamiltonian Monte Carlo and a non-separable Hamiltonian.</p>
 <ul>
 <li>
 <a href="https://gcol33.github.io/SIMP/reference/">Full reference</a>: every function, grouped by job.</li>
