@@ -7,5 +7,5 @@ bibentry(
   author   = person("Gilles", "Colling", comment = c(ORCID = "0000-0003-3070-6066")),
   year     = "2026",
   note     = paste("R package version", meta$Version),
-  url      = "https://gillescolling.com/SIMP/"
+  url      = "https://gcol33.github.io/SIMP/"
 )
